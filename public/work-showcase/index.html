@@ -276,7 +276,7 @@
         margin-left: 0;
       }
       #ribbon-cap {
-        top: calc(50% + 2.15 * clamp(26px, 7.8vw, 36px) + 28px);
+        top: 50%;
         width: 82vw;
         max-width: 270px;
         font-size: 10px;
@@ -1286,7 +1286,7 @@
 
     let H = Math.max(500, window.innerHeight * 1.0);
     let aboutDist = H * 1.6;
-    let ribbonDist = H * 3.6;
+    let ribbonDist = H * (window.innerWidth <= 640 ? 2 : 3.6);
     let S0 = 0;
     let S1 = H;
     let S2 = H + aboutDist;
@@ -1305,7 +1305,7 @@
     function updateMaxScroll() {
       H = Math.max(500, window.innerHeight * 1.0);
       aboutDist = H * 1.6;
-      ribbonDist = H * 3.6;
+      ribbonDist = H * (window.innerWidth <= 640 ? 2 : 3.6);
       S0 = 0;
       S1 = H;
       S2 = H + aboutDist;
@@ -1323,7 +1323,7 @@
       // Smooth physics lerp
       const diff = scrollState.targetScrollY - scrollState.currentScrollY;
       if (Math.abs(diff) > 0.05) {
-        scrollState.currentScrollY += diff * 0.09;
+        scrollState.currentScrollY += diff * (window.innerWidth <= 640 ? 0.18 : 0.09);
       } else {
         scrollState.currentScrollY = scrollState.targetScrollY;
       }
@@ -1476,12 +1476,12 @@
       lastTouchY = curY;
 
       if (dy > 0) {
-        scrollState.targetScrollY = Math.min(S4, scrollState.targetScrollY + dy * 1.2);
+        scrollState.targetScrollY = Math.min(S4, scrollState.targetScrollY + dy * (window.innerWidth <= 640 ? 2.4 : 1.2));
         if (views.gallery.instance && !views.gallery.instance.introFinished && scrollState.targetScrollY > 30) {
           views.gallery.instance.skipIntro();
         }
       } else if (dy < 0) {
-        scrollState.targetScrollY = Math.max(S3, scrollState.targetScrollY + dy * 1.2);
+        scrollState.targetScrollY = Math.max(S3, scrollState.targetScrollY + dy * (window.innerWidth <= 640 ? 2.4 : 1.2));
       }
     }, { passive: true });
 
@@ -2457,8 +2457,10 @@
         this.rows = 2;
         this.tanH = 0.3153;
 
-        this.CARD_W = 2.1;
-        this.CARD_H = 1.32;
+        // Phones: larger cards so the ribbon fills the screen
+        const PHONE_K = window.innerWidth <= 640 ? 1.6 : 1;
+        this.CARD_W = 2.1 * PHONE_K;
+        this.CARD_H = 1.32 * PHONE_K;
         this.GAP = 0.03;
         this.STEP = this.CARD_W + this.GAP;
         this.NX = 28;
@@ -2501,6 +2503,8 @@
       buildPath() {
         const pts = [];
         const PH0 = -1.5, PH1 = Math.PI * 2 + 1.35;
+        // On portrait phones the camera sees much more vertically, so stretch the path to span bottom -> top
+        const yStretch = this.W <= 640 ? Math.min(3.4, (0.561 / Math.max(0.3, this.asp)) / 0.3153 * 0.9) : 1;
         const span = (p, a, b) => Math.min(1, Math.max(0, (p - a) / (b - a)));
         const mix = (a, b, t) => a + (b - a) * t;
 
@@ -2513,7 +2517,7 @@
           const edge = 0.84 + 0.5 * span(0.14 - t, 0, 0.14) + 0.8 * span(t, 0.84, 1);
           pts.push(new THREE.Vector3(
             edge * Math.sin(ph) * depth * 0.561,
-            0.5 * Math.sign(u) * Math.pow(Math.abs(u), 1.4) * depth * 0.63,
+            0.5 * Math.sign(u) * Math.pow(Math.abs(u), 1.4) * depth * 0.63 * yStretch,
             -depth
           ));
         }
