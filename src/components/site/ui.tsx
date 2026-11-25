@@ -1,4 +1,4 @@
-import { Link, type LinkProps } from "@tanstack/react-router";
+import { Link, useRouterState, type LinkProps } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { academyUrl, contact, nav } from "@/content/site";
 import { policies } from "@/content/policies";
@@ -89,9 +89,18 @@ export function ThemeToggle({ className = "" }: { className?: string }) {
 
 export function Header() {
   const [open, setOpen] = useState(false);
+  const pathname = useRouterState({ select: (st) => st.location.pathname });
+  const [overHero, setOverHero] = useState(false);
+  useEffect(() => {
+    const on = () => setOverHero(pathname === "/" && window.scrollY < window.innerHeight * 1.1);
+    on();
+    window.addEventListener("scroll", on, { passive: true });
+    return () => window.removeEventListener("scroll", on);
+  }, [pathname]);
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-50 flex items-center justify-between bg-gradient-to-b from-background to-transparent px-6 py-5 md:px-10">
+      {/* Over the dark spaceship hero the header stays dark, so the light theme never paints a white band across it */}
+      <header className={`${overHero ? "theme-dark-scope" : ""} fixed inset-x-0 top-0 z-50 flex items-center justify-between bg-gradient-to-b from-background to-transparent px-6 py-5 md:px-10`}>
         <Link to="/" aria-label="My3 Digital home"><img src={logo.url} alt="My3 Digital" className="h-11 w-auto md:h-14" /></Link>
         <nav className="hidden items-center gap-7 font-display text-[15px] font-medium lg:flex">
           {nav.map((n) => (

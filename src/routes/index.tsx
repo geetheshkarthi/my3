@@ -2,9 +2,9 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef } from "react";
 import { IndustryStrip } from "@/components/site/IndustryStrip";
 import { CapabilityReel } from "@/components/site/CapabilityReel";
-import { WebsiteCard } from "@/components/site/WebsiteCard";
+import { WorkSphere } from "@/components/site/WorkSphere";
 import { HeroCanvas } from "@/components/site/HeroCanvas";
-import { approach, articles, capabilities, hero, img, industries, industryImages, pillars, process, stats, websites } from "@/content/site";
+import { approach, articles, capabilities, hero, img, industries, industryImages, pillars, process, stats } from "@/content/site";
 import { BlurHeading, BoxButton, orangeH, PillButton, tilts } from "@/components/site/ui";
 
 export const Route = createFileRoute("/")({
@@ -21,7 +21,6 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const portPos = ["md:ml-[30%]", "md:ml-[5%]", "md:ml-[2%]", "md:ml-[55%] md:-mt-64", "md:ml-[28%]"];
 
 function Index() {
   const heroRef = useRef<HTMLElement>(null);
@@ -88,9 +87,7 @@ function Index() {
       {/* Work */}
       <section id="work" className="px-6 pt-[40vh] md:px-10">
         <BlurHeading>Our Work</BlurHeading>
-        <div className="relative z-10 mt-[35vh] flex flex-col gap-32">
-          {websites.slice(0, 6).map((w, i) => <WebsiteCard key={w.title} {...w} className={portPos[i % portPos.length] ?? ""} />)}
-        </div>
+        <div className="relative z-10 mt-[35vh]"><WorkSphere /></div>
         <div className="mt-24 text-center"><Link to="/work" className="inline-flex items-center gap-3 rounded-full bg-panel py-2 pl-2 pr-6 font-mono text-xs uppercase leading-tight ring-1 ring-border"><span className="flex h-9 w-9 items-center justify-center rounded-full bg-muted">+</span>Explore our<br />portfolio</Link></div>
       </section>
 

@@ -17,8 +17,6 @@ function Services() {
   return (
     <main>
       <PageHero eyebrow="Our Expertise" title="One Partner. Every Possibility in Digital.">
-        <p>From building your digital foundation to establishing your brand and accelerating its growth, we bring together the expertise, technology and creative thinking your business needs to move forward.</p>
-        <p>Our services are designed to work independently or together, creating a connected digital ecosystem around your business.</p>
         <div className="pt-4"><PillButton to="/contact">Discuss Your Requirements</PillButton></div>
       </PageHero>
 

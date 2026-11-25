@@ -51,13 +51,6 @@ function About() {
         </ul>
       </section>
 
-      <section className="px-6 pb-40 md:px-10">
-        <blockquote className="mx-auto max-w-[900px] font-display text-[28px] font-light leading-tight tracking-[-0.02em] text-muted-foreground md:text-[40px]">
-          A Vision That Started With Asking Better Questions. My3 Digital was founded by <span className="font-normal text-foreground">Pravallika Pullepu</span> with the intention of building an agency that approaches digital growth from the perspective of a business owner.
-          <footer className="mt-8">: Her experience growing a homegrown brand shaped the way My3 operates today.</footer>
-        </blockquote>
-      </section>
-
       <section className="px-6 pb-40 text-center md:px-10">
         <h2 className="mx-auto max-w-[1100px] text-[36px] leading-tight md:text-[60px]">We Are Just Getting Started. Let's build what's next.</h2>
         <div className="mt-10"><PillButton to="/contact">Work With Us</PillButton></div>
