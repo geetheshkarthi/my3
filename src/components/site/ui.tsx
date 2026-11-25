@@ -105,7 +105,7 @@ export function Footer() {
     <footer className="bg-panel pb-6 pt-20">
       <div className="grid gap-10 px-6 md:grid-cols-5 md:px-10">
         <div className="md:col-span-2">
-          <img src={logo.url} alt="My3 Digital" className="h-12 w-auto" />
+          <img src="/logo.png" alt="My3 Digital" className="h-12 w-auto" />
           <p className="mt-4 font-display text-2xl tracking-[-0.02em]">Digital Excellence. Engineered for Growth.</p>
           <p className="mt-3 max-w-md text-sm text-muted-foreground">A multidisciplinary digital agency building exceptional websites, distinctive brands and intelligent growth solutions for ambitious businesses.</p>
         </div>
