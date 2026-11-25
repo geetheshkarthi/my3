@@ -957,6 +957,16 @@
     /* Follow the site's white theme: invert the page, then restore videos / canvas / images */
     html.light { filter: invert(1) hue-rotate(180deg); background: #fff; }
     html.light canvas, html.light video, html.light img { filter: invert(1) hue-rotate(180deg); }
+    .enlarge-container { overflow-y: auto; scrollbar-width: thin; }
+    .enlarge-media-wrap { flex-shrink: 0; }
+    .enlarge-story { display: grid; gap: 14px 28px; margin: 14px 0 6px; grid-template-columns: 1fr 1fr; }
+    @media (max-width: 700px) { .enlarge-story { grid-template-columns: 1fr; } }
+    .enlarge-story h4 { font: 600 10px/1 var(--font-sans); letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.45); margin: 0 0 6px; }
+    .enlarge-story p, .enlarge-story li { font: 400 14px/1.55 var(--font-sans); color: #d8d8d6; margin: 0; }
+    .enlarge-story ul { margin: 0; padding-left: 18px; display: grid; gap: 6px; }
+    .enlarge-visit { display: inline-block; margin: 10px 0 6px; padding: 12px 22px; border-radius: 999px; background: #3cc0ea; color: #04131a; font: 600 14px/1 var(--font-sans); text-decoration: none; transition: transform 0.25s; }
+    .enlarge-visit:hover { transform: scale(1.05); }
+    .enlarge-visit[hidden] { display: none; }
   </style>
 
   <!-- Import maps polyfill & Three.js import map -->
@@ -1089,6 +1099,8 @@
       </div>
       <div class="enlarge-footer">
         <p class="enlarge-desc" id="enlarge-desc"></p>
+        <div class="enlarge-story" id="enlarge-story"></div>
+        <a class="enlarge-visit" id="enlarge-visit" href="#" target="_blank" rel="noopener noreferrer">Visit website ↗</a>
       </div>
     </div>
   </div>
@@ -1157,6 +1169,14 @@
       { id: 10, path: 'Portfolio_videos/p10.webm', poster: 'Portfolio_videos/p10.webp', title: 'SHIVABAKTHI', cat: 'Spiritual Community Portal', year: '2026', desc: 'Devotional portal and spiritual community website featuring sacred articles, event calendars, and community forums.' },
       { id: 11, path: 'Portfolio_videos/p11.webm', poster: 'Portfolio_videos/p11.webp', title: 'SIRITRADER', cat: 'Trading & Financial Website', year: '2026', desc: 'Dynamic financial education and market trading academy website equipped with course catalogs and analytics.' }
     ];
+
+    // Project details (what it is, why it was needed, what we did, live URL) are shared with the home page via projects.json
+    fetch('projects.json').then((r) => r.json()).then((list) => {
+      list.forEach((d, i) => {
+        if (!PORTFOLIO_PROJECTS[i]) return;
+        Object.assign(PORTFOLIO_PROJECTS[i], { cat: d.category, url: d.url, about: d.about, brief: d.brief, did: d.did, desc: '' });
+      });
+    }).catch(() => {});
 
     const GALLERY_ITEMS = Array.from({ length: 20 }, (_, i) => {
       const proj = PORTFOLIO_PROJECTS[i % PORTFOLIO_PROJECTS.length];
@@ -2743,6 +2763,17 @@
           this.modalIndex.textContent = `${String(idx + 1).padStart(2, '0')} / ${String(this.WORK_DATA.length).padStart(2, '0')}`;
         }
         if (this.modalDesc) this.modalDesc.textContent = proj.desc;
+        const story = document.getElementById('enlarge-story');
+        const visit = document.getElementById('enlarge-visit');
+        const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+        if (story) {
+          story.innerHTML = proj.about
+            ? `<div><h4>What it is</h4><p>${esc(proj.about)}</p><h4 style="margin-top:14px">Why it was needed</h4><p>${esc(proj.brief)}</p></div><div><h4>What we did</h4><ul>${proj.did.map((x) => `<li>${esc(x)}</li>`).join('')}</ul></div>`
+            : '';
+        }
+        if (visit) {
+          if (proj.url) { visit.href = proj.url; visit.hidden = false; } else { visit.hidden = true; }
+        }
 
         const card = this.cards[idx];
         const videoSrc = (card && card.v && card.v.src) ? card.v.src : proj.path;

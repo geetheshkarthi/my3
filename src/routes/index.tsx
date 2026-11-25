@@ -91,7 +91,7 @@ function Index() {
       <section id="work" className="px-6 pt-[40vh] md:px-10">
         <BlurHeading>Our Work</BlurHeading>
         <div className="relative z-10 mt-[35vh] flex flex-col gap-32">
-          {websites.slice(0, 6).map((w, i) => <WebsiteCard key={w.title} {...w} className={portPos[i % portPos.length] ?? ""} />)}
+          {websites.slice(0, 6).map((w, i) => <WebsiteCard key={w.title} site={w} className={portPos[i % portPos.length] ?? ""} />)}
         </div>
         <div className="mt-24 text-center"><Link to="/work" className="inline-flex items-center gap-3 rounded-full bg-panel py-2 pl-2 pr-6 font-mono text-xs uppercase leading-tight ring-1 ring-border"><span className="flex h-9 w-9 items-center justify-center rounded-full bg-muted">+</span>Explore our<br />portfolio</Link></div>
       </section>

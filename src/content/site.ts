@@ -1,4 +1,5 @@
 import { articleSources } from "./articles";
+import websiteDetails from "./websites.json";
 /** My3 Digital Academy website (opens in a new tab from the header). */
 export const academyUrl = "https://my3-digital-academy.my3-digital-in.workers.dev/";
 
@@ -215,17 +216,6 @@ export const capabilityImages = ["/capabilities/c1.jpg", "/capabilities/c2.jpg",
 /** One photo per industry, in the same order as `industries`. */
 export const industryImages = [1, 2, 3, 4, 5, 6, 7, 8].map((n) => `/industries/i${n}.jpg`);
 
-/** Website showcase (same videos as the Our Work page). */
-export const websites: { title: string; category: string; video: string; poster: string }[] = [
-  { title: "TEJAS INFRA ONE", category: "Real Estate & Infra Website", video: "/work-showcase/Portfolio_videos/p1.webm", poster: "/work-showcase/Portfolio_videos/p1.webp" },
-  { title: "OLIVE OAK", category: "Interior Design Studio Website", video: "/work-showcase/Portfolio_videos/p2.webm", poster: "/work-showcase/Portfolio_videos/p2.webp" },
-  { title: "HABAENE", category: "Culinary & Dining Website", video: "/work-showcase/Portfolio_videos/p3.webm", poster: "/work-showcase/Portfolio_videos/p3.webp" },
-  { title: "NAMMASWATHU", category: "Property & Land Portal", video: "/work-showcase/Portfolio_videos/p4.webm", poster: "/work-showcase/Portfolio_videos/p4.webp" },
-  { title: "ORDIENTINFRA", category: "Construction & Infra Website", video: "/work-showcase/Portfolio_videos/p5.webm", poster: "/work-showcase/Portfolio_videos/p5.webp" },
-  { title: "INFRATRADEHUB", category: "B2B Trade Portal", video: "/work-showcase/Portfolio_videos/p6.webm", poster: "/work-showcase/Portfolio_videos/p6.webp" },
-  { title: "ORDIENTVENTURES", category: "Venture Capital Website", video: "/work-showcase/Portfolio_videos/p7.webm", poster: "/work-showcase/Portfolio_videos/p7.webp" },
-  { title: "BANGALOREPUPPYFARM", category: "Pet Care & Breeding Website", video: "/work-showcase/Portfolio_videos/p8.webm", poster: "/work-showcase/Portfolio_videos/p8.webp" },
-  { title: "PESTCAT", category: "Pest Control Services Website", video: "/work-showcase/Portfolio_videos/p9.webm", poster: "/work-showcase/Portfolio_videos/p9.webp" },
-  { title: "SHIVABAKTHI", category: "Spiritual Community Portal", video: "/work-showcase/Portfolio_videos/p10.webm", poster: "/work-showcase/Portfolio_videos/p10.webp" },
-  { title: "SIRITRADER", category: "Trading & Financial Website", video: "/work-showcase/Portfolio_videos/p11.webm", poster: "/work-showcase/Portfolio_videos/p11.webp" },
-];
+/** Website showcase (same videos and details as the Our Work page; the details live in websites.json). */
+export type Website = { title: string; category: string; url: string; about: string; brief: string; did: string[]; video: string; poster: string };
+export const websites: Website[] = websiteDetails.map((d, i) => ({ ...d, video: `/work-showcase/Portfolio_videos/p${i + 1}.webm`, poster: `/work-showcase/Portfolio_videos/p${i + 1}.webp` }));
