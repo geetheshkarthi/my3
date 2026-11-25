@@ -1,4 +1,7 @@
 import { articleSources } from "./articles";
+/** My3 Digital Academy website (opens in a new tab from the header). */
+export const academyUrl = "https://my3-digital-academy.my3-digital-in.workers.dev/";
+
 export const IMG = "https://framerusercontent.com/images/";
 export const img = (f: string, w = 1200) => (f.startsWith("/") ? f : `${IMG}${f}?width=${w}`);
 

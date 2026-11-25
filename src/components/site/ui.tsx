@@ -1,6 +1,6 @@
 import { Link, type LinkProps } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { contact, nav } from "@/content/site";
+import { academyUrl, contact, nav } from "@/content/site";
 import { policies } from "@/content/policies";
 
 const logo = { url: "/logo.png" };
@@ -80,7 +80,7 @@ export function Header() {
           {nav.map((n) => (
             <Link key={n.to} to={n.to} activeOptions={{ exact: n.to === "/" }} activeProps={{ className: "text-primary" }} className="transition-colors duration-300 ease-brand hover:text-primary">{n.label}</Link>
           ))}
-          <Link to="/contact" className="rounded-full bg-primary px-5 py-2.5 text-primary-foreground transition-transform duration-300 ease-brand hover:scale-105">Start a Project</Link>
+          <a href={academyUrl} target="_blank" rel="noopener noreferrer" className="rounded-full bg-primary px-5 py-2.5 text-primary-foreground transition-transform duration-300 ease-brand hover:scale-105">Academy</a>
         </nav>
         <button onClick={() => setOpen(true)} aria-label="Open menu" className="flex w-10 flex-col gap-2 lg:hidden"><span className="h-px w-full bg-strong" /><span className="h-px w-full bg-strong" /></button>
       </header>
@@ -92,6 +92,7 @@ export function Header() {
           </div>
           <nav className="mt-16 flex flex-col gap-5">
             {nav.map((n) => <Link key={n.to} to={n.to} onClick={() => setOpen(false)} className="font-display text-5xl tracking-[-0.04em] hover:text-primary">{n.label}</Link>)}
+            <a href={academyUrl} target="_blank" rel="noopener noreferrer" onClick={() => setOpen(false)} className="font-display text-5xl tracking-[-0.04em] text-primary">Academy ↗</a>
           </nav>
         </div>
       )}
