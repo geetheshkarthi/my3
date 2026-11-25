@@ -60,11 +60,10 @@ export function BlurHeading({ children }: { children: ReactNode }) {
   );
 }
 
-export function PageHero({ eyebrow, title, children }: { eyebrow: string; title: ReactNode; children?: ReactNode }) {
+export function PageHero({ title, children }: { eyebrow?: string; title: ReactNode; children?: ReactNode }) {
   return (
     <section className="px-6 pb-24 pt-44 md:px-10">
-      <p className="font-label text-xs uppercase tracking-[-0.02em] text-muted-foreground">● {eyebrow}</p>
-      <h1 className="mt-6 max-w-[1300px] text-[12vw] font-normal leading-[0.95] tracking-[-0.04em] md:text-[7vw]">{title}</h1>
+      <h1 className="max-w-[1300px] text-[12vw] font-normal leading-[0.95] tracking-[-0.04em] md:text-[7vw]">{title}</h1>
       {children && <div className="mt-10 max-w-[760px] space-y-4 text-lg">{children}</div>}
     </section>
   );
@@ -92,7 +91,12 @@ export function Header() {
   const pathname = useRouterState({ select: (st) => st.location.pathname });
   const [overHero, setOverHero] = useState(false);
   useEffect(() => {
-    const on = () => setOverHero(pathname === "/" && window.scrollY < window.innerHeight * 1.1);
+    const on = () => {
+      if (pathname !== "/") { setOverHero(false); return; }
+      const work = document.getElementById("work")?.getBoundingClientRect();
+      const overWork = !!work && work.top <= 60 && work.bottom >= 60; // the home "Our Work" band is always black
+      setOverHero(window.scrollY < window.innerHeight * 1.1 || overWork);
+    };
     on();
     window.addEventListener("scroll", on, { passive: true });
     return () => window.removeEventListener("scroll", on);
