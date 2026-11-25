@@ -3,7 +3,7 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import { academyUrl, contact, nav } from "@/content/site";
 import { policies } from "@/content/policies";
 
-const logo = { url: "/logo.png" };
+const logo = { url: "/logo-mark.png" };
 
 export const orangeH = "font-display font-normal leading-none tracking-[-0.04em] text-primary";
 export const sec = "px-6 py-40 md:px-10";
@@ -75,7 +75,7 @@ export function Header() {
   return (
     <>
       <header className="fixed inset-x-0 top-0 z-50 flex items-center justify-between bg-gradient-to-b from-background to-transparent px-6 py-5 md:px-10">
-        <Link to="/" aria-label="My3 Digital home"><img src={logo.url} alt="My3 Digital" className="h-10 w-auto md:h-12" /></Link>
+        <Link to="/" aria-label="My3 Digital home"><img src={logo.url} alt="My3 Digital" className="h-11 w-auto md:h-14" /></Link>
         <nav className="hidden items-center gap-7 font-display text-[15px] font-medium lg:flex">
           {nav.map((n) => (
             <Link key={n.to} to={n.to} activeOptions={{ exact: n.to === "/" }} activeProps={{ className: "text-primary" }} className="transition-colors duration-300 ease-brand hover:text-primary">{n.label}</Link>
