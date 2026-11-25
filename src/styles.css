@@ -30,8 +30,8 @@
  */
 
 @theme {
-  --breakpoint-md: 810px;
-  --breakpoint-lg: 1200px;
+  --breakpoint-md: 50.625rem;
+  --breakpoint-lg: 75rem;
 }
 
 @theme inline {
@@ -246,9 +246,228 @@ html[data-theme="light"] {
 .cap-bar i { position: absolute; inset: 0; background: var(--foreground); transform-origin: left; }
 .cap-total { font-size: 10px; color: var(--muted-foreground); }
 .cap-hint { position: absolute; left: 50%; bottom: 28px; z-index: 5; transform: translateX(-50%); font: 400 11px/1 var(--font-label); text-transform: uppercase; color: var(--muted-foreground); white-space: nowrap; }
+
+/* Custom scrollbar hiding utility across all browsers and platforms (scoped so page vertical scrollbar stays normal) */
+.no-scrollbar::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+.no-scrollbar {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+}
+
+/* Smooth edge fading mask for infinite horizontal tickers */
+.edge-mask-x {
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+}
+
+/* Continuous 60fps marquee loops */
+@keyframes marquee-scroll {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
+}
+
+.animate-marquee {
+  animation: marquee-scroll 32s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee-rev {
+  animation: marquee-scroll 36s linear infinite reverse;
+  will-change: transform;
+}
+
+.animate-marquee-fast {
+  animation: marquee-scroll 20s linear infinite;
+  will-change: transform;
+}
+
+/* Scrubbing timeline progress bar in Bento showcase */
+@keyframes timeline-scrub {
+  0% { width: 12%; }
+  50% { width: 94%; }
+  100% { width: 12%; }
+}
+
+.animate-scrub-bar {
+  animation: timeline-scrub 5.5s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+/* Word-by-word blur-to-sharp typography reveal */
+@keyframes word-blur-in {
+  0% {
+    opacity: 0;
+    filter: blur(10px);
+    transform: translateY(14px);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+.animate-word-in {
+  display: inline-block;
+  animation: word-blur-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Animation utilities for video reference recreation */
+@keyframes float-gentle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes float-subtle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+@keyframes float-reverse {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+
+@keyframes fan-spring-out {
+  0% {
+    opacity: 0;
+    transform: translateX(var(--fan-from-x, 0px)) scale(0.86) rotate(0deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0px) scale(1);
+  }
+}
+
+@keyframes pill-spring-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.55) translateY(14px);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1.08) translateY(-2px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-fan-spring {
+  animation: fan-spring-out 1.05s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.animate-pill-spring {
+  animation: pill-spring-in 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* Staggered vertical slice / curtain reveal (Video 1 reference: vanishing work, new work coming) */
+@keyframes slice-reveal {
+  0% {
+    clip-path: inset(100% 0 0 0);
+    opacity: 0;
+    transform: translateY(18px) scale(1.03);
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes slice-vanish {
+  0% {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    clip-path: inset(0 0 100% 0);
+    opacity: 0;
+    transform: translateY(-18px) scale(0.98);
+  }
+}
+
+@keyframes curtain-bar-out {
+  0% { transform: scaleY(1); opacity: 0.95; }
+  100% { transform: scaleY(0); opacity: 0; }
+}
+
+@keyframes curtain-bar-in {
+  0% { transform: scaleY(0); opacity: 0; }
+  100% { transform: scaleY(1); opacity: 1; }
+}
+
+.animate-float-slow {
+  animation: float-gentle 6s ease-in-out infinite;
+}
+
+.animate-float-mid {
+  animation: float-subtle 4.5s ease-in-out infinite;
+}
+
+.animate-float-reverse {
+  animation: float-reverse 5.2s ease-in-out infinite;
+}
+
+.animate-slice-in {
+  animation: slice-reveal 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-slice-out {
+  animation: slice-vanish 0.4s cubic-bezier(0.7, 0, 0.84, 0) forwards;
+}
+
+/* Scoped obsidian/deep-blue chrome when Services motion showcase is mounted */
+body:has(.services-motion-page) {
+  background-color: #080B12;
+  color: #F3F5F8;
+}
+body:has(.services-motion-page) header {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  background: rgba(8, 11, 18, 0.88);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+body:has(.services-motion-page) header a,
+body:has(.services-motion-page) header button {
+  color: #F3F5F8;
+}
+body:has(.services-motion-page) header a:hover {
+  color: #60A5FA;
+}
+body:has(.services-motion-page) header .bg-primary {
+  background-color: #2456A4;
+  color: #ffffff;
+}
+body:has(.services-motion-page) header .bg-strong {
+  background-color: #142B4A;
+}
+body:has(.services-motion-page) footer {
+  background-color: #080B12;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  color: #F3F5F8;
+}
+body:has(.services-motion-page) footer .marquee span {
+  color: rgba(255, 255, 255, 0.08);
+}
+
 @media (max-width: 779px) {
   .cap-title { left: 24px; top: 80px; font-size: 10.5vw; }
   .cap-card { width: 66vw; top: calc(80px + 10.5vw + 28px); }
   .cap-count { left: 24px; }
   .cap-doodle { display: none; }
+}
+
+.services-motion-page :is(#divisions-directory, #divisions-full-spec, article[id]) {
+  scroll-margin-top: 7rem;
+}
+
+.services-motion-page article[id]:target {
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 3px rgb(96 165 250 / 20%);
 }

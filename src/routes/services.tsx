@@ -1,55 +1,135 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { divisions } from "@/content/site";
-import { BoxButton, orangeH, PageHero, PillButton, sec } from "@/components/site/ui";
+import Lenis from "lenis";
+import { useEffect, useRef, useState } from "react";
+import { ensureGsapRegistered, gsap, ScrollTrigger } from "@/components/services/gsapMotion";
+import { HeroToServicesFlipSection } from "@/components/services/HeroToServicesFlipSection";
+import { ServicesReel } from "@/components/services/ServicesReel";
+import { ShowcaseMorphClosingSection } from "@/components/services/ShowcaseMorphClosingSection";
+import { StatementStaircaseGridSection } from "@/components/services/StatementStaircaseGridSection";
 
 export const Route = createFileRoute("/services")({
-  head: () => ({ meta: [
-    { title: "Digital Services | Web Development, Branding & Marketing | My3" },
-    { name: "description", content: "Website development, branding, performance marketing, digital marketing and technology & automation services from My3 Digital." },
-    { property: "og:title", content: "Digital Services | Web Development, Branding & Marketing | My3" },
-    { property: "og:description", content: "One partner. Every possibility in digital." },
-    { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
-  ] }),
-  component: Services,
+  head: () => ({
+    meta: [
+      { title: "Digital Services | Web Development, Branding & Marketing | My3 Digital" },
+      {
+        name: "description",
+        content:
+          "Website development, branding, performance marketing, digital marketing and technology & automation services from My3 Digital.",
+      },
+      { property: "og:title", content: "Digital Services | Web Development, Branding & Marketing | My3 Digital" },
+      { property: "og:description", content: "One partner. Every possibility in digital." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
+  component: ServicesMotionShowcase,
 });
 
-function Services() {
+function ServicesMotionShowcase() {
+  const [activeTab, setActiveTab] = useState<string>("website-development");
+  const [reduceMotion, setReduceMotion] = useState(false);
+  const [reelPlaying, setReelPlaying] = useState(false);
+
+  const mainRef = useRef<HTMLElement>(null);
+  const ambientRef = useRef<HTMLDivElement>(null);
+
+  // Sync user reduced-motion OS preference safely client-side
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const sync = () => setReduceMotion(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
+
+  // Synchronize Lenis smooth scrolling + GSAP ScrollTrigger & subtle ambient radial shift
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    ensureGsapRegistered();
+
+    const ambientEl = ambientRef.current;
+    const mainEl = mainRef.current;
+
+    const ambientTrigger =
+      ambientEl && mainEl && !reduceMotion
+        ? ScrollTrigger.create({
+            trigger: mainEl,
+            start: "top top",
+            end: "bottom bottom",
+            onUpdate: (self) => {
+              const p = self.progress;
+              const x = p < 0.5 ? 35 + p * 60 : 65 - (p - 0.5) * 46;
+              const y = 18 + p * 60;
+              ambientEl.style.background = `radial-gradient(680px circle at ${x.toFixed(1)}% ${y.toFixed(1)}%, rgba(36, 86, 164, 0.19), transparent 72%)`;
+            },
+          })
+        : null;
+
+    if (reduceMotion || reelPlaying) {
+      return () => {
+        ambientTrigger?.kill();
+      };
+    }
+
+    const lenis = new Lenis({
+      duration: 1.15,
+      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+    });
+
+    const win = window as Window & { __my3Lenis?: Lenis };
+    win.__my3Lenis = lenis;
+
+    lenis.on("scroll", ScrollTrigger.update);
+    const onTick = (time: number) => {
+      lenis.raf(time * 1000);
+    };
+
+    gsap.ticker.add(onTick);
+    gsap.ticker.lagSmoothing(0);
+
+    return () => {
+      ambientTrigger?.kill();
+      gsap.ticker.remove(onTick);
+      delete win.__my3Lenis;
+      lenis.destroy();
+    };
+  }, [reduceMotion, reelPlaying]);
+
   return (
-    <main>
-      <PageHero eyebrow="Our Expertise" title="One Partner. Every Possibility in Digital.">
-        <div className="pt-4"><PillButton to="/contact">Discuss Your Requirements</PillButton></div>
-      </PageHero>
+    <main
+      ref={mainRef}
+      data-blur-managed="true"
+      className="services-motion-page relative min-h-screen overflow-x-clip bg-[#080B12] font-sans text-[#F3F5F8] selection:bg-[#2456A4]/40 selection:text-white"
+    >
+      {/* Scroll-harmonized deep cobalt/sapphire ambient glow */}
+      <div
+        ref={ambientRef}
+        aria-hidden="true"
+        className="pointer-events-none fixed inset-0 z-0 transition-opacity duration-700"
+        style={{
+          background: "radial-gradient(680px circle at 35% 18%, rgba(36, 86, 164, 0.19), transparent 72%)",
+        }}
+      />
 
-      {divisions.map((d, n) => (
-        <section key={d.slug} id={d.slug} className={`${sec} border-t border-border`}>
-          <p className="font-label text-xs uppercase text-muted-foreground">Division 0{n + 1} · {d.eyebrow}</p>
-          <h2 className={`${orangeH} mt-4 text-[44px] md:text-[90px]`}>{d.title}</h2>
-          <p className="mt-6 max-w-[1100px] text-[22px] leading-tight md:text-[34px]">{d.heading}</p>
-          <div className="mt-8 grid gap-6 md:grid-cols-2">{d.intro.map((p) => <p key={p}>{p}</p>)}</div>
-          <div className="mt-12 grid gap-2 md:grid-cols-2">
-            {d.items.map(([t, x]) => (
-              <article key={t} className="flex min-h-[220px] flex-col justify-between bg-panel p-6">
-                <h3 className="max-w-[340px] text-[24px] leading-tight tracking-[-0.02em]">{t}</h3>
-                <p className="ml-auto max-w-[340px] text-sm">{x}</p>
-              </article>
-            ))}
-          </div>
-          {d.extra && <p className="mt-8 font-display text-sm text-muted-foreground">Technology &amp; Platforms: {d.extra}</p>}
-          <div className="mt-10"><BoxButton to="/contact">{d.cta}</BoxButton></div>
-        </section>
-      ))}
+      {!reduceMotion && <ServicesReel playing={reelPlaying} setPlaying={setReelPlaying} />}
 
-      <section className="px-6 py-40 text-center md:px-10">
-        <p className="font-display text-[32px] tracking-[-0.04em] text-primary md:text-[66px]">Better Together.</p>
-        <h2 className="mt-6 text-[50px] leading-[0.95] md:text-[110px]">Stronger by Design.</h2>
-        <p className="mx-auto mt-8 max-w-[760px]">A brand identity can establish the foundation for a website. A well-developed website can support performance marketing. Strategic advertising can generate enquiries, while automation can help manage them efficiently. At My3 Digital, we look at the entire journey.</p>
-      </section>
+      <HeroToServicesFlipSection
+        reduceMotion={reduceMotion}
+        onSelectDivision={setActiveTab}
+      />
 
-      <section className="px-6 pb-40 text-center md:px-10">
-        <h2 className="mx-auto max-w-[1100px] text-[36px] leading-tight md:text-[60px]">Have a Vision? Let's Build the Right Strategy Around It.</h2>
-        <p className="mx-auto mt-6 max-w-[640px]">Tell us what you're looking to achieve. Our team will help identify the right approach, capabilities and execution plan for your business.</p>
-        <div className="mt-10"><PillButton to="/contact">Discuss Your Project</PillButton></div>
-      </section>
+      <StatementStaircaseGridSection
+        reduceMotion={reduceMotion}
+        activeTab={activeTab}
+        onSelectDivision={setActiveTab}
+      />
+
+      <ShowcaseMorphClosingSection
+        reduceMotion={reduceMotion}
+        onSelectDivision={setActiveTab}
+      />
     </main>
   );
 }
