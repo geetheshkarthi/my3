@@ -91,12 +91,7 @@ export function Header() {
   const pathname = useRouterState({ select: (st) => st.location.pathname });
   const [overHero, setOverHero] = useState(false);
   useEffect(() => {
-    const on = () => {
-      if (pathname !== "/") { setOverHero(false); return; }
-      const work = document.getElementById("work")?.getBoundingClientRect();
-      const overWork = !!work && work.top <= 60 && work.bottom >= 60; // the home "Our Work" band is always black
-      setOverHero(window.scrollY < window.innerHeight * 1.1 || overWork);
-    };
+    const on = () => setOverHero(pathname === "/" && window.scrollY < window.innerHeight * 1.1);
     on();
     window.addEventListener("scroll", on, { passive: true });
     return () => window.removeEventListener("scroll", on);

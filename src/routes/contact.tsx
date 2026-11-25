@@ -22,9 +22,7 @@ function Contact() {
   const [sent, setSent] = useState(false);
   return (
     <main>
-      <PageHero eyebrow="Let's Connect" title="Have Something in Mind? Let's Make It Happen.">
-        <p>Every great digital project starts with a conversation. Whether you're planning a new website, building a brand, exploring digital marketing or looking for the right technology partner, we'd love to understand what you're working towards.</p>
-      </PageHero>
+      <PageHero eyebrow="Let's Connect" title="Have Something in Mind? Let's Make It Happen." />
 
       <section className="grid gap-2 px-6 md:grid-cols-4 md:px-10">
         {[["Email", contact.email, `mailto:${contact.email}`], ["Phone", contact.phone, contact.phoneHref], ["Hyderabad", contact.hyderabad, ""], ["Bangalore", contact.bangalore, ""]].map(([t, v, h]) => (
