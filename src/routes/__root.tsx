@@ -104,6 +104,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "icon", href: "/favicon-192x192.png", type: "image/png", sizes: "192x192" },
       { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
     ],
+    scripts: [
+      // Apply the saved theme before first paint to avoid a dark -> light flash
+      { children: 'try{if(localStorage.getItem("my3-theme")==="light")document.documentElement.dataset.theme="light"}catch(e){}' },
+    ],
   }),
   shellComponent: RootShell,
   component: RootComponent,
@@ -113,7 +117,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <HeadContent />
       </head>

@@ -32,7 +32,7 @@ function Index() {
       const hero = heroRef.current, rest = restRef.current;
       if (!hero || !rest) return;
       const p = Math.min(1, Math.max(0, -hero.getBoundingClientRect().top / Math.max(1, hero.offsetHeight - window.innerHeight)));
-      rest.style.backgroundColor = `rgba(0,0,0,${Math.min(1, Math.max(0, (p - 0.55) / 0.45))})`;
+      rest.style.backgroundColor = `color-mix(in oklab, var(--background) ${Math.round(Math.min(1, Math.max(0, (p - 0.55) / 0.45)) * 100)}%, transparent)`;
     };
     update();
     window.addEventListener("scroll", update, { passive: true });
@@ -42,7 +42,7 @@ function Index() {
   return (
     <main>
       {/* Hero */}
-      <section ref={heroRef} className="relative h-[220svh]">
+      <section ref={heroRef} className="theme-dark-scope relative h-[220svh]">
         <div className="sticky top-0 h-[100svh] min-h-[640px] overflow-hidden px-6 md:px-10">
           <HeroCanvas sectionRef={heroRef} />
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/50 via-black/10 to-transparent" />
@@ -59,7 +59,7 @@ function Index() {
           </div>
       </section>
 
-      <div ref={restRef} className="relative z-20 -mt-[100svh] pt-1" style={{ backgroundColor: "rgba(0,0,0,0)" }}>
+      <div ref={restRef} className="relative z-20 -mt-[100svh] pt-1" style={{ backgroundColor: "transparent" }}>
       {/* Numbers */}
       <section className="mx-6 mt-16 grid gap-2 border border-border p-2 md:mx-10 md:grid-cols-5">
         {stats.map(([l, v, s, span]) => (

@@ -70,6 +70,23 @@ export function PageHero({ eyebrow, title, children }: { eyebrow: string; title:
   );
 }
 
+/** Switches between the default dark theme and a light (white) theme; the choice is remembered. */
+export function ThemeToggle({ className = "" }: { className?: string }) {
+  const [light, setLight] = useState(false);
+  useEffect(() => { setLight(document.documentElement.getAttribute("data-theme") === "light"); }, []);
+  const toggle = () => {
+    const next = !light;
+    setLight(next);
+    if (next) document.documentElement.setAttribute("data-theme", "light"); else document.documentElement.removeAttribute("data-theme");
+    try { localStorage.setItem("my3-theme", next ? "light" : "dark"); } catch { /* ignore */ }
+  };
+  return (
+    <button type="button" onClick={toggle} aria-label={light ? "Switch to dark theme" : "Switch to white theme"} title={light ? "Dark theme" : "White theme"} className={`flex h-10 w-10 items-center justify-center rounded-full border border-foreground/30 text-lg transition-colors hover:bg-foreground hover:text-background ${className}`}>
+      {light ? "☾" : "☀"}
+    </button>
+  );
+}
+
 export function Header() {
   const [open, setOpen] = useState(false);
   return (
@@ -81,6 +98,7 @@ export function Header() {
             <Link key={n.to} to={n.to} activeOptions={{ exact: n.to === "/" }} activeProps={{ className: "text-primary" }} className="transition-colors duration-300 ease-brand hover:text-primary">{n.label}</Link>
           ))}
           <a href={academyUrl} target="_blank" rel="noopener noreferrer" className="rounded-full bg-primary px-5 py-2.5 text-primary-foreground transition-transform duration-300 ease-brand hover:scale-105">Academy</a>
+          <ThemeToggle />
         </nav>
         <button onClick={() => setOpen(true)} aria-label="Open menu" className="flex w-10 flex-col gap-2 lg:hidden"><span className="h-px w-full bg-strong" /><span className="h-px w-full bg-strong" /></button>
       </header>
@@ -93,6 +111,7 @@ export function Header() {
           <nav className="mt-16 flex flex-col gap-5">
             {nav.map((n) => <Link key={n.to} to={n.to} onClick={() => setOpen(false)} className="font-display text-5xl tracking-[-0.04em] hover:text-primary">{n.label}</Link>)}
             <a href={academyUrl} target="_blank" rel="noopener noreferrer" onClick={() => setOpen(false)} className="font-display text-5xl tracking-[-0.04em] text-primary">Academy ↗</a>
+            <ThemeToggle className="mt-4" />
           </nav>
         </div>
       )}

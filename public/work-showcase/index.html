@@ -954,6 +954,9 @@
     }
       /* Embedded in the My3 site: the site header is used instead of this one */
     #fixed-header, #view-gallery, #view-about, #dock, #menu-panel { display: none !important; }
+    /* Follow the site's white theme: invert the page, then restore videos / canvas / images */
+    html.light { filter: invert(1) hue-rotate(180deg); background: #fff; }
+    html.light canvas, html.light video, html.light img { filter: invert(1) hue-rotate(180deg); }
   </style>
 
   <!-- Import maps polyfill & Three.js import map -->
@@ -967,6 +970,17 @@
   </script>
   <!-- GSAP 3.12.5 -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script>
+    (function () {
+      function apply() {
+        var light = false;
+        try { light = localStorage.getItem('my3-theme') === 'light'; } catch (e) {}
+        document.documentElement.classList.toggle('light', light);
+      }
+      apply();
+      window.addEventListener('storage', function (e) { if (e.key === 'my3-theme') apply(); });
+    })();
+  </script>
 </head>
 <body>
 
