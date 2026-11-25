@@ -9,11 +9,20 @@ export const orangeH = "font-display font-normal leading-none tracking-[-0.04em]
 export const sec = "px-6 py-40 md:px-10";
 export const tilts = ["-rotate-3", "rotate-0", "rotate-2", "-rotate-2", "rotate-0", "rotate-3", "-rotate-1", "rotate-1"];
 
-const pillCls = "group inline-flex items-center gap-3 rounded-full bg-secondary py-1.5 pl-1.5 pr-5 font-display text-[15px] font-medium text-secondary-foreground transition-transform duration-300 ease-brand hover:scale-105";
-const pillDot = <span className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground">→</span>;
+// Pill button: the blue dot spreads across the whole pill and the arrow slides to the right on hover / focus / press
+const pillCls = "group relative inline-flex items-center overflow-hidden rounded-full bg-secondary py-1.5 pl-[3.25rem] pr-[3.25rem] font-display text-[15px] font-medium text-secondary-foreground transition-transform duration-300 ease-brand hover:scale-[1.03] active:scale-[0.98]";
+function PillInner({ children }: { children: ReactNode }) {
+  return (
+    <>
+      <span aria-hidden className="absolute bottom-1.5 left-1.5 top-1.5 w-8 rounded-full bg-primary transition-[width] duration-500 ease-brand group-hover:w-[calc(100%-0.75rem)] group-focus-visible:w-[calc(100%-0.75rem)] group-active:w-[calc(100%-0.75rem)]" />
+      <span aria-hidden className="absolute bottom-1.5 left-1.5 top-1.5 flex w-8 items-center justify-center text-primary-foreground transition-[left] duration-500 ease-brand group-hover:left-[calc(100%-2.375rem)] group-focus-visible:left-[calc(100%-2.375rem)] group-active:left-[calc(100%-2.375rem)]">→</span>
+      <span className="relative z-10 transition-colors duration-500 group-hover:text-primary-foreground group-focus-visible:text-primary-foreground group-active:text-primary-foreground">{children}</span>
+    </>
+  );
+}
 export function PillButton({ to, href, children }: { to?: LinkProps["to"]; href?: string; children: ReactNode }) {
-  if (to) return <Link to={to} className={pillCls}>{pillDot}{children}</Link>;
-  return <a href={href} className={pillCls}>{pillDot}{children}</a>;
+  if (to) return <Link to={to} className={pillCls}><PillInner>{children}</PillInner></Link>;
+  return <a href={href} className={pillCls}><PillInner>{children}</PillInner></a>;
 }
 const boxCls = "inline-flex items-stretch border border-foreground font-label text-xs uppercase transition-colors duration-300 ease-brand hover:bg-foreground hover:text-background";
 export function BoxButton({ to, href, children }: { to?: LinkProps["to"]; href?: string; children: ReactNode }) {

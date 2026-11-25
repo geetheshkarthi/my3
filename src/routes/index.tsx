@@ -59,7 +59,9 @@ function Index() {
       </section>
 
       {/* Everything below the stats gets the solid page background */}
-      <div className="bg-background">
+      <div className="relative bg-background">
+      {/* Soft fade from the spaceship into the page background, so there is no hard edge */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-[260px] -translate-y-full bg-gradient-to-b from-transparent to-background" />
       {/* Who we are */}
       <section className="px-6 pt-40 md:px-10">
         <h2 className={`${orangeH} text-[50px] md:text-[100px]`}>Who We Are…</h2>
