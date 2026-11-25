@@ -166,7 +166,33 @@ export function WorkSphere() {
       let lastNow = performance.now();
       const stackStart = cards.map(() => new THREE.Vector3());
       const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const start = () => { if (phase === "idle") { phase = reduced ? "live" : "ring"; t0 = performance.now(); } };
+      // Hold the page still while the ring -> stack -> sphere intro plays, then let it scroll again
+      let locked = false;
+      let lockTimer = 0;
+      const stop = (e: Event) => e.preventDefault();
+      const stopKeys = (e: KeyboardEvent) => { if ([" ", "PageUp", "PageDown", "ArrowUp", "ArrowDown", "Home", "End"].includes(e.key)) e.preventDefault(); };
+      const lockScroll = () => {
+        if (locked) return;
+        locked = true;
+        window.addEventListener("wheel", stop, { passive: false });
+        window.addEventListener("touchmove", stop, { passive: false });
+        window.addEventListener("keydown", stopKeys);
+        lockTimer = window.setTimeout(unlockScroll, 12000); // safety net
+      };
+      const unlockScroll = () => {
+        if (!locked) return;
+        locked = false;
+        window.clearTimeout(lockTimer);
+        window.removeEventListener("wheel", stop);
+        window.removeEventListener("touchmove", stop);
+        window.removeEventListener("keydown", stopKeys);
+      };
+      const start = () => {
+        if (phase !== "idle") return;
+        phase = reduced ? "live" : "ring";
+        t0 = performance.now();
+        if (!reduced) { host.scrollIntoView({ block: "start", behavior: "smooth" }); lockScroll(); }
+      };
       const startIo = new IntersectionObserver(([e]) => { if (e?.isIntersecting) start(); }, { rootMargin: "0px 0px -45% 0px" });
       startIo.observe(host);
 
@@ -226,7 +252,7 @@ export function WorkSphere() {
               setCard(i, sp.x * k * over, sp.y * k * over, sp.z * k * over, cardW, Math.min(1, k * 1.5));
             }
           }
-          if (t >= 1000) phase = "live";
+          if (t >= 1000) { phase = "live"; unlockScroll(); }
         } else {
           if (!down) {
             yaw += vYaw + 0.0028;
@@ -263,6 +289,7 @@ export function WorkSphere() {
         ro.disconnect();
         io.disconnect();
         startIo.disconnect();
+        unlockScroll();
         host.removeEventListener("pointerdown", onDown);
         host.removeEventListener("pointerenter", onEnter);
         host.removeEventListener("pointerleave", onLeave);

@@ -165,9 +165,9 @@ function Index() {
         <h2 className={`${orangeH} text-right text-[60px] md:text-[120px]`}>My3 Insights</h2>
         <div className="mt-12 grid gap-2 md:grid-cols-3">
           {articles.slice(0, 3).map((a) => (
-            <Link key={a.slug} to="/insights/$slug" params={{ slug: a.slug }} className="group block">
-              <img src={img(a.image, 736)} alt="" loading="lazy" className="mx-auto h-[300px] w-auto object-cover" />
-              <h3 className="mt-2 bg-panel p-4 text-center font-display text-sm font-normal tracking-normal transition-colors duration-300 ease-brand group-hover:text-primary">{a.title}</h3>
+            <Link key={a.slug} to="/insights/$slug" params={{ slug: a.slug }} className="group flex h-full flex-col">
+              <img src={img(a.image, 736)} alt="" loading="lazy" className="h-[300px] w-full object-cover" />
+              <h3 className="mt-2 flex flex-1 items-center justify-center bg-panel p-4 text-center font-display text-sm font-normal tracking-normal transition-colors duration-300 ease-brand group-hover:text-primary">{a.title}</h3>
             </Link>
           ))}
         </div>
