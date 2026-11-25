@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { IndustryStrip } from "@/components/site/IndustryStrip";
 import { CapabilityReel } from "@/components/site/CapabilityReel";
 import { WebsiteCard } from "@/components/site/WebsiteCard";
@@ -27,6 +27,20 @@ const portPos = ["mx-auto", "mx-auto md:mx-0 md:mr-auto", "mx-auto md:mx-0 md:ml
 
 function Index() {
   const heroRef = useRef<HTMLElement>(null);
+  const restRef = useRef<HTMLDivElement>(null);
+  // Content after the hero slides up over the video, translucent at first and fully opaque once the scrub completes.
+  useEffect(() => {
+    const update = () => {
+      const hero = heroRef.current, rest = restRef.current;
+      if (!hero || !rest) return;
+      const p = Math.min(1, Math.max(0, -hero.getBoundingClientRect().top / Math.max(1, hero.offsetHeight - window.innerHeight)));
+      rest.style.backgroundColor = `color-mix(in oklab, var(--background) ${Math.round(Math.min(1, Math.max(0, (p - 0.55) / 0.45)) * 100)}%, transparent)`;
+    };
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => { window.removeEventListener("scroll", update); window.removeEventListener("resize", update); };
+  }, []);
   return (
     <main>
       {/* Hero */}
@@ -47,7 +61,7 @@ function Index() {
           </div>
       </section>
 
-      <div className="relative z-20 -mt-[100svh] pt-1">
+      <div ref={restRef} className="relative z-20 -mt-[100svh] pt-1" style={{ backgroundColor: "transparent" }}>
       {/* Numbers */}
       <section className="mx-6 mt-16 grid gap-2 border border-border p-2 md:mx-10 md:grid-cols-5">
         {stats.map(([l, v, s, span]) => (
@@ -58,10 +72,6 @@ function Index() {
         ))}
       </section>
 
-      {/* Everything below the stats gets the solid page background */}
-      <div className="relative bg-background">
-      {/* Soft fade from the spaceship into the page background, so there is no hard edge */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-[260px] -translate-y-full bg-gradient-to-b from-transparent to-background" />
       {/* Who we are */}
       <section className="px-6 pt-40 md:px-10">
         <h2 className={`${orangeH} text-[50px] md:text-[100px]`}>Who We Are…</h2>
@@ -175,7 +185,6 @@ function Index() {
         <div className="mt-10 flex justify-center gap-4"><BoxButton to="/contact">Start a Conversation</BoxButton><BoxButton to="/contact">Discuss Your Project</BoxButton></div>
       </section>
 
-      </div>
       </div>
     </main>
   );
