@@ -1,18 +1,12 @@
-import { useRouterState } from "@tanstack/react-router";
 import { useEffect } from "react";
 
 /**
  * Smooth, eased wheel/trackpad scrolling (Apple-style) for desktops, using Lenis.
  * - Touch devices (iPhone, Android) keep their native momentum scrolling.
  * - Skipped when the visitor prefers reduced motion.
- * - Skipped on /services, which runs its own Lenis instance synced with GSAP ScrollTrigger.
  */
 export function SmoothScroll() {
-  const pathname = useRouterState({ select: (s) => s.location.pathname });
-  const ownedElsewhere = pathname.startsWith("/services");
-
   useEffect(() => {
-    if (ownedElsewhere) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     if (window.matchMedia("(pointer: coarse)").matches) return;
     let raf = 0;
@@ -33,7 +27,7 @@ export function SmoothScroll() {
     })();
 
     return () => { disposed = true; cancelAnimationFrame(raf); lenis?.destroy(); };
-  }, [ownedElsewhere]);
+  }, []);
 
   return null;
 }
