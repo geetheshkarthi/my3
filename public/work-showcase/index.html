@@ -1174,7 +1174,7 @@
     fetch('projects.json').then((r) => r.json()).then((list) => {
       list.forEach((d, i) => {
         if (!PORTFOLIO_PROJECTS[i]) return;
-        Object.assign(PORTFOLIO_PROJECTS[i], { cat: d.category, url: d.url, about: d.about, brief: d.brief, did: d.did, desc: '' });
+        Object.assign(PORTFOLIO_PROJECTS[i], { slug: d.slug, cat: d.category, url: d.url, about: d.about, brief: d.brief, did: d.did, desc: '' });
       });
     }).catch(() => {});
 
@@ -2764,6 +2764,12 @@
       }
 
       openEnlargeModal(idx) {
+        // Inside the My3 site: open the project's case-study page instead of the popup
+        const proj0 = PORTFOLIO_PROJECTS[idx % PORTFOLIO_PROJECTS.length];
+        if (proj0 && proj0.slug && window.parent !== window) {
+          window.parent.postMessage({ type: 'my3-open-work', slug: proj0.slug }, window.location.origin);
+          return;
+        }
         if (!this.modal || !this.modalVideo) return;
         if (this.nameEl) {
           gsap.to(this.nameEl, { opacity: 0, scale: 0.6, duration: 0.2, overwrite: 'auto' });

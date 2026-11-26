@@ -217,5 +217,5 @@ export const capabilityImages = ["/capabilities/c1.jpg", "/capabilities/c2.jpg",
 export const industryImages = [1, 2, 3, 4, 5, 6, 7, 8].map((n) => `/industries/i${n}.jpg`);
 
 /** Website showcase (same videos and details as the Our Work page; the details live in websites.json). */
-export type Website = { title: string; category: string; url: string; about: string; brief: string; did: string[]; video: string; poster: string };
+export type Website = { slug: string; title: string; category: string; url: string; about: string; brief: string; did: string[]; video: string; poster: string };
 export const websites: Website[] = websiteDetails.map((d, i) => ({ ...d, video: `/work-showcase/Portfolio_videos/p${i + 1}.webm`, poster: `/work-showcase/Portfolio_videos/p${i + 1}.webp` }));

@@ -1,4 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useEffect } from "react";
 
 export const Route = createFileRoute("/work/")({
   head: () => ({ meta: [
@@ -13,6 +14,17 @@ export const Route = createFileRoute("/work/")({
 
 /** Interactive 3D video showcase (public/work-showcase), shown full-screen under the site header. */
 function Work() {
+  const navigate = useNavigate();
+  // The showcase posts a message when a website is clicked; open its case-study page
+  useEffect(() => {
+    const on = (e: MessageEvent) => {
+      if (e.origin !== window.location.origin) return;
+      const d = e.data as { type?: string; slug?: string } | null;
+      if (d?.type === "my3-open-work" && d.slug) navigate({ to: "/work/$slug", params: { slug: d.slug } });
+    };
+    window.addEventListener("message", on);
+    return () => window.removeEventListener("message", on);
+  }, [navigate]);
   return (
     <main>
       <iframe

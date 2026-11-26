@@ -1,5 +1,6 @@
 [
   {
+    "slug": "tejas-infra-one",
     "title": "TEJAS INFRA ONE",
     "category": "Construction & Infrastructure Website",
     "url": "https://tejasinfraone.in/",
@@ -12,6 +13,7 @@
     ]
   },
   {
+    "slug": "olive-oak",
     "title": "OLIVE OAK",
     "category": "Interior Design Website",
     "url": "https://oliveoak.in/",
@@ -24,6 +26,7 @@
     ]
   },
   {
+    "slug": "habaene",
     "title": "HABAENE",
     "category": "Travel Luggage E-commerce Website",
     "url": "https://habaene.com/",
@@ -37,6 +40,7 @@
     ]
   },
   {
+    "slug": "nammaswathu",
     "title": "NAMMASWATHU",
     "category": "Property Documentation Platform",
     "url": "https://nammaswathu.com/",
@@ -50,6 +54,7 @@
     ]
   },
   {
+    "slug": "ordient-infra",
     "title": "ORDIENT INFRA",
     "category": "Construction Company Website",
     "url": "https://ordientinfra.com/",
@@ -63,6 +68,7 @@
     ]
   },
   {
+    "slug": "infratradehub",
     "title": "INFRATRADEHUB",
     "category": "B2B Marketplace Website",
     "url": "https://infratradehub.com/",
@@ -76,6 +82,7 @@
     ]
   },
   {
+    "slug": "ordient-ventures",
     "title": "ORDIENT VENTURES",
     "category": "Export Services Website",
     "url": "https://ordientventures.in/",
@@ -88,6 +95,7 @@
     ]
   },
   {
+    "slug": "bangalore-puppy-farm",
     "title": "BANGALORE PUPPY FARM",
     "category": "Pet Breeder Website",
     "url": "https://www.bangalorepuppyfarm.com/",
@@ -100,6 +108,7 @@
     ]
   },
   {
+    "slug": "pestcat",
     "title": "PESTCAT",
     "category": "Pest Control Services Website",
     "url": "https://pestcat.com/",
@@ -112,6 +121,7 @@
     ]
   },
   {
+    "slug": "shivabakthi",
     "title": "SHIVABAKTHI",
     "category": "Spiritual Community Website",
     "url": "https://www.shivabakthi.in/",
@@ -122,6 +132,7 @@
     ]
   },
   {
+    "slug": "siri-trader",
     "title": "SIRI TRADER",
     "category": "Business Website",
     "url": "https://www.siritrader.com/",
