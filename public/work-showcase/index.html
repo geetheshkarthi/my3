@@ -1357,7 +1357,7 @@
       // Smooth physics lerp
       const diff = scrollState.targetScrollY - scrollState.currentScrollY;
       if (Math.abs(diff) > 0.05) {
-        scrollState.currentScrollY += diff * (window.innerWidth <= 640 ? 0.18 : 0.09);
+        scrollState.currentScrollY += diff * (window.innerWidth <= 640 ? 0.12 : 0.09);
       } else {
         scrollState.currentScrollY = scrollState.targetScrollY;
       }
@@ -1488,6 +1488,8 @@
     let touchStartY = 0;
     let touchStartX = 0;
     let lastTouchY = 0;
+    let lastTouchT = 0;
+    let touchVel = 0;
     let isTouching = false;
 
     window.addEventListener('touchstart', (e) => {
@@ -1496,6 +1498,8 @@
         touchStartX = e.touches[0].clientX;
         touchStartY = e.touches[0].clientY;
         lastTouchY = touchStartY;
+        lastTouchT = performance.now();
+        touchVel = 0;
         isTouching = true;
       }
     }, { passive: true });
@@ -1508,19 +1512,29 @@
       const curY = e.touches[0].clientY;
       const dy = lastTouchY - curY; // swipe up = scroll down
       lastTouchY = curY;
+      const nowT = performance.now();
+      const dtT = Math.max(1, nowT - lastTouchT);
+      touchVel = 0.8 * (dy / dtT) + 0.2 * touchVel; // px per ms, smoothed
+      lastTouchT = nowT;
 
       if (dy > 0) {
-        scrollState.targetScrollY = Math.min(S4, scrollState.targetScrollY + dy * (window.innerWidth <= 640 ? 2.4 : 1.2));
+        scrollState.targetScrollY = Math.min(S4, scrollState.targetScrollY + dy * (window.innerWidth <= 640 ? 1.8 : 1.2));
         if (views.gallery.instance && !views.gallery.instance.introFinished && scrollState.targetScrollY > 30) {
           views.gallery.instance.skipIntro();
         }
       } else if (dy < 0) {
-        scrollState.targetScrollY = Math.max(S3, scrollState.targetScrollY + dy * (window.innerWidth <= 640 ? 2.4 : 1.2));
+        scrollState.targetScrollY = Math.max(S3, scrollState.targetScrollY + dy * (window.innerWidth <= 640 ? 1.8 : 1.2));
       }
     }, { passive: true });
 
     window.addEventListener('touchend', () => {
       isTouching = false;
+      // Momentum: keep gliding in the swipe direction after the finger lifts (like native iOS/Android scrolling)
+      if (performance.now() - lastTouchT < 120 && Math.abs(touchVel) > 0.05) {
+        const fling = touchVel * (window.innerWidth <= 640 ? 520 : 300);
+        scrollState.targetScrollY = Math.max(S3, Math.min(S4, scrollState.targetScrollY + fling));
+      }
+      touchVel = 0;
     });
 
     function scrollToGallery(duration = 0.8) {
@@ -2487,7 +2501,7 @@
         this.W = window.innerWidth;
         this.H = window.innerHeight;
         this.asp = 1;
-        this.cols = 2;
+        this.cols = window.innerWidth <= 640 ? 1 : 2; // phones: one website per row
         this.rows = 2;
         this.tanH = 0.3153;
 
@@ -2911,7 +2925,7 @@
         this.camera.fov = this.asp < 16 / 9 ? Math.atan(0.561 / this.asp) * 360 / Math.PI : this.FOV;
         this.camera.updateProjectionMatrix();
         this.tanH = Math.tan(this.camera.fov * Math.PI / 360);
-        this.cols = 2;
+        this.cols = window.innerWidth <= 640 ? 1 : 2; // phones: one website per row
         this.rows = Math.ceil(this.WORK_DATA.length / this.cols);
       }
 
