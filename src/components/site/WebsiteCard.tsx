@@ -22,8 +22,8 @@ export function WebsiteCard({ site, className = "" }: { site: Website; className
         <div className="overflow-hidden">
           <video ref={ref} src={site.video} poster={site.poster} muted loop playsInline preload="none" className="aspect-[3/2] w-full object-cover transition-transform duration-300 ease-brand group-hover:scale-105" />
         </div>
-        <div className="grid grid-cols-[1fr_2fr_auto] items-center px-6 py-5">
-          <span className="text-xs text-primary">{site.category}</span><span className="font-display text-2xl">{site.title}</span><span className="text-primary">↗</span>
+        <div className="grid grid-cols-[1fr_auto] items-center gap-x-3 gap-y-1 px-1 py-4 md:grid-cols-[1fr_2fr_auto] md:px-6 md:py-5">
+          <span className="col-span-2 text-xs text-primary md:col-span-1">{site.category}</span><span className="font-display text-2xl">{site.title}</span><span className="text-primary">↗</span>
         </div>
       </button>
       {open && <WebsiteDialog site={site} onClose={() => setOpen(false)} />}
@@ -41,7 +41,7 @@ function WebsiteDialog({ site, onClose }: { site: Website; onClose: () => void }
   }, [onClose]);
 
   return createPortal(
-    <div className="theme-dark-scope fixed inset-0 z-[80] flex items-center justify-center bg-black/80 p-4 backdrop-blur-md" onClick={onClose} role="dialog" aria-modal="true" aria-label={site.title}>
+    <div data-lenis-prevent className="theme-dark-scope fixed inset-0 z-[80] flex items-center justify-center bg-black/80 p-4 backdrop-blur-md" onClick={onClose} role="dialog" aria-modal="true" aria-label={site.title}>
       <div className="max-h-[92vh] w-full max-w-[1000px] overflow-y-auto rounded-2xl bg-background text-foreground" onClick={(e) => e.stopPropagation()}>
         <div className="relative">
           <video src={site.video} poster={site.poster} autoPlay muted loop playsInline className="aspect-video w-full rounded-t-2xl object-cover" />

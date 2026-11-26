@@ -30,7 +30,7 @@ function WebinarPage() {
   const [done, setDone] = useState(false);
   return (
     <main>
-      <section className="grid gap-10 px-6 pb-24 pt-44 md:grid-cols-2 md:px-10">
+      <section className="grid gap-10 px-6 pb-12 md:pb-24 pt-32 md:pt-44 md:grid-cols-2 md:px-10">
         <div>
           <p className="font-label text-xs uppercase text-primary">● Webinar · {w.date} · {w.time}</p>
           <h1 className="mt-6 text-[10vw] font-normal leading-[0.95] tracking-[-0.04em] md:text-[4.5vw]">{w.title}</h1>
@@ -44,12 +44,12 @@ function WebinarPage() {
         <img src={img(w.image, 1200)} alt="" className="aspect-[4/5] w-full object-cover" />
       </section>
 
-      <section className="grid gap-12 px-6 py-24 md:grid-cols-2 md:px-10">
+      <section className="grid gap-12 px-6 py-12 md:py-24 md:grid-cols-2 md:px-10">
         <div><p className="font-display text-2xl">What you'll learn</p><h2 className={`${orangeH} text-[50px] md:text-[90px]`}>Agenda</h2><p className="mt-6 text-muted-foreground">Who it's for: {w.audience}</p></div>
         <ul className="md:ml-auto md:w-[500px]">{w.agenda.map((a, i) => <li key={a} className="flex gap-3 border-b border-border py-4 font-display text-xl"><span className="text-xs">0{i + 1}</span>{a}</li>)}</ul>
       </section>
 
-      <section id="register" className="px-6 pb-40 md:px-10">
+      <section id="register" className="px-6 pb-20 md:pb-40 md:px-10">
         <div className="mx-auto max-w-[760px] border-2 border-foreground p-8 md:p-12">
           <h2 className="text-[36px] leading-tight md:text-[56px]">Register for this webinar</h2>
           <p className="mt-2 font-display text-xl text-primary">{price(w.price)}</p>

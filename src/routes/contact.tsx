@@ -26,7 +26,7 @@ function Contact() {
 
       <section className="grid gap-2 px-6 md:grid-cols-4 md:px-10">
         {[["Email", contact.email, `mailto:${contact.email}`], ["Phone", contact.phone, contact.phoneHref], ["Hyderabad", contact.hyderabad, ""], ["Bangalore", contact.bangalore, ""]].map(([t, v, h]) => (
-          <div key={t} className="flex min-h-[200px] flex-col justify-between bg-panel p-6">
+          <div key={t} className="flex min-h-[120px] md:min-h-[200px] flex-col justify-between bg-panel p-6">
             <p className="font-label text-xs uppercase text-primary">{t}</p>
             {h ? <a href={h} className="font-display text-xl hover:text-primary">{v}</a> : <p className="font-display text-xl">{v}</p>}
           </div>
@@ -61,7 +61,7 @@ function Contact() {
         )}
       </section>
 
-      <section className="grid gap-12 px-6 pb-40 md:grid-cols-2 md:px-10">
+      <section className="grid gap-12 px-6 pb-20 md:pb-40 md:grid-cols-2 md:px-10">
         <div><p className="font-display text-2xl">What happens next?</p><h2 className={`${orangeH} text-[50px] md:text-[100px]`}>A Simple Start to Something Great.</h2></div>
         <div className="md:ml-auto md:w-[500px]">
           {[["We Receive Your Enquiry", "Share your requirements through our project enquiry form."], ["We Understand Your Requirements", "Our team reviews your brief and connects with you to understand your objectives."], ["We Discuss the Right Approach", "We identify the scope, possibilities, timelines and suitable solutions for your project."], ["We Move Forward", "Once everything is aligned, we take the next steps towards bringing your project to life."]].map(([t, d], i) => (
@@ -70,7 +70,7 @@ function Contact() {
         </div>
       </section>
 
-      <section className="px-6 pb-40 text-center md:px-10">
+      <section className="px-6 pb-20 md:pb-40 text-center md:px-10">
         <h2 className="mx-auto max-w-[1100px] text-[36px] leading-tight md:text-[60px]">Let's Create Something Worth Remembering.</h2>
         <p className="mt-4">The right digital partner can make all the difference. Let's start with a conversation.</p>
       </section>

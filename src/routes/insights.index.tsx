@@ -32,7 +32,7 @@ function Insights() {
           </div>
         </Link>
       </section>
-      <section className="px-6 py-40 md:px-10">
+      <section className="px-6 py-20 md:py-40 md:px-10">
         <h2 className={`${orangeH} text-right text-[50px] md:text-[110px]`}>Explore Our Latest Thinking.</h2>
         <div className="mt-12 grid gap-2 md:grid-cols-3">
           {rest.map((a) => (
@@ -47,7 +47,7 @@ function Insights() {
           ))}
         </div>
       </section>
-      <section className="px-6 pb-40 text-center md:px-10">
+      <section className="px-6 pb-20 md:pb-40 text-center md:px-10">
         <h2 className="text-[36px] leading-tight md:text-[60px]">Stay Ahead of What's Next.</h2>
         <p className="mx-auto mt-4 max-w-[560px]">Thoughtful insights on technology, design and digital growth, delivered straight to your inbox.</p>
         <form onSubmit={(e) => { e.preventDefault(); const f = e.currentTarget; const em = new FormData(f).get("email"); window.location.href = `mailto:info@my3digital.com?subject=Subscribe to My3 Insights&body=Please subscribe ${em}`; }} className="mx-auto mt-8 flex max-w-[520px] gap-2">

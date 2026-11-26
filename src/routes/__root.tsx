@@ -13,6 +13,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Footer, Header, ScrollFX } from "../components/site/ui";
+import { SmoothScroll } from "../components/site/SmoothScroll";
 
 function NotFoundComponent() {
   return (
@@ -81,7 +82,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     // twitter:image here: every page without its own would inherit the root's preview image.
     meta: [
       { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
+      { name: "theme-color", content: "#000000" },
+      { name: "format-detection", content: "telephone=no" },
       { title: "My3 Digital — Digital Excellence. Engineered for Growth." },
       { name: "description", content: "Premium web development, branding and digital growth agency in Hyderabad & Bangalore." },
       { name: "author", content: "Lovable" },
@@ -138,6 +141,7 @@ function RootComponent() {
       <div className="min-h-screen overflow-x-clip bg-background text-foreground">
         <Header />
         <ScrollFX />
+        <SmoothScroll />
         <Outlet />
         <Footer />
       </div>

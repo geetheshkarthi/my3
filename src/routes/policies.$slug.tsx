@@ -34,7 +34,7 @@ function PolicyPage() {
       <PageHero eyebrow="Legal" title={p.title}>
         <p>Effective Date: {p.effective}</p>
       </PageHero>
-      <section className="px-6 pb-32 md:px-10">
+      <section className="px-6 pb-20 md:pb-32 md:px-10">
         <div className="mx-auto max-w-[820px] space-y-10 text-lg text-muted-foreground">
           <div className="space-y-4">{intro.split(/\n\n+/).map((b: string, i: number) => <Block key={i} text={b} />)}</div>
           {sections.map((sec: string) => {

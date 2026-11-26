@@ -37,7 +37,7 @@ function Webinars() {
           ))}
         </div>
       </section>
-      <section className="px-6 py-40 text-center md:px-10">
+      <section className="px-6 py-20 md:py-40 text-center md:px-10">
         <p className="font-display text-[32px] tracking-[-0.04em] text-primary md:text-[66px]">Why attend</p>
         <div className="mt-16"><StackCards items={[{ title: "Practical, not theoretical", text: "Real examples from projects across industries." }, { title: "Live Q&A", text: "Ask the team questions about your own business." }, { title: "Session resources", text: "Slides and checklists shared after every webinar." }]} /></div>
       </section>

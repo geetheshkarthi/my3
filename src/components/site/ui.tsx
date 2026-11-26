@@ -6,7 +6,7 @@ import { policies } from "@/content/policies";
 const logo = { url: "/logo-mark.png" };
 
 export const orangeH = "font-display font-normal leading-none tracking-[-0.04em] text-primary";
-export const sec = "px-6 py-40 md:px-10";
+export const sec = "px-6 py-20 md:py-40 md:px-10";
 export const tilts = ["-rotate-3", "rotate-0", "rotate-2", "-rotate-2", "rotate-0", "rotate-3", "-rotate-1", "rotate-1"];
 
 // Pill button: the blue dot spreads across the whole pill and the arrow slides to the right on hover / focus / press
@@ -33,7 +33,7 @@ export function BoxButton({ to, href, children }: { to?: LinkProps["to"]; href?:
 /** Tilted outlined cards that stack on top of each other while scrolling. */
 export function StackCards({ items, top = 30 }: { items: { title: string; text?: string }[]; top?: number }) {
   return (
-    <div className="flex flex-col items-center gap-[40vh] pb-[20vh]">
+    <div className="flex flex-col items-center gap-[22vh] md:gap-[40vh] pb-[10vh] md:pb-[20vh]">
       {items.map((it, i) => (
         <div key={it.title} style={{ top: `calc(${top}vh + ${i * 10}px)` }} className={`sticky w-full max-w-[700px] border-2 border-foreground bg-background px-10 py-10 text-center ${tilts[i % tilts.length]}`}>
           <h3 className="text-[36px] font-medium leading-[1] md:text-[64px]">{it.title}</h3>
@@ -71,7 +71,7 @@ export function BlurHeading({ children }: { children: ReactNode }) {
 
 export function PageHero({ title, children }: { eyebrow?: string; title: ReactNode; children?: ReactNode }) {
   return (
-    <section className="px-6 pb-24 pt-44 md:px-10">
+    <section className="px-6 pb-12 md:pb-24 pt-32 md:pt-44 md:px-10">
       <h1 className="max-w-[1300px] text-[12vw] font-normal leading-[0.95] tracking-[-0.04em] md:text-[7vw]">{title}</h1>
       {children && <div className="mt-10 max-w-[760px] space-y-4 text-lg">{children}</div>}
     </section>
@@ -108,7 +108,7 @@ export function Header() {
   return (
     <>
       {/* Over the dark spaceship hero the header stays dark, so the light theme never paints a white band across it */}
-      <header className={`${overHero ? "theme-dark-scope" : ""} fixed inset-x-0 top-0 z-50 flex items-center justify-between bg-gradient-to-b from-background to-transparent px-6 py-5 md:px-10`}>
+      <header className={`${overHero ? "theme-dark-scope" : ""} fixed inset-x-0 top-0 z-50 flex items-center justify-between bg-gradient-to-b from-background to-transparent px-6 pb-5 pt-[max(1.25rem,env(safe-area-inset-top))] md:px-10`}>
         <Link to="/" aria-label="My3 Digital home"><img src={logo.url} alt="My3 Digital" className="h-11 w-auto md:h-14" /></Link>
         <nav className="hidden items-center gap-7 font-display text-[15px] font-medium lg:flex">
           {nav.map((n) => (
@@ -117,10 +117,10 @@ export function Header() {
           <a href={academyUrl} target="_blank" rel="noopener noreferrer" className="rounded-full bg-primary px-5 py-2.5 text-primary-foreground transition-transform duration-300 ease-brand hover:scale-105">Academy</a>
           <ThemeToggle />
         </nav>
-        <button onClick={() => setOpen(true)} aria-label="Open menu" className="flex w-10 flex-col gap-2 lg:hidden"><span className="h-px w-full bg-strong" /><span className="h-px w-full bg-strong" /></button>
+        <button onClick={() => setOpen(true)} aria-label="Open menu" className="-my-3 flex w-11 flex-col gap-2 py-3 lg:hidden"><span className="h-px w-full bg-strong" /><span className="h-px w-full bg-strong" /></button>
       </header>
       {open && (
-        <div className="fixed inset-0 z-[60] flex flex-col bg-background px-6 py-6">
+        <div data-lenis-prevent className="fixed inset-0 z-[60] flex flex-col overflow-y-auto bg-background px-6 py-6">
           <div className="flex items-center justify-between">
             <img src={logo.url} alt="My3 Digital" className="h-10 w-auto" />
             <button onClick={() => setOpen(false)} aria-label="Close menu" className="font-display text-3xl">×</button>
@@ -138,9 +138,9 @@ export function Header() {
 
 export function Footer() {
   return (
-    <footer className="bg-panel pb-6 pt-20">
-      <div className="grid gap-10 px-6 md:grid-cols-5 md:px-10">
-        <div className="md:col-span-2">
+    <footer className="bg-panel pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-20">
+      <div className="grid grid-cols-2 gap-x-6 gap-y-10 px-6 md:grid-cols-5 md:gap-10 md:px-10">
+        <div className="col-span-2">
           <img src="/logo.png" alt="My3 Digital" className="h-12 w-auto" />
           <p className="mt-4 font-display text-2xl tracking-[-0.02em]">Digital Excellence. Engineered for Growth.</p>
           <p className="mt-3 max-w-md text-sm text-muted-foreground">A multidisciplinary digital agency building exceptional websites, distinctive brands and intelligent growth solutions for ambitious businesses.</p>
@@ -153,7 +153,7 @@ export function Footer() {
           <p className="font-label text-xs uppercase text-muted-foreground">Policies</p>
           <ul className="mt-4 space-y-2 font-display text-sm">{policies.map((p) => <li key={p.slug}><Link to="/policies/$slug" params={{ slug: p.slug }} className="hover:text-primary">{p.short}</Link></li>)}</ul>
         </div>
-        <div>
+        <div className="col-span-2 md:col-span-1">
           <p className="font-label text-xs uppercase text-muted-foreground">Get in Touch</p>
           <ul className="mt-4 space-y-2 font-display text-sm">
             <li><a href={`mailto:${contact.email}`} className="hover:text-primary">{contact.email}</a></li>

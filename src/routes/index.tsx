@@ -52,7 +52,7 @@ function Index() {
         </div>
           <div className="absolute inset-x-6 top-0 z-10 flex h-[100svh] min-h-[640px] flex-col justify-end pb-10 md:inset-x-10">
             <p style={{ animationDelay: "0.1s" }} className="hero-rise font-label text-xs uppercase tracking-widest text-primary md:text-sm">{hero.eyebrow}</p>
-            <h1 style={{ animationDelay: "0.25s" }} className="hero-rise mt-4 text-[8vw] font-normal leading-[0.95] tracking-[-0.04em] md:text-[5.5vw]"><span className="whitespace-nowrap">Digital Excellence.</span><br />Engineered for Growth.</h1>
+            <h1 style={{ animationDelay: "0.25s" }} className="hero-rise mt-4 text-[9.4vw] font-normal leading-[0.95] tracking-[-0.04em] md:text-[5.5vw]"><span className="whitespace-nowrap">Digital Excellence.</span><br />Engineered for Growth.</h1>
             <p style={{ animationDelay: "0.45s" }} className="hero-rise mt-6 max-w-[520px] text-lg text-foreground/80">{hero.text}</p>
             <form style={{ animationDelay: "0.65s" }} onSubmit={(e) => e.preventDefault()} className="hero-rise mt-8 flex max-w-[520px] items-center gap-2 rounded-full border border-foreground/25 bg-black/40 p-1.5 backdrop-blur">
               <input type="email" required aria-label="Email address" placeholder="Enter your email" className="min-w-0 flex-1 bg-transparent px-4 text-sm outline-none placeholder:text-foreground/50" />
@@ -67,19 +67,19 @@ function Index() {
         {stats.map(([l, v, s, span]) => (
           <div key={l} className={`bg-panel/60 p-6 backdrop-blur-sm ${span}`}>
             <p className="border-b border-border pb-3 text-sm">{l}</p>
-            <div className="mt-4 font-display text-[80px] font-normal leading-none tracking-[-0.04em] text-strong md:text-[100px]">{v}<span className="text-primary">{s}</span></div>
+            <div className="mt-4 font-display text-[64px] font-normal leading-none tracking-[-0.04em] text-strong md:text-[100px]">{v}<span className="text-primary">{s}</span></div>
           </div>
         ))}
       </section>
 
       {/* Who we are */}
-      <section className="px-6 pt-40 md:px-10">
+      <section className="px-6 pt-20 md:pt-40 md:px-10">
         <h2 className={`${orangeH} text-[50px] md:text-[100px]`}>Who We Are…</h2>
         <p className="max-w-[1360px] text-[24px] leading-tight md:text-[40px]">Beyond Digital Presence. Into Digital Possibility. At My3 Digital, we combine strategy, design, technology and marketing to build digital ecosystems that work for your business.</p>
         <div className="mt-6"><BoxButton to="/about">Discover My3 Digital</BoxButton></div>
       </section>
 
-      <section className="px-6 py-40 text-center md:px-10">
+      <section className="px-6 py-20 md:py-40 text-center md:px-10">
         <h2 className="mx-auto max-w-[1000px] font-sans text-[40px] font-medium leading-[1.05] tracking-[-0.03em] md:text-[80px]">Everything Your Business Needs to Grow Digitally.</h2>
         <p className="mx-auto mt-6 max-w-[640px]">We bring together the disciplines that shape how modern businesses are discovered, experienced and remembered.</p>
       </section>
@@ -88,12 +88,12 @@ function Index() {
       <CapabilityReel />
 
       {/* Work */}
-      <section id="work" className="px-6 pt-[40vh] md:px-10">
+      <section id="work" className="px-6 pt-[25vh] md:pt-[40vh] md:px-10">
         <BlurHeading>Our Work</BlurHeading>
-        <div className="relative z-10 mt-[35vh] flex flex-col gap-32">
+        <div className="relative z-10 mt-[20vh] md:mt-[35vh] flex flex-col gap-16 md:gap-32">
           {websites.slice(0, 6).map((w, i) => <WebsiteCard key={w.title} site={w} className={portPos[i % portPos.length] ?? ""} />)}
         </div>
-        <div className="mt-24 text-center"><Link to="/work" className="inline-flex items-center gap-3 rounded-full bg-panel py-2 pl-2 pr-6 font-mono text-xs uppercase leading-tight ring-1 ring-border"><span className="flex h-9 w-9 items-center justify-center rounded-full bg-muted">+</span>Explore our<br />portfolio</Link></div>
+        <div className="mt-12 md:mt-24 text-center"><Link to="/work" className="inline-flex items-center gap-3 rounded-full bg-panel py-2 pl-2 pr-6 font-mono text-xs uppercase leading-tight ring-1 ring-border"><span className="flex h-9 w-9 items-center justify-center rounded-full bg-muted">+</span>Explore our<br />portfolio</Link></div>
       </section>
 
       {/* Approach: heading pins, cards rise from the bottom and pile up */}
@@ -104,7 +104,7 @@ function Index() {
           <h2 className="mt-6 text-[50px] leading-[0.95] md:text-[120px]">We Think Beyond Deliverables.</h2>
           <p className="mx-auto mt-8 max-w-[720px]">A website is more than a design. A campaign is more than an advertisement. And a brand is more than a logo.</p>
         </div>
-        <div className="relative z-10 mt-[45vh] flex flex-col items-center gap-[45vh] pb-[10vh]">
+        <div className="relative z-10 mt-[30vh] md:mt-[45vh] flex flex-col items-center gap-[30vh] md:gap-[45vh] pb-[10vh]">
           {approach.map(([t, d], i) => (
             <blockquote key={t} style={{ top: `calc(54vh + ${i * 14}px)` }} className={`sticky w-full max-w-[700px] border-2 border-foreground bg-background px-10 py-8 ${tilts[i]}`}>
               <p className="font-display text-[28px] font-medium leading-[1.05] tracking-[-0.04em] md:text-[48px]">“{t}”</p>
@@ -113,7 +113,7 @@ function Index() {
           ))}
         </div>
         </div>
-        <div className="relative z-10 pb-40"><PillButton to="/contact">Start a Conversation</PillButton></div>
+        <div className="relative z-10 pb-20 md:pb-40"><PillButton to="/contact">Start a Conversation</PillButton></div>
       </section>
 
       {/* Industries + gallery */}
@@ -127,7 +127,7 @@ function Index() {
       </section>
 
       {/* Process */}
-      <section className="grid gap-12 px-6 py-40 md:grid-cols-[1fr_33vw] md:px-10">
+      <section className="grid gap-12 px-6 py-20 md:py-40 md:grid-cols-[1fr_33vw] md:px-10">
         <div className="md:sticky md:top-24 md:self-start">
           <p className="font-display text-2xl">How We Work</p>
           <h2 className={`${orangeH} text-[60px] md:text-[120px]`}>A Thoughtful Process.</h2>
@@ -151,11 +151,11 @@ function Index() {
       </section>
 
       {/* Pillars */}
-      <section className="px-6 py-40 md:px-10">
+      <section className="px-6 py-20 md:py-40 md:px-10">
         <h2 className={`${orangeH} mb-16 text-[60px] md:ml-[5%] md:text-[120px]`}>Why My3<br />Digital?</h2>
         <div className="grid gap-2 md:grid-cols-2">
           {pillars.map(([t, s, d]) => (
-            <article key={t} className="flex min-h-[340px] flex-col justify-between bg-panel p-6">
+            <article key={t} className="flex min-h-[120px] md:min-h-[200px] md:min-h-[340px] flex-col justify-between bg-panel p-6">
               <div><h3 className="max-w-[300px] text-[26px] leading-tight tracking-[-0.02em]">{t}</h3><p className="mt-2 font-label text-xs uppercase text-primary">{s}</p></div>
               <p className="ml-auto max-w-[300px] text-sm">{d}</p>
             </article>

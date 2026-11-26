@@ -24,9 +24,9 @@ function About() {
         <p className="mx-auto mt-8 max-w-[720px]">A beautiful website without functionality is incomplete. Marketing without a clear strategy is inefficient. And a brand without a distinct identity struggles to stand apart. That's why we approach every engagement with a broader perspective.</p>
       </section>
 
-      <section className="grid gap-2 px-6 py-40 md:grid-cols-2 md:px-10">
+      <section className="grid gap-2 px-6 py-20 md:py-40 md:grid-cols-2 md:px-10">
         {[["Our Mission", "To empower businesses with exceptional digital experiences, meaningful brand identities and intelligent growth solutions that create lasting value."], ["Our Vision", "To become a trusted global digital partner recognised for creative excellence, technological innovation and the ability to turn ambitious ideas into meaningful outcomes."]].map(([t, d]) => (
-          <article key={t} className="flex min-h-[340px] flex-col justify-between bg-panel p-6">
+          <article key={t} className="flex min-h-[120px] md:min-h-[200px] md:min-h-[340px] flex-col justify-between bg-panel p-6">
             <h3 className="text-[40px] leading-tight tracking-[-0.02em] text-primary">{t}</h3>
             <p className="ml-auto max-w-[420px] text-lg">{d}</p>
           </article>
@@ -39,7 +39,7 @@ function About() {
         <StackCards items={values.map(([t, d]) => ({ title: t, text: d }))} />
       </section>
 
-      <section className="grid gap-12 px-6 pb-40 md:grid-cols-2 md:px-10">
+      <section className="grid gap-12 px-6 pb-20 md:pb-40 md:grid-cols-2 md:px-10">
         <div>
           <p className="font-display text-2xl">Our Expertise</p>
           <h2 className={`${orangeH} text-[50px] md:text-[100px]`}>Different Minds. One Shared Direction.</h2>
@@ -51,7 +51,7 @@ function About() {
         </ul>
       </section>
 
-      <section className="px-6 pb-40 text-center md:px-10">
+      <section className="px-6 pb-20 md:pb-40 text-center md:px-10">
         <h2 className="mx-auto max-w-[1100px] text-[36px] leading-tight md:text-[60px]">We Are Just Getting Started. Let's build what's next.</h2>
         <div className="mt-10"><PillButton to="/contact">Work With Us</PillButton></div>
       </section>

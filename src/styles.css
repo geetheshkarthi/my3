@@ -453,7 +453,7 @@ body:has(.services-motion-page) header .bg-primary {
 
 @media (max-width: 779px) {
   .cap-title { left: 24px; top: 80px; font-size: 10.5vw; }
-  .cap-card { width: 66vw; top: calc(80px + 10.5vw + 28px); }
+  .cap-card { width: 66vw; top: calc(80px + 10.5vw + 9svh); }
   .cap-count { left: 24px; }
   .cap-doodle { display: none; }
 }
@@ -510,3 +510,16 @@ body:has(.services-motion-page) footer .marquee {
 .services-motion-page .pillar-cascade-card:nth-child(2) :is(h3, p, span, svg, div) {
   color: inherit;
 }
+
+/* Lenis smooth scrolling (recommended base rules) */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+/* Phones: 16px form text stops iOS Safari zooming the page on focus; no tap flash; no sideways bounce */
+@media (max-width: 810px) {
+  input, select, textarea { font-size: 16px !important; }
+}
+html { -webkit-tap-highlight-color: transparent; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body { overflow-x: clip; }
