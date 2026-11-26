@@ -218,17 +218,17 @@ export const serviceCatalogCards: ServiceCardItem[] = [
   },
 ];
 
-/** Hero 7-Card Arc (`-12°, -8°, -4°, 0°, +4°, +8°, +12°`) -> Shared-Element Deck -> Right Diagonal */
+/** Hero 7-Card Arc (`-12°, -8°, -4°, 0°, +4°, +8°, +12°`) -> Shared-Element Deck -> Lower-Right Cascade */
 export const heroServiceCards = [
   {
-    id: "hero-web",
-    title: "Corporate Websites",
-    category: "Division 01 · Web",
-    handle: "@webcraft",
-    image: "/insights/premium-websites-that-convert.jpg",
+    id: "hero-3d",
+    title: "3D & Interactive Web",
+    category: "Motion Engineering",
+    handle: "@interactive",
+    image: "/insights/3d-interactive-websites-future-of-web-design.jpg",
     slug: "website-development",
     heroRotate: -12,
-    heroY: 32,
+    heroY: 26,
   },
   {
     id: "hero-uiux",
@@ -238,7 +238,7 @@ export const heroServiceCards = [
     image: "/insights/when-to-redesign-your-website.jpg",
     slug: "website-development",
     heroRotate: -8,
-    heroY: 16,
+    heroY: 14,
   },
   {
     id: "hero-ecom",
@@ -251,11 +251,11 @@ export const heroServiceCards = [
     heroY: 4,
   },
   {
-    id: "hero-3d",
-    title: "3D & Interactive Web",
-    category: "Motion Engineering",
-    handle: "@interactive",
-    image: "/insights/3d-interactive-websites-future-of-web-design.jpg",
+    id: "hero-web",
+    title: "Corporate Websites",
+    category: "Division 01 · Web",
+    handle: "@webcraft",
+    image: "/insights/premium-websites-that-convert.jpg",
     slug: "website-development",
     heroRotate: 0,
     heroY: -6,
@@ -278,7 +278,7 @@ export const heroServiceCards = [
     image: "/insights/meta-ads-vs-google-ads.jpg",
     slug: "performance-marketing",
     heroRotate: 8,
-    heroY: 16,
+    heroY: 14,
   },
   {
     id: "hero-ai",
@@ -288,7 +288,7 @@ export const heroServiceCards = [
     image: "/insights/ai-chatbots-whatsapp-automation-businesses.jpg",
     slug: "technology-automation",
     heroRotate: 12,
-    heroY: 32,
+    heroY: 26,
   },
 ];
 

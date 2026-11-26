@@ -5,9 +5,11 @@ import {
   Bot,
   Check,
   Code2,
+  Eye,
   Globe,
   Layers,
   Palette,
+  PenTool,
   Sparkles,
   Target,
   TrendingUp,
@@ -31,51 +33,77 @@ type StatementStaircaseGridSectionProps = {
 };
 
 type StatementToken =
-  | { type: "word"; text: string }
+  | { type: "word"; text: string; highlight?: boolean }
   | { type: "icon"; label: string; kind: "web" | "brand" | "automation" };
 
+// Compact 3-line sentence matching Motion Study 03 (F0312–F0348)
 const STATEMENT_TOKENS: StatementToken[] = [
   { type: "word", text: "Whether" },
-  { type: "word", text: "you" },
-  { type: "word", text: "need" },
+  { type: "word", text: "you're" },
+  { type: "word", text: "launching" },
   { type: "word", text: "a" },
-  { type: "word", text: "conversion-ready" },
-  { type: "word", text: "website," },
-  { type: "icon", label: "Website Development", kind: "web" },
-  { type: "word", text: "a" },
-  { type: "word", text: "distinctive" },
-  { type: "word", text: "brand" },
-  { type: "word", text: "identity," },
-  { type: "icon", label: "Brand Strategy", kind: "brand" },
+  { type: "word", text: "conversion" },
+  { type: "word", text: "site" },
+  { type: "word", text: "/" },
   { type: "word", text: "or" },
-  { type: "word", text: "intelligent" },
-  { type: "word", text: "growth" },
-  { type: "word", text: "and" },
-  { type: "word", text: "CRM" },
-  { type: "word", text: "automation" },
-  { type: "icon", label: "AI & CRM Automation", kind: "automation" },
-  { type: "word", text: "—" },
+  { type: "word", text: "scaling" },
+  { type: "word", text: "a" },
+  { type: "word", text: "connected", highlight: true },
+  { type: "word", text: "brand" },
+  { type: "icon", label: "Brand & Creative", kind: "brand" },
   { type: "word", text: "My3" },
-  { type: "word", text: "connects" },
+  { type: "word", text: "unites" },
   { type: "word", text: "strategy," },
-  { type: "word", text: "craft," },
-  { type: "word", text: "and" },
+  { type: "icon", label: "Web & Tech", kind: "web" },
+  { type: "word", text: "media" },
+  { type: "icon", label: "CRM Automation", kind: "automation" },
+  { type: "word", text: "&" },
   { type: "word", text: "scale." },
 ];
 
-const VISION_ICONS = [
-  { Icon: Globe, label: "Web Platforms" },
-  { Icon: Palette, label: "Visual Identity" },
-  { Icon: Target, label: "Paid Acquisition" },
-  { Icon: TrendingUp, label: "Search Authority" },
-  { Icon: Bot, label: "AI Chatbots" },
-  { Icon: Workflow, label: "CRM Automation" },
-  { Icon: Layers, label: "Design Systems" },
-  { Icon: BarChart3, label: "Growth Reporting" },
+// Organic 7 circular floating icon discs matching F0456 cluster geometry
+const VISION_CLOUD_ICONS = [
+  { Icon: Globe, label: "Web Platforms", left: "14%", top: "4%" },
+  { Icon: PenTool, label: "Brand Identity", left: "0%", top: "38%" },
+  { Icon: Palette, label: "Design Systems", left: "24%", top: "36%" },
+  { Icon: Target, label: "Paid Acquisition", left: "52%", top: "42%" },
+  { Icon: Workflow, label: "CRM Automation", left: "80%", top: "30%" },
+  { Icon: Layers, label: "Architecture", left: "40%", top: "74%" },
+  { Icon: TrendingUp, label: "Search Growth", left: "72%", top: "76%" },
 ];
 
-const WAVE_TOP = serviceCatalogCards.slice(0, 7);
-const WAVE_BOTTOM = serviceCatalogCards.slice(7, 14);
+const WAVE_TOP = serviceCatalogCards.slice(0, 10);
+const WAVE_BOTTOM = serviceCatalogCards.slice(5, 15);
+
+function MiniSpeechPill({
+  label,
+  tone = "dark",
+  className = "",
+}: {
+  label: string;
+  tone?: "blue" | "dark" | "gold";
+  className?: string;
+}) {
+  const palette =
+    tone === "blue"
+      ? "bg-[#2456A4] text-white"
+      : tone === "gold"
+        ? "bg-[#3B82F6] text-white"
+        : "bg-[#10141D] text-slate-200 border border-white/15";
+  const tail =
+    tone === "blue" ? "bg-[#2456A4]" : tone === "gold" ? "bg-[#3B82F6]" : "bg-[#10141D]";
+  return (
+    <span
+      className={`relative inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold shadow-xl ${palette} ${className}`}
+    >
+      {label}
+      <span
+        aria-hidden="true"
+        className={`absolute -bottom-1 left-1/2 size-2 -translate-x-1/2 rotate-45 ${tail}`}
+      />
+    </span>
+  );
+}
 
 export function StatementStaircaseGridSection({
   reduceMotion,
@@ -97,7 +125,7 @@ export function StatementStaircaseGridSection({
     setHoveredDeliverable(activeDivision.items[0]![0]);
   }, [activeDivision.slug]);
 
-  // GSAP Pinned Stage 2 + Sinusoidal Opposing Waves
+  // GSAP Pinned Stage 2 (F0312->F0456) + Dramatic Parabolic Curved Gallery (F0504->F0540)
   useEffect(() => {
     if (reduceMotion) return;
     ensureGsapRegistered();
@@ -109,11 +137,15 @@ export function StatementStaircaseGridSection({
     const ctx = gsap.context(() => {
       const mm = gsap.matchMedia();
 
-      // 1. Desktop Shared-Element Morph: Statement Word Scrub + Central Stack -> Diagonal Staircase -> Right Folder 3x2 Grid
+      // Desktop Pinned Shared-Element Morph: Statement Stack -> Diagonal Staircase + Summary Overlay -> Stepped Folder 3x2 Grid
       mm.add("(min-width: 900px) and (min-height: 580px)", () => {
         const statementWrap = pinEl.querySelector<HTMLElement>(".st2-statement-wrap");
         const words = gsap.utils.toArray<HTMLElement>(".st2-scrub-word", pinEl);
+        const highlightWords = gsap.utils.toArray<HTMLElement>(".st2-highlight-word", pinEl);
         const inlineIcons = gsap.utils.toArray<HTMLElement>(".st2-inline-icon", pinEl);
+        const dockThree = pinEl.querySelector<HTMLElement>(".st2-bottom-three");
+        const stackPills = gsap.utils.toArray<HTMLElement>(".st2-stack-pill", pinEl);
+        const stairSummaryCard = pinEl.querySelector<HTMLElement>(".st2-stair-summary");
         const stairBadges = gsap.utils.toArray<HTMLElement>(".st2-stair-badge", pinEl);
         const visionWrap = pinEl.querySelector<HTMLElement>(".st2-vision-wrap");
         const visionStagger = gsap.utils.toArray<HTMLElement>(".st2-vision-stagger", pinEl);
@@ -122,34 +154,38 @@ export function StatementStaircaseGridSection({
         const gridSlots = gsap.utils.toArray<HTMLElement>(".st2-grid-slot", pinEl);
         const sharedCards = gsap.utils.toArray<HTMLElement>(".st2-shared-card", pinEl);
 
-        // Initial resting geometry of the 6 cards at center (tight compact stack over central statement)
         const resetCardMetrics = () => {
           const w = pinEl.clientWidth || 1440;
           const h = pinEl.clientHeight || 900;
-          const stackW = Math.min(168, Math.max(128, w * 0.115));
-          const stackH = stackW * 1.18;
+          const stackW = Math.min(182, Math.max(138, w * 0.125));
+          const stackH = stackW * 1.24; // 4:5 portrait matching F0348 & F0396
           sharedCards.forEach((card, i) => {
             const spec = stageTwoSharedCards[i]!;
+            const isFront = i === 5;
             gsap.set(card, {
-              x: (i - 2.5) * 4,
-              y: Math.min(64, h * 0.065) + (i - 2.5) * -2,
+              x: (i - 2.5) * 3,
+              y: -h * 0.015 - i * 4,
               width: stackW,
               height: stackH,
-              rotation: spec.stackRotate,
-              scale: 1 - Math.abs(i - 2.5) * 0.02,
-              opacity: 0.94,
-              zIndex: 30 + (i === 2 || i === 3 ? 6 : 5 - Math.abs(i - 2.5)),
+              rotation: isFront ? -6 : spec.stackRotate * 0.45,
+              scale: isFront ? 1.04 : 0.96 - (5 - i) * 0.015,
+              opacity: 1,
+              zIndex: 25 + i,
             });
           });
         };
 
         resetCardMetrics();
         gsap.set(words, { color: "#4E586B" });
+        gsap.set(highlightWords, { color: "#4E586B" });
         gsap.set(inlineIcons, { scale: 0.72, opacity: 0.35 });
+        if (dockThree) gsap.set(dockThree, { opacity: 0, y: 12, scale: 0.88 });
+        gsap.set(stackPills, { opacity: 0, scale: 0.75 });
+        if (stairSummaryCard) gsap.set(stairSummaryCard, { opacity: 0, scale: 0.88, y: 16 });
         gsap.set(stairBadges, { scale: 0.75, opacity: 0 });
         gsap.set(visionWrap, { opacity: 0, pointerEvents: "none" });
-        gsap.set(visionStagger, { y: 24, opacity: 0 });
-        gsap.set(visionIconNodes, { scale: 0.65, opacity: 0 });
+        gsap.set(visionStagger, { y: 20, opacity: 0 });
+        gsap.set(visionIconNodes, { scale: 0.55, opacity: 0 });
         gsap.set(folderChrome, { opacity: 0 });
 
         const computeSlotTarget = (index: number) => {
@@ -177,86 +213,65 @@ export function StatementStaircaseGridSection({
           },
         });
 
-        // Sub-phase A (0.00 -> 0.32): Word-by-word muted slate -> full white scrub + subtle central deck rotation
-        tl.to(
-          words,
-          {
-            color: "#FFFFFF",
-            stagger: 0.009,
-            duration: 0.06,
-            ease: "none",
-          },
-          0.02
-        )
-          .to(
-            inlineIcons,
-            {
-              scale: 1,
-              opacity: 1,
-              stagger: 0.05,
-              duration: 0.08,
-              ease: "back.out(1.6)",
-            },
-            0.08
-          )
+        // Sub-phase A (0.00 -> 0.32, F0312->F0348): Word contrast scrub + rotating tilted front card + speech bubbles & bottom 3-icon row
+        tl.to(words, { color: "#FFFFFF", stagger: 0.009, duration: 0.06, ease: "none" }, 0.02)
+          .to(highlightWords, { color: "#60A5FA", stagger: 0.01, duration: 0.07, ease: "none" }, 0.09)
+          .to(inlineIcons, { scale: 1, opacity: 1, stagger: 0.04, duration: 0.07, ease: "back.out(1.6)" }, 0.07)
+          .to(stackPills, { opacity: 1, scale: 1, stagger: 0.04, duration: 0.1, ease: "back.out(1.5)" }, 0.06)
+          .to(dockThree ?? [], { opacity: 1, y: 0, scale: 1, duration: 0.12, ease: "power2.out" }, 0.14)
           .to(
             sharedCards,
             {
-              rotation: (i: number) => stageTwoSharedCards[i]!.stackRotate * 1.45,
-              y: (i: number) => 24 + (i - 2.5) * 4,
+              rotation: (i: number) => (i === 5 ? 9 : stageTwoSharedCards[i]!.stackRotate * 1.25),
+              y: (i: number) => -(pinEl.clientHeight || 900) * 0.02 - i * 3,
               duration: 0.28,
               ease: "sine.inOut",
             },
             0.04
           )
 
-          // Sub-phase B (0.32 -> 0.62): Statement lifts out; 6 shared cards unfold into Diagonal Staircase
-          .to(
-            statementWrap,
-            { y: -80, opacity: 0, duration: 0.16, ease: "power2.in" },
-            0.30
-          )
+          // Sub-phase B (0.32 -> 0.62, F0372->F0396): Sentence rises up; deck opens into Portrait Diagonal Staircase + Summary Floating Card
+          .to(statementWrap, { y: -110, opacity: 0, duration: 0.15, ease: "power2.in" }, 0.30)
+          .to(stackPills, { opacity: 0, scale: 0.75, duration: 0.09 }, 0.30)
+          .to(dockThree ?? [], { opacity: 0, y: -36, duration: 0.1 }, 0.31)
           .to(
             sharedCards,
             {
               x: (i: number) => {
                 const w = pinEl.clientWidth || 1440;
-                const span = Math.min(440, w * 0.34);
+                const span = Math.min(450, w * 0.345);
                 return -span + (i / 5) * (span * 2);
               },
               y: (i: number) => {
                 const h = pinEl.clientHeight || 900;
-                const vSpan = Math.min(145, h * 0.165);
+                const vSpan = Math.min(148, h * 0.168);
                 return -vSpan + (i / 5) * (vSpan * 2);
               },
-              width: () => Math.min(206, Math.max(152, (pinEl.clientWidth || 1440) * 0.142)),
-              height: () => Math.min(206, Math.max(152, (pinEl.clientWidth || 1440) * 0.142)) * 1.08,
-              rotation: (i: number) => stageTwoSharedCards[i]!.stairRotate,
+              width: () => Math.min(204, Math.max(150, (pinEl.clientWidth || 1440) * 0.14)),
+              height: () => Math.min(204, Math.max(150, (pinEl.clientWidth || 1440) * 0.14)) * 1.24,
+              rotation: (i: number) => [-3, 1.5, -2.5, 2, -2, 4][i] ?? 0,
               scale: 1,
-              opacity: 1,
               zIndex: (i: number) => 22 + i,
-              duration: 0.26,
+              duration: 0.25,
               ease: "power3.inOut",
             },
             0.33
           )
           .to(
+            stairSummaryCard ?? [],
+            { opacity: 1, scale: 1, y: 0, duration: 0.14, ease: "back.out(1.3)" },
+            0.45
+          )
+          .to(
             stairBadges,
-            { scale: 1, opacity: 1, stagger: 0.04, duration: 0.14, ease: "back.out(1.5)" },
-            0.46
+            { scale: 1, opacity: 1, duration: 0.12, ease: "back.out(1.5)" },
+            0.47
           )
 
-          // Sub-phase C (0.62 -> 1.00): Shared-Element Staircase-to-Grid (3x2 Folder) Transformation
-          .to(
-            stairBadges,
-            { scale: 0.78, opacity: 0, duration: 0.1, ease: "power1.in" },
-            0.60
-          )
-          .to(
-            folderChrome,
-            { opacity: 1, duration: 0.18, ease: "power2.out" },
-            0.65
-          )
+          // Sub-phase C (0.62 -> 1.00, F0420->F0456): Staircase glides into exact 3x2 Folder Grid + Vision & Asymmetric 7-Icon Cloud Left
+          .to(stairSummaryCard ?? [], { opacity: 0, scale: 0.85, duration: 0.09 }, 0.60)
+          .to(stairBadges, { scale: 0.75, opacity: 0, duration: 0.09 }, 0.60)
+          .to(folderChrome, { opacity: 1, duration: 0.18, ease: "power2.out" }, 0.65)
           .to(
             sharedCards,
             {
@@ -273,63 +288,58 @@ export function StatementStaircaseGridSection({
             },
             0.64
           )
-          .to(
-            visionWrap,
-            { opacity: 1, pointerEvents: "auto", duration: 0.05 },
-            0.68
-          )
-          .to(
-            visionStagger,
-            { y: 0, opacity: 1, stagger: 0.05, duration: 0.2, ease: "power3.out" },
-            0.70
-          )
+          .to(visionWrap, { opacity: 1, pointerEvents: "auto", duration: 0.05 }, 0.68)
+          .to(visionStagger, { y: 0, opacity: 1, stagger: 0.05, duration: 0.19, ease: "power3.out" }, 0.70)
           .to(
             visionIconNodes,
-            { scale: 1, opacity: 1, stagger: 0.025, duration: 0.18, ease: "back.out(1.5)" },
+            { scale: 1, opacity: 1, stagger: 0.03, duration: 0.18, ease: "back.out(1.6)" },
             0.78
           );
       });
 
-      // 2. Sinusoidal Counter-Scrolling Curved Wave Gallery (Section 13)
+      // Motion Study 04 Final Showcase (F0504 -> F0540): Opposing Parabolic Curved Image Gallery framing central text
       if (wavesSectionRef.current && waveTopRef.current && waveBottomRef.current) {
         const topCards = gsap.utils.toArray<HTMLElement>(".wave-top-card", waveTopRef.current);
         const bottomCards = gsap.utils.toArray<HTMLElement>(".wave-bottom-card", waveBottomRef.current);
 
-        const applyWaveCurve = (progress: number) => {
-          const amp = 20;
-          topCards.forEach((card, i) => {
-            const phase = i * 0.85 + progress * Math.PI * 1.4;
-            gsap.set(card, {
-              y: Math.sin(phase) * amp,
-              rotation: Math.cos(phase) * 4.5,
-            });
-          });
-          bottomCards.forEach((card, i) => {
-            const phase = i * 0.85 - progress * Math.PI * 1.4 + Math.PI * 0.6;
-            gsap.set(card, {
-              y: Math.sin(phase) * amp,
-              rotation: Math.cos(phase) * -4.5,
-            });
+        const applyParabolicArc = (trackEl: HTMLElement | null, cards: HTMLElement[], invert: boolean) => {
+          if (!trackEl || !wavesSectionRef.current) return;
+          const viewCenter = window.innerWidth / 2;
+          const halfSpan = Math.max(420, window.innerWidth * 0.56);
+          cards.forEach((card) => {
+            const rect = card.getBoundingClientRect();
+            const cardCenter = rect.left + rect.width / 2;
+            const norm = Math.max(-1.2, Math.min(1.2, (cardCenter - viewCenter) / halfSpan));
+            // Parabolic dome on top (center highest = -42px, edges +28px) and inverse bowl on bottom (center lowest = +42px, edges -28px)
+            const parabola = norm * norm;
+            const y = invert ? 42 - parabola * 66 : -42 + parabola * 66;
+            const rot = invert ? norm * -7 : norm * 7;
+            gsap.set(card, { y, rotation: rot });
           });
         };
 
-        applyWaveCurve(0);
+        const updateAllArcs = () => {
+          applyParabolicArc(waveTopRef.current, topCards, false);
+          applyParabolicArc(waveBottomRef.current, bottomCards, true);
+        };
+
+        updateAllArcs();
 
         gsap.to(waveTopRef.current, {
-          xPercent: -12,
+          xPercent: -14,
           ease: "none",
           scrollTrigger: {
             trigger: wavesSectionRef.current,
             start: "top bottom",
             end: "bottom top",
             scrub: 0.55,
-            onUpdate: (self) => applyWaveCurve(self.progress),
+            onUpdate: updateAllArcs,
           },
         });
 
         gsap.fromTo(
           waveBottomRef.current,
-          { xPercent: -12 },
+          { xPercent: -14 },
           {
             xPercent: 0,
             ease: "none",
@@ -367,7 +377,7 @@ export function StatementStaircaseGridSection({
 
   return (
     <>
-      {/* SECTION 10, 11 & 12: UNIFIED PINNED STATEMENT WORD-SCRUB -> DIAGONAL STAIRCASE -> 3x2 FOLDER GRID */}
+      {/* MOTION STUDY 03 & 04: STATEMENT WORD SCRUB -> DIAGONAL STAIRCASE -> STEPPED FOLDER 3x2 GRID */}
       <section
         ref={stageRef}
         data-reel-scene="ecosystem"
@@ -377,204 +387,245 @@ export function StatementStaircaseGridSection({
         <div className="w-full">
           <div
             ref={stagePinRef}
-            className="relative flex w-full items-center justify-center overflow-hidden px-5 py-16 sm:px-8 md:px-14 lg:px-20 min-[900px]:h-screen min-[900px]:pt-[88px] min-[900px]:pb-8"
+            className="relative flex w-full flex-col items-center justify-center overflow-hidden px-5 py-16 sm:px-8 md:px-14 lg:px-20 min-[900px]:h-screen min-[900px]:pt-[88px] min-[900px]:pb-8"
           >
-          {/* Layer A: Centered Muted->White Scroll Statement (Visible in phase 0..0.34, static block on mobile) */}
-          <div className="st2-statement-wrap pointer-events-none relative z-10 mx-auto max-w-4xl text-center min-[900px]:-mt-24">
-            <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-blue-400/20 bg-[#142B4A]/50 px-3.5 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-blue-200">
-              <Sparkles aria-hidden="true" className="size-3 text-blue-400" />
-              Integrated Digital Delivery
-            </span>
-            <p className="text-[clamp(1.6rem,3.3vw,3.1rem)] font-semibold leading-[1.2] tracking-[-0.025em] text-[#4E586B]">
-              {STATEMENT_TOKENS.map((tok, idx) =>
-                tok.type === "word" ? (
-                  <span
-                    key={idx}
-                    className={`st2-scrub-word inline-block mr-[0.24em] ${
-                      reduceMotion ? "text-white" : ""
-                    }`}
-                  >
-                    {tok.text}
-                  </span>
-                ) : (
-                  <span
-                    key={idx}
-                    aria-label={tok.label}
-                    className="st2-inline-icon mr-[0.24em] inline-flex size-8 items-center justify-center rounded-lg border border-blue-400/35 bg-[#142B4A] align-middle text-blue-300 shadow-sm sm:size-10"
-                  >
-                    {tok.kind === "web" && <Code2 aria-hidden="true" className="size-4 sm:size-5" />}
-                    {tok.kind === "brand" && <Palette aria-hidden="true" className="size-4 sm:size-5" />}
-                    {tok.kind === "automation" && <Bot aria-hidden="true" className="size-4 sm:size-5" />}
-                  </span>
-                )
-              )}
-            </p>
-          </div>
-
-          {/* Floating Staircase Labels (Visible during Diagonal Staircase mid-phase) */}
-          <span className="st2-stair-badge pointer-events-none absolute top-[18%] left-[12%] z-30 hidden rounded-full border border-blue-400/30 bg-[#142B4A]/95 px-3 py-1 text-xs font-medium text-blue-100 shadow-lg backdrop-blur-md min-[900px]:inline-flex">
-            @webcraft
-          </span>
-          <span className="st2-stair-badge pointer-events-none absolute top-[38%] left-[44%] z-30 hidden rounded-full border border-white/15 bg-[#10141D]/95 px-3 py-1 text-xs font-medium text-slate-200 shadow-lg backdrop-blur-md min-[900px]:inline-flex">
-            @paidmedia
-          </span>
-          <span className="st2-stair-badge pointer-events-none absolute right-[10%] bottom-[22%] z-30 hidden rounded-full border border-blue-400/30 bg-[#142B4A]/95 px-3 py-1 text-xs font-medium text-blue-100 shadow-lg backdrop-blur-md min-[900px]:inline-flex">
-            @automation
-          </span>
-
-          {/* Layer C Structural Columns (Left Vision + Right Folder Grid Slots) */}
-          <div className="pointer-events-none absolute inset-x-0 top-[88px] bottom-8 z-20 mx-auto hidden max-w-[1440px] items-center justify-between gap-10 px-8 md:px-14 lg:px-20 min-[900px]:flex">
-            {/* Left Column: Vision Copy + Vector Icons */}
-            <div className="st2-vision-wrap w-[41%]">
-              <span className="st2-vision-stagger mb-3 inline-block text-xs font-semibold uppercase tracking-[0.2em] text-blue-400">
-                Our Vision &amp; Architecture
-              </span>
-              <h2 className="st2-vision-stagger max-w-[14ch] text-[clamp(2rem,3.4vw,3.3rem)] font-semibold leading-[1.03] tracking-[-0.02em] text-white">
-                Built as one digital system.
-              </h2>
-              <p className="st2-vision-stagger mt-4 max-w-[40ch] text-sm leading-relaxed text-[#A3ACBC] lg:text-base">
-                Instead of disconnected freelancers and silos, every website, brand identity, paid
-                campaign, and AI workflow reinforces the same business outcome.
+            {/* Layer A: Compact 3-line Muted->Contrast Scrub Sentence + Bottom 3-Icon Cluster (F0312->F0348) */}
+            <div className="st2-statement-wrap pointer-events-none relative z-10 mx-auto max-w-4xl text-center">
+              <p className="text-[clamp(1.65rem,3.3vw,3.15rem)] font-semibold leading-[1.2] tracking-[-0.02em] text-[#4E586B]">
+                {STATEMENT_TOKENS.map((tok, idx) =>
+                  tok.type === "word" ? (
+                    <span
+                      key={idx}
+                      className={`inline-block mr-[0.23em] ${
+                        tok.highlight
+                          ? `st2-highlight-word ${reduceMotion ? "text-blue-400" : ""}`
+                          : `st2-scrub-word ${reduceMotion ? "text-white" : ""}`
+                      }`}
+                    >
+                      {tok.text}
+                    </span>
+                  ) : (
+                    <span
+                      key={idx}
+                      aria-label={tok.label}
+                      className="st2-inline-icon mr-[0.23em] inline-flex size-8 items-center justify-center rounded-lg border border-blue-400/35 bg-[#142B4A] align-middle text-blue-300 shadow-sm sm:size-10"
+                    >
+                      {tok.kind === "web" && <Code2 aria-hidden="true" className="size-4 sm:size-5" />}
+                      {tok.kind === "brand" && <Palette aria-hidden="true" className="size-4 sm:size-5" />}
+                      {tok.kind === "automation" && <Bot aria-hidden="true" className="size-4 sm:size-5" />}
+                    </span>
+                  )
+                )}
               </p>
 
-              {/* Floating Staggered Outline Icons */}
-              <div className="mt-8 grid max-w-[360px] grid-cols-4 gap-3">
-                {VISION_ICONS.map(({ Icon, label }) => (
-                  <div
-                    key={label}
-                    title={label}
-                    className="st2-vision-icon flex h-12 w-12 items-center justify-center rounded-xl border border-blue-400/20 bg-[#10141D]/90 text-blue-300 shadow-sm"
+              {/* Bottom Centered 3 Micro Icons matching F0348 */}
+              <div className="st2-bottom-three mt-8 inline-flex items-center gap-3">
+                {[
+                  { Icon: Code2, key: "web" },
+                  { Icon: Layers, key: "sys" },
+                  { Icon: BarChart3, key: "ads" },
+                ].map(({ Icon, key }) => (
+                  <span
+                    key={key}
+                    className="flex size-9 items-center justify-center rounded-xl border border-white/15 bg-[#10141D] text-blue-300 shadow-md"
                   >
-                    <Icon aria-hidden="true" className="size-5 stroke-[1.7]" />
-                  </div>
+                    <Icon aria-hidden="true" className="size-4" />
+                  </span>
                 ))}
               </div>
             </div>
 
-            {/* Right Column: Stepped Folder Chrome + 3x2 Alignment Target Grid Slots */}
-            <div className="st2-folder-chrome pointer-events-auto relative w-[55%] rounded-2xl border border-blue-400/25 bg-[#10141D]/95 p-5 shadow-[0_32px_90px_-24px_rgba(8,18,40,0.8)]">
-              {/* Folder Top Header with Interactive Tab Selector */}
-              <div className="mb-4 flex items-center justify-between border-b border-white/10 pb-3.5">
-                <div className="flex items-center gap-2">
-                  <button
-                    type="button"
-                    onClick={() => setFolderTab("divisions")}
-                    className={`rounded-full px-3.5 py-1.5 text-xs font-semibold transition ${
-                      folderTab === "divisions"
-                        ? "bg-[#2456A4] text-white"
-                        : "bg-white/5 text-slate-400 hover:text-white"
-                    }`}
-                  >
-                    Core Service Pillars
-                  </button>
+            {/* Central Stack Speech Bubbles matching F0336 / F0348 */}
+            <div className="st2-stack-pill pointer-events-none absolute top-[34%] left-[25%] z-30 hidden min-[900px]:block">
+              <MiniSpeechPill label="@webcraft" tone="dark" />
+            </div>
+            <div className="st2-stack-pill pointer-events-none absolute right-[24%] top-[36%] z-30 hidden min-[900px]:block">
+              <MiniSpeechPill label="@growth" tone="blue" />
+            </div>
+
+            {/* Diagonal Staircase Speech Bubble + Floating Editorial Card matching F0396 */}
+            <div className="st2-stair-badge pointer-events-none absolute top-[28%] left-[57%] z-30 hidden min-[900px]:block">
+              <MiniSpeechPill label="@paidmedia" tone="gold" />
+            </div>
+            <div className="st2-stair-summary pointer-events-none absolute top-[29%] left-[22%] z-40 hidden w-[235px] rounded-2xl border border-blue-300/30 bg-white/95 p-4 text-left text-slate-950 shadow-2xl min-[900px]:block">
+              <div className="flex items-start justify-between gap-2">
+                <h3
+                  style={{ color: "#080B12" }}
+                  className="text-sm font-bold leading-snug text-slate-950"
+                >
+                  Where Strategy Meets Conversion
+                </h3>
+                <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-[#080B12] text-white">
+                  <Sparkles aria-hidden="true" className="size-3" />
+                </span>
+              </div>
+              <p className="mt-2.5 text-[11px] leading-relaxed text-slate-700">
+                5 interconnected divisions spanning websites, brand identity, performance ads &amp; AI.
+              </p>
+            </div>
+
+            {/* Layer C Structural Columns (Vision + 7 Organic Icon Cloud Left & Stepped Folder Grid Right matching F0456) */}
+            <div className="pointer-events-none absolute inset-x-0 top-[88px] bottom-8 z-20 mx-auto hidden max-w-[1440px] items-center justify-between gap-10 px-8 md:px-14 lg:px-20 min-[900px]:flex">
+              {/* Left Column: Micro Icon + Two-Tone Heading + Copy + Organic 7-Icon Cloud */}
+              <div className="st2-vision-wrap w-[42%]">
+                <div className="st2-vision-stagger mb-5 flex size-8 items-center justify-center rounded-full border border-white/15 bg-[#10141D] text-blue-300">
+                  <Eye aria-hidden="true" className="size-4" />
+                </div>
+                <h2 className="st2-vision-stagger max-w-[14ch] text-[clamp(2.1rem,3.6vw,3.5rem)] font-semibold leading-[1.03] tracking-[-0.02em] text-white">
+                  Our vision <span className="block text-[#7F8AA0]">for digital scale.</span>
+                </h2>
+                <p className="st2-vision-stagger mt-3.5 max-w-[38ch] text-xs leading-relaxed text-[#A3ACBC] lg:text-sm">
+                  Every asset, interface, campaign and automation pipeline aligns toward compounding
+                  commercial growth.
+                </p>
+
+                {/* Organic Floating Cloud of 7 Circular Vector Icon Discs matching F0456 */}
+                <div className="relative mt-8 h-[165px] w-full max-w-[330px]">
+                  {VISION_CLOUD_ICONS.map(({ Icon, label, left, top }) => (
+                    <div
+                      key={label}
+                      title={label}
+                      style={{ left, top }}
+                      className="st2-vision-icon absolute flex size-12 items-center justify-center rounded-full border border-white/15 bg-[#10141D]/95 text-slate-200 shadow-[0_12px_28px_-8px_rgba(0,0,0,0.7)]"
+                    >
+                      <Icon aria-hidden="true" className="size-4.5 stroke-[1.65]" />
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Right Column: Stepped Tabbed Folder Container matching F0456 */}
+              <div className="st2-folder-chrome pointer-events-auto relative w-[54%] overflow-hidden rounded-[22px] border border-blue-400/25 bg-[#141B29] shadow-[0_32px_90px_-24px_rgba(8,18,40,0.85)]">
+                {/* Upper Lighter Tab Band + Right Action Pill */}
+                <div className="flex items-center justify-between px-6 pt-4 pb-3">
                   <button
                     type="button"
                     onClick={() => setFolderTab("industries")}
-                    className={`rounded-full px-3.5 py-1.5 text-xs font-semibold transition ${
+                    className={`text-sm font-semibold transition focus-visible:outline-2 focus-visible:outline-blue-400 ${
                       folderTab === "industries"
-                        ? "bg-[#2456A4] text-white"
-                        : "bg-white/5 text-slate-400 hover:text-white"
+                        ? "text-blue-400 underline underline-offset-4"
+                        : "text-slate-300 hover:text-white"
                     }`}
                   >
-                    Industries Served
+                    Industries Served (6)
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => scrollToSectionId("divisions-directory")}
+                    className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-[#080B12]/70 px-3.5 py-1 text-xs font-medium text-white transition hover:border-blue-400/50"
+                  >
+                    + Explore All 37
                   </button>
                 </div>
-                <span className="font-mono text-[11px] uppercase tracking-widest text-[#7F8AA0]">
-                  {folderTab === "divisions" ? "06 Capabilities" : "06 Sectors"}
-                </span>
-              </div>
 
-              {/* 3x2 Target Coordinate Slots (Exact morph destination of the 6 shared cards) */}
-              <div className="relative grid grid-cols-3 grid-rows-2 gap-3.5">
-                {stageTwoSharedCards.map((slotItem, idx) => (
-                  <div
-                    key={slotItem.id}
-                    aria-hidden={folderTab === "divisions"}
-                    className="st2-grid-slot aspect-[4/3.6] w-full rounded-xl border border-white/5 bg-[#080B12]/40"
-                  >
-                    {folderTab === "industries" && (
-                      <button
-                        type="button"
-                        onClick={() => {
-                          onSelectDivision(sectorGridCards[idx]!.slug);
-                          scrollToSectionId("divisions-directory");
-                        }}
-                        className="group relative z-40 h-full w-full overflow-hidden rounded-xl border border-blue-400/25 bg-[#080B12] text-left focus-visible:outline-2 focus-visible:outline-blue-400"
-                      >
-                        <img
-                          src={sectorGridCards[idx]!.image}
-                          alt={sectorGridCards[idx]!.title}
-                          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#080B12]/90 via-[#080B12]/20 to-transparent" />
-                        <div className="absolute inset-x-0 bottom-0 p-2.5">
-                          <span className="block text-[10px] font-medium uppercase tracking-wider text-blue-300">
-                            {sectorGridCards[idx]!.metric}
-                          </span>
-                          <span className="block truncate text-xs font-semibold text-white">
-                            {sectorGridCards[idx]!.title}
-                          </span>
-                        </div>
-                      </button>
-                    )}
+                {/* Stepped Dark Tab Neck Overlapping Folder Body (F0456 cutout style) */}
+                <div className="relative bg-[#080B12] pt-3 pb-4 px-4 rounded-t-[18px] border-t border-white/10">
+                  <div className="mb-3 flex items-center justify-between px-2">
+                    <button
+                      type="button"
+                      onClick={() => setFolderTab("divisions")}
+                      className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold transition focus-visible:outline-2 focus-visible:outline-blue-400 ${
+                        folderTab === "divisions"
+                          ? "bg-[#2456A4] text-white"
+                          : "bg-white/5 text-slate-300 hover:text-white"
+                      }`}
+                    >
+                      Core Service Pillars
+                    </button>
+                    <span className="font-mono text-[11px] uppercase tracking-wider text-[#7F8AA0]">
+                      {folderTab === "divisions" ? "06 Capabilities" : "06 Industries"}
+                    </span>
                   </div>
-                ))}
+
+                  {/* 3x2 Target Coordinate Slots */}
+                  <div className="relative grid grid-cols-3 grid-rows-2 gap-3">
+                    {stageTwoSharedCards.map((slotItem, idx) => (
+                      <div
+                        key={slotItem.id}
+                        aria-hidden={folderTab === "divisions"}
+                        className="st2-grid-slot aspect-[4/3.6] w-full rounded-xl border border-white/5 bg-[#0D1320]"
+                      >
+                        {folderTab === "industries" && (
+                          <button
+                            type="button"
+                            onClick={() => {
+                              onSelectDivision(sectorGridCards[idx]!.slug);
+                              scrollToSectionId("divisions-directory");
+                            }}
+                            className="group relative z-40 h-full w-full overflow-hidden rounded-xl border border-blue-400/25 bg-[#080B12] text-left focus-visible:outline-2 focus-visible:outline-blue-400"
+                          >
+                            <img
+                              src={sectorGridCards[idx]!.image}
+                              alt={sectorGridCards[idx]!.title}
+                              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-[#080B12]/90 via-[#080B12]/20 to-transparent" />
+                            <div className="absolute inset-x-0 bottom-0 p-2.5">
+                              <span className="block text-[10px] font-medium uppercase tracking-wider text-blue-300">
+                                {sectorGridCards[idx]!.metric}
+                              </span>
+                              <span className="block truncate text-xs font-semibold text-white">
+                                {sectorGridCards[idx]!.title}
+                              </span>
+                            </div>
+                          </button>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* The 6 ACTUAL SHARED DOM CARDS (Stack Center -> Diagonal Staircase -> Folder 3x2 Cells) */}
-          <div className="pointer-events-none absolute inset-0 hidden items-center justify-center min-[900px]:flex">
-            {stageTwoSharedCards.map((card) => (
-              <button
-                key={card.id}
-                type="button"
-                onClick={() => {
-                  onSelectDivision(card.slug);
-                  scrollToSectionId("divisions-directory");
-                }}
-                aria-label={`${card.title} (${card.metric})`}
-                className={`st2-shared-card group pointer-events-auto absolute overflow-hidden rounded-xl border border-white/15 bg-[#10141D] text-left shadow-[0_20px_50px_-14px_rgba(0,0,0,0.8)] transition-[border-color,opacity] duration-300 hover:border-blue-400/60 focus-visible:outline-2 focus-visible:outline-blue-400 ${
-                  folderTab === "industries" ? "!pointer-events-none !opacity-0" : ""
-                }`}
-              >
-                <img
-                  src={card.image}
-                  alt={card.title}
-                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#080B12]/90 via-[#080B12]/25 to-transparent" />
-                <div className="pointer-events-none absolute inset-x-0 bottom-0 p-2.5">
-                  <div className="flex items-center justify-between gap-2">
-                    <span className="text-[10px] font-semibold uppercase tracking-wider text-blue-300">
+            {/* THE 6 SHARED DOM CARDS (Center Stack -> Diagonal Staircase -> Exact 3x2 Folder Grid) */}
+            <div className="pointer-events-none absolute inset-0 hidden items-center justify-center min-[900px]:flex">
+              {stageTwoSharedCards.map((card, i) => (
+                <button
+                  key={card.id}
+                  type="button"
+                  onClick={() => {
+                    onSelectDivision(card.slug);
+                    scrollToSectionId("divisions-directory");
+                  }}
+                  aria-label={`${card.title} (${card.metric})`}
+                  className={`st2-shared-card group pointer-events-auto absolute overflow-hidden rounded-xl border ${
+                    i === 5 ? "border-blue-400/50" : "border-white/15"
+                  } bg-[#10141D] text-left shadow-[0_22px_52px_-14px_rgba(0,0,0,0.82)] transition-[border-color,opacity] duration-300 hover:border-blue-400 focus-visible:outline-2 focus-visible:outline-blue-400 ${
+                    folderTab === "industries" ? "!pointer-events-none !opacity-0" : ""
+                  }`}
+                >
+                  <img
+                    src={card.image}
+                    alt={card.title}
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  {/* Vivid top cobalt sheen on Card 5 in stack/staircase, fading cleanly on hover */}
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#080B12]/90 via-[#080B12]/15 to-transparent" />
+                  <div className="pointer-events-none absolute inset-x-0 bottom-0 p-2.5">
+                    <span className="block text-[10px] font-semibold uppercase tracking-wider text-blue-300">
                       {card.handle}
                     </span>
-                    <span className="rounded-full bg-[#142B4A]/90 px-2 py-0.5 text-[10px] font-medium text-blue-100">
-                      {card.metric}
+                    <span className="mt-0.5 block truncate text-xs font-semibold text-white">
+                      {card.title}
                     </span>
                   </div>
-                  <span className="mt-0.5 block truncate text-xs font-semibold text-white">
-                    {card.title}
-                  </span>
-                </div>
-              </button>
-            ))}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
-        </div>
 
-        {/* Mobile / Reduced Motion Clean Fallback for Stage 2 */}
+        {/* Mobile / Reduced Motion Clean Fallback */}
         <div className="mx-auto max-w-6xl px-5 pb-12 sm:px-8 min-[900px]:hidden">
-          <div className="mb-8 rounded-2xl border border-white/10 bg-[#10141D] p-5">
+          <div className="mb-6 rounded-2xl border border-white/10 bg-[#10141D] p-5">
             <span className="text-xs font-semibold uppercase tracking-[0.2em] text-blue-400">
-              Our Vision &amp; Architecture
+              Our Vision
             </span>
             <h2 className="mt-2 text-2xl font-semibold text-white">
-              Built as one digital system.
+              Our vision <span className="text-[#7F8AA0]">for digital scale.</span>
             </h2>
             <p className="mt-2 text-sm text-[#A3ACBC]">
-              Every website, visual identity, performance campaign, and AI automation connects to
-              drive real commercial growth.
+              Every website, brand identity, paid campaign, and AI workflow aligns toward growth.
             </p>
           </div>
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
@@ -586,7 +637,7 @@ export function StatementStaircaseGridSection({
                   onSelectDivision(card.slug);
                   scrollToSectionId("divisions-directory");
                 }}
-                className="relative aspect-[4/3.5] overflow-hidden rounded-xl border border-white/10 bg-[#10141D] text-left"
+                className="relative aspect-[4/3.6] overflow-hidden rounded-xl border border-white/10 bg-[#10141D] text-left"
               >
                 <img src={card.image} alt={card.title} className="h-full w-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#080B12]/90 via-transparent to-transparent" />
@@ -600,7 +651,7 @@ export function StatementStaircaseGridSection({
         </div>
       </section>
 
-      {/* FULL INTERACTIVE 5-DIVISION / 37-DELIVERABLE DIRECTORY */}
+      {/* COMPLETE 5-DIVISION / 37-DELIVERABLE DIRECTORY */}
       <section
         id="divisions-directory"
         data-reel-scene="directory"
@@ -612,7 +663,7 @@ export function StatementStaircaseGridSection({
             <span className="text-xs font-semibold uppercase tracking-[0.2em] text-blue-400">
               Complete Scope · 37 Deliverables
             </span>
-            <h2 className="mt-2 text-[clamp(1.9rem,3.4vw,3.1rem)] font-semibold leading-[1.04] tracking-[-0.03em] text-white">
+            <h2 className="mt-2 text-[clamp(1.9rem,3.4vw,3.1rem)] font-semibold leading-[1.04] tracking-[-0.02em] text-white">
               Explore Every Service Division
             </h2>
           </div>
@@ -645,7 +696,6 @@ export function StatementStaircaseGridSection({
         </div>
 
         <div className="grid gap-8 rounded-2xl border border-white/10 bg-[#10141D]/95 p-6 shadow-2xl md:p-8 lg:grid-cols-12">
-          {/* Deliverable List */}
           <div className="lg:col-span-7">
             <div className="mb-6 flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-4">
               <div>
@@ -700,7 +750,6 @@ export function StatementStaircaseGridSection({
             )}
           </div>
 
-          {/* Visual Deliverable Preview */}
           <div className="flex flex-col justify-between rounded-2xl border border-white/10 bg-[#080B12] p-5 lg:col-span-5">
             <div>
               <div className="relative aspect-[4/3] overflow-hidden rounded-xl border border-white/10">
@@ -740,98 +789,77 @@ export function StatementStaircaseGridSection({
         </div>
       </section>
 
-      {/* SECTION 13: COUNTER-SCROLLING SINUSOIDAL CURVED WAVE GALLERY (Reference 00:20.5–00:23.8) */}
+      {/* MOTION STUDY 04 ENDING (F0504 -> F0540): OPPOSING PARABOLIC CURVED GALLERY BOWL */}
       <section
         ref={wavesSectionRef}
         data-reel-scene="waves"
-        className="relative z-10 overflow-hidden py-20 lg:py-28"
-        aria-label="Capabilities wave showcase and real company benchmarks"
+        className="relative z-10 overflow-hidden py-24 lg:py-32"
+        aria-label="Capabilities curved gallery showcase"
       >
-        {/* Top Sinusoidal Track */}
-        <div ref={waveTopRef} className="mb-10 flex w-max gap-5 will-change-transform px-6">
+        {/* Top Convex Arc Row — Clean Square Visual Cards (F0540) */}
+        <div ref={waveTopRef} className="mb-14 flex w-max gap-5 px-8 will-change-transform">
           {[...WAVE_TOP, ...WAVE_TOP].map((item, idx) => (
             <button
               key={`top-${item.id}-${idx}`}
               type="button"
+              aria-label={`${item.title} — ${item.category}`}
               onClick={() => {
                 onSelectDivision(item.slug);
                 scrollToSectionId("divisions-directory");
               }}
-              className="wave-top-card group relative h-[156px] w-[205px] shrink-0 overflow-hidden rounded-2xl border border-white/12 bg-[#10141D] text-left shadow-xl sm:h-[176px] sm:w-[230px]"
+              className="wave-top-card group relative size-[112px] shrink-0 overflow-hidden rounded-2xl border border-white/15 bg-[#10141D] shadow-xl transition hover:border-blue-400 sm:size-[128px]"
             >
               <img
                 src={item.image}
                 alt={item.title}
-                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-108"
               />
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#080B12]/90 via-[#080B12]/15 to-transparent" />
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 p-3">
-                <span className="block text-[10px] font-medium uppercase tracking-wider text-blue-300">
-                  {item.handle}
-                </span>
-                <span className="block truncate text-xs font-semibold text-white">
-                  {item.title}
-                </span>
-              </div>
             </button>
           ))}
         </div>
 
-        {/* Centered Focal Editorial Area + Real My3 Stats */}
-        <div className="mx-auto my-8 max-w-4xl px-5 text-center sm:px-8">
-          <span className="wave-center-reveal inline-block text-xs font-semibold uppercase tracking-[0.22em] text-blue-400">
-            Proven Track Record
-          </span>
-          <h2 className="wave-center-reveal mx-auto mt-3 max-w-[16ch] text-[clamp(2rem,4vw,3.6rem)] font-semibold leading-[1.03] tracking-[-0.03em] text-white">
-            Built for Ambitious Businesses
+        {/* Centered Focal Copy + Icon inside the Elliptical Opening matching F0540 */}
+        <div className="mx-auto my-6 max-w-2xl px-5 text-center sm:px-8">
+          <div className="wave-center-reveal mx-auto mb-4 flex size-9 items-center justify-center rounded-full border border-white/15 bg-[#10141D] text-blue-300">
+            <Layers aria-hidden="true" className="size-4" />
+          </div>
+          <h2 className="wave-center-reveal mx-auto max-w-[14ch] text-[clamp(2.1rem,4.3vw,3.9rem)] font-semibold leading-[1.03] tracking-[-0.025em] text-white">
+            Built for ambitious businesses
           </h2>
-          <p className="wave-center-reveal mx-auto mt-3 max-w-[50ch] text-sm leading-relaxed text-[#A3ACBC] sm:text-base">
-            From high-converting corporate web platforms to performance acquisition and AI workflows,
-            My3 executes with accountability.
+          <p className="wave-center-reveal mx-auto mt-3 max-w-[44ch] text-xs leading-relaxed text-[#A3ACBC] sm:text-sm">
+            Websites, brand systems, paid acquisition, and intelligent automation united by one team.
           </p>
-
-          <div className="wave-center-reveal mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
+          <div className="wave-center-reveal mt-5 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs font-medium text-blue-200/90">
             {stats.map(([label, num, suffix]) => (
-              <div
-                key={label}
-                className="rounded-2xl border border-white/10 bg-[#10141D]/90 px-4 py-4"
-              >
-                <div className="text-2xl font-semibold tracking-tight text-white sm:text-3xl">
+              <span key={label}>
+                <strong className="font-semibold text-white">
                   {num}
-                  <span className="text-blue-400">{suffix}</span>
-                </div>
-                <div className="mt-1 text-[11px] leading-snug text-[#8C96A9]">{label}</div>
-              </div>
+                  {suffix}
+                </strong>{" "}
+                <span className="text-[#8C96A9]">{label.split(" — ")[0]}</span>
+              </span>
             ))}
           </div>
         </div>
 
-        {/* Bottom Opposing Sinusoidal Track */}
-        <div ref={waveBottomRef} className="mt-10 flex w-max gap-5 will-change-transform px-6">
+        {/* Bottom Concave Arc Row — Clean Square Visual Cards (F0540) */}
+        <div ref={waveBottomRef} className="mt-14 flex w-max gap-5 px-8 will-change-transform">
           {[...WAVE_BOTTOM, ...WAVE_BOTTOM].map((item, idx) => (
             <button
               key={`bot-${item.id}-${idx}`}
               type="button"
+              aria-label={`${item.title} — ${item.category}`}
               onClick={() => {
                 onSelectDivision(item.slug);
                 scrollToSectionId("divisions-directory");
               }}
-              className="wave-bottom-card group relative h-[156px] w-[205px] shrink-0 overflow-hidden rounded-2xl border border-white/12 bg-[#10141D] text-left shadow-xl sm:h-[176px] sm:w-[230px]"
+              className="wave-bottom-card group relative size-[112px] shrink-0 overflow-hidden rounded-2xl border border-white/15 bg-[#10141D] shadow-xl transition hover:border-blue-400 sm:size-[128px]"
             >
               <img
                 src={item.image}
                 alt={item.title}
-                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-108"
               />
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#080B12]/90 via-[#080B12]/15 to-transparent" />
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 p-3">
-                <span className="block text-[10px] font-medium uppercase tracking-wider text-blue-300">
-                  {item.handle}
-                </span>
-                <span className="block truncate text-xs font-semibold text-white">
-                  {item.title}
-                </span>
-              </div>
             </button>
           ))}
         </div>

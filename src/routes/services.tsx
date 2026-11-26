@@ -61,7 +61,7 @@ function ServicesMotionShowcase() {
               const p = self.progress;
               const x = p < 0.5 ? 35 + p * 60 : 65 - (p - 0.5) * 46;
               const y = 18 + p * 60;
-              ambientEl.style.background = `radial-gradient(680px circle at ${x.toFixed(1)}% ${y.toFixed(1)}%, rgba(36, 86, 164, 0.19), transparent 72%)`;
+              ambientEl.style.background = `radial-gradient(680px circle at ${x.toFixed(1)}% ${y.toFixed(1)}%, rgba(36, 86, 164, 0.075), transparent 72%)`;
             },
           })
         : null;
@@ -101,7 +101,7 @@ function ServicesMotionShowcase() {
     <main
       ref={mainRef}
       data-blur-managed="true"
-      className="services-motion-page relative min-h-screen overflow-x-clip bg-[#080B12] font-sans text-[#F3F5F8] selection:bg-[#2456A4]/40 selection:text-white"
+      className="services-motion-page relative min-h-screen overflow-x-clip bg-black font-sans text-slate-100 selection:bg-[#2456A4]/40 selection:text-white"
     >
       {/* Scroll-harmonized deep cobalt/sapphire ambient glow */}
       <div
@@ -109,7 +109,7 @@ function ServicesMotionShowcase() {
         aria-hidden="true"
         className="pointer-events-none fixed inset-0 z-0 transition-opacity duration-700"
         style={{
-          background: "radial-gradient(680px circle at 35% 18%, rgba(36, 86, 164, 0.19), transparent 72%)",
+          background: "radial-gradient(680px circle at 35% 18%, rgba(36, 86, 164, 0.075), transparent 72%)",
         }}
       />
 

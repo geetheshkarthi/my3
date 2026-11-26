@@ -424,36 +424,31 @@ html[data-theme="light"] {
 
 /* Scoped obsidian/deep-blue chrome when Services motion showcase is mounted */
 body:has(.services-motion-page) {
-  background-color: #080B12;
-  color: #F3F5F8;
+  background-color: #000;
+  color: #f1f5f9;
 }
+
 body:has(.services-motion-page) header {
+  --background: #000;
+  --foreground: #f1f5f9;
+  --strong: #f1f5f9;
+  background: rgb(0 0 0 / 91%);
+  border-bottom: 1px solid rgb(255 255 255 / 12%);
   backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  background: rgba(8, 11, 18, 0.88);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
-body:has(.services-motion-page) header a,
-body:has(.services-motion-page) header button {
-  color: #F3F5F8;
+
+body:has(.services-motion-page) header a:not(.bg-primary),
+body:has(.services-motion-page) header button:not(.bg-primary) {
+  color: #f1f5f9;
 }
-body:has(.services-motion-page) header a:hover {
-  color: #60A5FA;
+
+body:has(.services-motion-page) header a:not(.bg-primary):hover {
+  color: #93c5fd;
 }
+
 body:has(.services-motion-page) header .bg-primary {
-  background-color: #2456A4;
-  color: #ffffff;
-}
-body:has(.services-motion-page) header .bg-strong {
-  background-color: #142B4A;
-}
-body:has(.services-motion-page) footer {
-  background-color: #080B12;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  color: #F3F5F8;
-}
-body:has(.services-motion-page) footer .marquee span {
-  color: rgba(255, 255, 255, 0.08);
+  background-color: #2456a4;
+  color: white;
 }
 
 @media (max-width: 779px) {
@@ -470,4 +465,48 @@ body:has(.services-motion-page) footer .marquee span {
 .services-motion-page article[id]:target {
   border-color: #60a5fa;
   box-shadow: 0 0 0 3px rgb(96 165 250 / 20%);
+}
+
+@custom-variant services-pinned {
+  @media (min-width: 900px) and (min-height: 580px) and (prefers-reduced-motion: no-preference) {
+    @slot;
+  }
+}
+
+body:has(.services-motion-page) footer {
+  --panel: #000;
+  --muted-foreground: #cbd5e1;
+  --primary: #93c5fd;
+  color: #f1f5f9;
+  background: #000;
+  padding-top: clamp(2.5rem, 6vw, 5rem);
+}
+
+body:has(.services-motion-page) footer .marquee {
+  display: none;
+}
+
+.services-motion-page {
+  overflow-wrap: anywhere;
+}
+
+.services-motion-page > section {
+  min-width: 0;
+}
+
+.services-motion-page .hero-float-pill { z-index: 40; }
+
+.services-motion-page .pillar-cascade-card :is(.text-blue-200\/90, .text-blue-300, .text-blue-400) {
+  color: #93c5fd;
+}
+
+.services-motion-page .pillar-cascade-card:nth-child(2) {
+  background: #2456a4;
+  border-color: transparent;
+  color: white;
+  box-shadow: 0 20px 38px -24px #2456a4;
+}
+
+.services-motion-page .pillar-cascade-card:nth-child(2) :is(h3, p, span, svg, div) {
+  color: inherit;
 }
