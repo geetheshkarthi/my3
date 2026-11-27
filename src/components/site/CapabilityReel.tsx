@@ -41,6 +41,39 @@ export function CapabilityReel() {
     return () => { window.removeEventListener("scroll", update); window.removeEventListener("resize", update); };
   }, []);
 
+  // One scroll = one capability: while the reel is pinned, each wheel/trackpad gesture glides to exactly the next
+  // (or previous) card. Before the first and after the last card the page scrolls normally.
+  useEffect(() => {
+    type Lenis = { scrollTo: (y: number, o: { duration: number; easing: (t: number) => number; lock?: boolean; force?: boolean }) => void };
+    let busyUntil = 0, lastWheel = 0;
+    const ease = (t: number) => 1 - Math.pow(1 - t, 4);
+    const onWheel = (e: WheelEvent) => {
+      const sec = secRef.current;
+      const now = performance.now();
+      const fresh = now - lastWheel > 160;                         // a new gesture, not the tail of the last one
+      lastWheel = now;
+      if (!sec || Math.abs(e.deltaY) < 2) return;
+      const vh = window.innerHeight;
+      const r = sec.getBoundingClientRect();
+      if (r.top > 1 || r.bottom < vh - 1) return;                 // not pinned: normal scrolling
+      const range = r.height - vh, step = range / (N - 1);
+      const p = Math.min(1, Math.max(0, -r.top / Math.max(1, range)));
+      const at = p * (N - 1), dir = e.deltaY > 0 ? 1 : -1;
+      const idx = Math.round(at);
+      const target = Math.abs(at - idx) > 0.08 ? (dir > 0 ? Math.ceil(at) : Math.floor(at)) : idx + dir;
+      if (target < 0 || target > N - 1) return;                    // past either end: let the page carry on
+      e.preventDefault(); e.stopImmediatePropagation();
+      if (now < busyUntil || (!fresh && now < busyUntil + 600)) return; // one card per gesture
+      busyUntil = now + 950;
+      const top = window.scrollY + r.top + target * step;
+      const lenis = (window as unknown as { __lenis?: Lenis }).__lenis;
+      if (lenis) lenis.scrollTo(top, { duration: 0.9, easing: ease, lock: true, force: true });
+      else window.scrollTo({ top, behavior: "smooth" });
+    };
+    window.addEventListener("wheel", onWheel, { passive: false, capture: true });
+    return () => window.removeEventListener("wheel", onWheel, { capture: true } as EventListenerOptions);
+  }, []);
+
   return (
     <section ref={secRef} id="services" className="cap" aria-labelledby="cap-heading" style={{ height: `${N * 90 + 40}svh` }}>
       <div className="cap-pin">
