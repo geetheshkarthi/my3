@@ -117,7 +117,7 @@ export function Header() {
               </div>
             ))}
           </nav>
-          <SocialLinks className="mt-auto pt-10" />
+          <SocialLinks className="mt-auto w-full justify-between pt-10" />
         </div>
       )}
     </>
