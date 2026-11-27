@@ -622,6 +622,7 @@ body { overflow-x: clip; }
   .wk .panel .thumb, .wk .panel.even .thumb { grid-area: 1 / 1 / 2 / 6; }
   .wk .panel .thumb p, .wk .panel.even .thumb p { top: -26px; }
   .wk .panel .thumb::after, .wk .panel .thumb::before { display: none; }
+  .wk .panel .thumb { box-shadow: none; }
   .wk .wk-wrap p.subhead.final::before, .wk .wk-wrap p.subhead.final::after { width: 20vw; }
 }
 
