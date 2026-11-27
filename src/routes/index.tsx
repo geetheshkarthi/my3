@@ -53,11 +53,6 @@ function Index() {
           <div className="absolute inset-x-6 top-0 z-10 flex h-[100svh] min-h-[640px] flex-col justify-end pb-10 md:inset-x-10">
             <p style={{ animationDelay: "0.1s" }} className="hero-rise font-label text-xs uppercase tracking-widest text-primary md:text-sm">{hero.eyebrow}</p>
             <h1 style={{ animationDelay: "0.25s" }} className="hero-rise mt-4 text-[9.4vw] font-normal leading-[0.95] tracking-[-0.04em] md:text-[5.5vw]"><span className="whitespace-nowrap">Digital Excellence.</span><br />Engineered for Growth.</h1>
-            <p style={{ animationDelay: "0.45s" }} className="hero-rise mt-6 max-w-[520px] text-lg text-foreground/80">{hero.text}</p>
-            <form style={{ animationDelay: "0.65s" }} onSubmit={(e) => e.preventDefault()} className="hero-rise mt-8 flex max-w-[520px] items-center gap-2 rounded-full border border-foreground/25 bg-black/40 p-1.5 backdrop-blur">
-              <input type="email" required aria-label="Email address" placeholder="Enter your email" className="min-w-0 flex-1 bg-transparent px-4 text-sm outline-none placeholder:text-foreground/50" />
-              <Link to="/contact" className="whitespace-nowrap rounded-full bg-primary px-5 py-3 text-sm font-medium text-primary-foreground">Start a project</Link>
-            </form>
           </div>
       </section>
 
