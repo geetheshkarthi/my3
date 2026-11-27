@@ -31,6 +31,7 @@ function Work() {
   const [loaded, setLoaded] = useState(false);
   const [active, setActive] = useState(false);
   const [cursorOn, setCursorOn] = useState(false);
+  const [overSite, setOverSite] = useState(false);
   const [current, setCurrent] = useState<number | null>(null);
 
   // start the entrance animations
@@ -84,13 +85,13 @@ function Work() {
     return () => { window.removeEventListener("keydown", key); document.documentElement.style.overflow = ""; };
   }, [active]);
 
-  const open = (i: number) => { setCurrent(i); setActive(true); };
+  const open = (i: number) => { setCurrent(i); setActive(true); setOverSite(false); };
   const close = () => { setActive(false); setTimeout(() => setCurrent((c) => (document.querySelector(".wk.active") ? c : null)), 2000); };
   const site = current != null ? websites[current] : null;
 
   return (
     <div ref={root} className={`wk ${loaded ? "loaded" : ""} ${active ? "active" : ""}`}>
-      <div className="wk-wrap" onMouseEnter={() => setCursorOn(true)} onMouseLeave={() => setCursorOn(false)}>
+      <div className="wk-wrap" onMouseEnter={() => setCursorOn(true)} onMouseMove={() => setCursorOn(true)} onMouseLeave={() => setCursorOn(false)}>
         <h1><Words text="Our Work" /></h1>
         <p className="subhead">My3 Digital</p>
         {websites.map((w, i) => (
@@ -105,8 +106,9 @@ function Work() {
                 aria-label={`Open ${titleCase(w.title)}`}
                 onClick={() => open(i)}
                 onKeyDown={(e) => { if (e.key === "Enter") open(i); }}
-                onMouseEnter={() => cursor.current?.classList.add("active")}
-                onMouseLeave={() => cursor.current?.classList.remove("active")}
+                onMouseEnter={() => setOverSite(true)}
+                onMouseMove={() => setOverSite(true)}
+                onMouseLeave={() => setOverSite(false)}
               >
                 <img loading="lazy" src={w.poster} alt={`${titleCase(w.title)} website`} />
               </div>
@@ -130,7 +132,7 @@ function Work() {
         </div>
       </div>
 
-      <div ref={cursor} className={`wk-cursor ${cursorOn && !active ? "on" : ""}`}><Circle text="SEE•MORE•" /></div>
+      <div ref={cursor} className={`wk-cursor ${cursorOn && !active ? "on" : ""} ${overSite && !active ? "active" : ""}`}><span className="view">VIEW</span></div>
 
     </div>
   );

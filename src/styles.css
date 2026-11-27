@@ -652,20 +652,15 @@ body { overflow-x: clip; }
 .wk .wk-close strong.circle span.char:nth-of-type(7) { transform: rotate(270deg); }
 .wk .wk-close strong.circle span.char:nth-of-type(8) { transform: rotate(315deg); }
 
-/* ---- trailing cursor ---- */
+/* ---- trailing cursor: small ring on the page, a filled VIEW disc over a website ---- */
 .wk .wk-cursor { position: fixed; z-index: 97; width: 30px; height: 30px; border-radius: 100%; top: 0; left: 0; border: 2px solid var(--wk-o); pointer-events: none;
-  display: flex; justify-content: center; align-items: center; will-change: transform;
-  transition: opacity 0.3s ease-in-out, border-width 0.3s ease-in-out, box-shadow 0.3s ease-in-out; opacity: 0; }
+  display: flex; justify-content: center; align-items: center; will-change: transform; background: transparent;
+  transition: opacity 0.3s ease-in-out, width 0.35s var(--wk-elastic), height 0.35s var(--wk-elastic), background-color 0.25s ease-in-out, border-color 0.25s ease-in-out; opacity: 0; }
 @media (pointer: fine) { .wk .wk-cursor.on { opacity: 1; } }
-.wk .wk-cursor::before, .wk .wk-cursor::after { content: ""; position: absolute; width: 10px; height: 2px; background: var(--wk-bg); top: calc(50% - 1px); left: 14px;
-  transition: 0.3s var(--wk-elastic); transition-delay: 0.3s; transform-origin: right; transform: scaleY(0) rotate(0deg); z-index: 9; }
-.wk .wk-cursor.active strong.circle span.word { animation-play-state: running; }
-.wk .wk-cursor.active::before, .wk .wk-cursor.active::after { transition-delay: 0.6s; }
-.wk .wk-cursor.active::before { transform: scaleY(1) rotate(-45deg); }
-.wk .wk-cursor.active::after { transform: scaleY(1) rotate(45deg); }
-.wk .wk-cursor.active strong { box-shadow: inset 0 0 0 20px var(--wk-o); }
-.wk .wk-cursor.active strong::before { transform: scaleX(1); transition-delay: 0.3s; }
-.wk .wk-cursor.active strong span.char::before { transform: translateY(0); }
+.wk .wk-cursor .view { font: 700 16px/1 "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; letter-spacing: 0.04em;
+  color: var(--primary-foreground); opacity: 0; transform: scale(0.6); transition: opacity 0.2s ease-in-out, transform 0.3s var(--wk-elastic); }
+.wk .wk-cursor.active { width: 110px; height: 110px; background-color: var(--wk-o); border-color: var(--wk-o); }
+.wk .wk-cursor.active .view { opacity: 1; transform: scale(1); transition-delay: 0.08s; }
 
 /* ---- opened project frame ---- */
 .wk .wk-frame { position: fixed; z-index: 98; inset: 0; width: 100vw; height: 100vh; height: 100dvh; background: var(--wk-bg); display: grid; place-items: center;
