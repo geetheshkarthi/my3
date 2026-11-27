@@ -428,29 +428,6 @@ body:has(.services-motion-page) {
   color: #f1f5f9;
 }
 
-body:has(.services-motion-page) header {
-  --background: #000;
-  --foreground: #f1f5f9;
-  --strong: #f1f5f9;
-  background: rgb(0 0 0 / 91%);
-  border-bottom: 1px solid rgb(255 255 255 / 12%);
-  backdrop-filter: blur(16px);
-}
-
-body:has(.services-motion-page) header a:not(.bg-primary),
-body:has(.services-motion-page) header button:not(.bg-primary) {
-  color: #f1f5f9;
-}
-
-body:has(.services-motion-page) header a:not(.bg-primary):hover {
-  color: #93c5fd;
-}
-
-body:has(.services-motion-page) header .bg-primary {
-  background-color: #2456a4;
-  color: white;
-}
-
 @media (max-width: 779px) {
   .cap-title { left: 24px; top: 80px; font-size: 10.5vw; }
   .cap-card { width: 66vw; top: calc(80px + 10.5vw + 9svh); }
