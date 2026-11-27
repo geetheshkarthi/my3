@@ -33,7 +33,7 @@ function Work() {
   const [cursorOn, setCursorOn] = useState(false);
   const [current, setCurrent] = useState<number | null>(null);
 
-  // pull out the preloader
+  // start the entrance animations
   useEffect(() => { const t = requestAnimationFrame(() => setLoaded(true)); return () => cancelAnimationFrame(t); }, []);
 
   // scroll progress: page (title) and each panel (start: top at screen bottom, end: bottom at 25% of the screen)
@@ -133,9 +133,6 @@ function Work() {
 
       <div ref={cursor} className={`wk-cursor ${cursorOn && !active ? "on" : ""}`}><Circle text="SEE•MORE•" /></div>
 
-      <div className="wk-loader" aria-hidden>
-        <div className="wrap"><span className="txt">LOADING</span><span className="dot">.</span><span className="dot">.</span><span className="dot">.</span></div>
-      </div>
     </div>
   );
 }
