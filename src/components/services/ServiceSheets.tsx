@@ -92,21 +92,6 @@ export function ServiceSheets() {
         <div className="svs-shade" />
       </section>
 
-      {/* intro */}
-      <section className="svs-sheet svs-intro" style={{ zIndex: 2 }}>
-        <div className="svs-body">
-          <h2 className="svs-intro-title">More than a website.<br />One partner for all of digital.</h2>
-          <div className="svs-intro-copy">
-            <p>Website development, branding, performance marketing, digital marketing and technology &amp; automation services from My3 Digital. Strategy, design, technology and growth work best when they are planned together, so we bring them together in five divisions.</p>
-            <Link to="/contact" className="svs-cta group">
-              <span className="svs-cta-box">→</span>
-              <span>Discuss your requirements</span>
-            </Link>
-          </div>
-        </div>
-        <div className="svs-shade" />
-      </section>
-
       {/* one sheet per division */}
       <div id="divisions" />
       {colorStackDivisions.map((d, i) => (

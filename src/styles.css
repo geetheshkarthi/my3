@@ -732,19 +732,6 @@ body { overflow-x: clip; }
 }
 @keyframes svs-rise { to { transform: translateY(0); } }
 
-/* intro */
-.svs-intro .svs-body {
-  max-width: 1200px; margin: 0 auto; padding: clamp(120px, 22vh, 220px) 40px 120px;
-  display: grid; grid-template-columns: 1fr 1fr; gap: 40px 80px; align-content: center;
-  min-height: 100vh; min-height: 100svh;
-}
-.svs-intro-title {
-  font-family: var(--font-display); font-weight: 400;
-  font-size: clamp(36px, 4.4vw, 68px); line-height: 1; letter-spacing: -0.04em;
-}
-.svs-intro-copy { grid-column: 2; max-width: 460px; }
-.svs-intro-copy p { color: var(--muted-foreground); font-size: 17px; line-height: 1.7; }
-
 .svs-cta {
   margin-top: 36px; display: inline-flex; align-items: center; gap: 14px;
   font-family: var(--font-label); font-size: 12px; font-weight: 400; text-transform: uppercase;
@@ -819,8 +806,6 @@ body { overflow-x: clip; }
   .svs-sheet { border-radius: 20px 20px 0 0; }
   .svs-sheet:last-of-type { border-radius: 20px; }
   .svs-hero .svs-body { padding: 120px 16px 12vh; }
-  .svs-intro .svs-body { grid-template-columns: 1fr; padding: 110px 20px 90px; gap: 28px; }
-  .svs-intro-copy { grid-column: 1; }
   .svs-sheet[data-div] .svs-body { padding: 100px 20px 90px; }
   .svs-grid { grid-template-columns: 1fr; margin-top: 24px; gap: 26px; }
   .svs-pill { bottom: 14px; }
