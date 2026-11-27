@@ -109,7 +109,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     ],
     scripts: [
       // Apply the saved theme before first paint to avoid a dark -> light flash
-      { children: 'try{if(localStorage.getItem("my3-theme")==="light")document.documentElement.dataset.theme="light"}catch(e){}' },
+      { children: 'try{localStorage.removeItem("my3-theme")}catch(e){}' },
     ],
   }),
   shellComponent: RootShell,
