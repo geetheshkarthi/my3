@@ -57,7 +57,17 @@ function Work() {
     return () => { window.removeEventListener("scroll", on); window.removeEventListener("resize", on); cancelAnimationFrame(raf); };
   }, []);
 
-  // trailing circle cursor (mouse only)
+  // trailing circle cursor (mouse only): replaces the normal arrow everywhere on this page
+  useEffect(() => {
+    if (!window.matchMedia("(pointer: fine)").matches) return;
+    const html = document.documentElement;
+    html.classList.add("wk-nocursor");
+    const show = () => setCursorOn(true);
+    const hide = (e: MouseEvent) => { if (!e.relatedTarget) setCursorOn(false); };
+    window.addEventListener("mousemove", show);
+    document.addEventListener("mouseout", hide);
+    return () => { html.classList.remove("wk-nocursor"); window.removeEventListener("mousemove", show); document.removeEventListener("mouseout", hide); };
+  }, []);
   useEffect(() => {
     if (!window.matchMedia("(pointer: fine)").matches) return;
     const c = cursor.current; if (!c) return;
@@ -87,7 +97,7 @@ function Work() {
 
   return (
     <div ref={root} className={`wk ${loaded ? "loaded" : ""} ${active ? "active" : ""}`}>
-      <div className="wk-wrap" onMouseEnter={() => setCursorOn(true)} onMouseMove={() => setCursorOn(true)} onMouseLeave={() => setCursorOn(false)}>
+      <div className="wk-wrap">
         <h1><Words text="Our Work" /></h1>
         <p className="subhead">My3 Digital</p>
         {websites.map((w, i) => (
@@ -128,7 +138,7 @@ function Work() {
         </div>
       </div>
 
-      <div ref={cursor} className={`wk-cursor ${cursorOn && !active ? "on" : ""} ${overSite && !active ? "active" : ""}`}><span className="view">VIEW</span></div>
+      <div ref={cursor} className={`wk-cursor ${cursorOn ? "on" : ""} ${overSite && !active ? "active" : ""}`}><span className="view">VIEW</span></div>
 
     </div>
   );
