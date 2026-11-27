@@ -33,6 +33,7 @@ export function scrollToSectionId(id: string) {
     lenis.scrollTo(el, { offset: -86, duration: 1.1 });
   } else {
     const top = el.getBoundingClientRect().top + window.scrollY - 86;
-    window.scrollTo({ top, behavior: "smooth" });
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.scrollTo({ top, behavior: reduceMotion ? "instant" : "smooth" });
   }
 }
