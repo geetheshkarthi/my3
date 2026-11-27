@@ -621,7 +621,7 @@ body { overflow-x: clip; }
   .wk .panel h2, .wk .panel.even h2 { grid-area: 2 / 1 / 3 / 6; font-size: 40px; align-self: start; text-align: left; padding: 0; margin-top: 18px; transform: none; }
   .wk .panel .thumb, .wk .panel.even .thumb { grid-area: 1 / 1 / 2 / 6; }
   .wk .panel .thumb p, .wk .panel.even .thumb p { top: -26px; }
-  .wk .panel .thumb::after { display: none; }
+  .wk .panel .thumb::after, .wk .panel .thumb::before { display: none; }
   .wk .wk-wrap p.subhead.final::before, .wk .wk-wrap p.subhead.final::after { width: 20vw; }
 }
 
@@ -655,7 +655,13 @@ body { overflow-x: clip; }
 .wk .wk-video .slides video { transform: translateX(101%); }
 .wk .wk-video .slides.on img { transform: translateX(-101%); }
 .wk .wk-video .slides.on video { transform: translateX(0); }
-.wk .wk-detail .wk-next { display: inline-flex; margin: 20px 0 10px; }
+.wk .wk-media { position: relative; display: flex; align-items: center; justify-content: center; gap: 22px; margin-bottom: 10px; }
+.wk .wk-media .wk-video { flex: 0 1 auto; }
+@media (min-width: 769px) {
+  /* image exactly centred; the arrow sits just outside its right edge */
+  .wk .wk-media .wk-next { position: absolute; top: 50%; transform: translateY(-50%); left: calc(50% + min(50%, 29vh * 16 / 9) + 22px); }
+  .wk .wk-detail-in { width: min(1200px, 100% - 10vw - 140px); }
+}
 .wk .wk-facts { display: grid; grid-template-columns: 3fr 2fr; gap: 10px; margin-top: 10px; }
 .wk .wk-fact { background: color-mix(in oklab, var(--foreground) 5%, var(--background)); border: 1px solid color-mix(in oklab, var(--foreground) 22%, transparent); padding: 30px 30px 34px; border-radius: 3px; }
 .wk .wk-fact h3 { font-family: var(--font-label); font-weight: 500; font-size: 17px; letter-spacing: -0.01em; color: var(--wk-g); padding-bottom: 22px;
@@ -669,6 +675,8 @@ body { overflow-x: clip; }
 @media (max-width: 768px) {
   .wk .wk-detail-in { width: calc(100% - 40px); padding-top: 84px; }
   .wk .wk-facts { grid-template-columns: 1fr; }
+  .wk .wk-media { flex-direction: column; gap: 18px; }
+  .wk .wk-media .wk-video { width: 100%; }
   .wk .wk-fact { padding: 22px 20px 24px; }
   .wk .wk-fact h3 { font-size: 15px; padding-bottom: 16px; margin-bottom: 16px; }
   .wk .wk-fact p { font-size: 15px; }

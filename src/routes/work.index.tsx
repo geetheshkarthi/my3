@@ -144,22 +144,22 @@ function Work() {
                 <span className="px-4 py-3">Visit website</span><span className="flex items-center border-l border-current px-3">↗</span>
               </a>
               </div>
-              <div className="wk-video">
-                <div className={`slides ${showVideo ? "on" : ""}`}>
-                  <img src={site.image} alt={`${titleCase(site.title)} website`} />
-                  <video ref={detailVideo} src={site.video} muted loop playsInline preload="metadata" aria-hidden={!showVideo} />
+              <div className="wk-media">
+                <div className="wk-video">
+                  <div className={`slides ${showVideo ? "on" : ""}`}>
+                    <img src={site.image} alt={`${titleCase(site.title)} website`} />
+                    <video ref={detailVideo} src={site.video} muted loop playsInline preload="metadata" aria-hidden={!showVideo} />
+                  </div>
                 </div>
+                <button
+                  type="button"
+                  className="wk-next flex h-12 w-12 shrink-0 items-center justify-center border border-foreground bg-background text-lg text-foreground transition-colors duration-300 ease-brand hover:bg-foreground hover:text-background"
+                  onClick={() => setShowVideo((v) => !v)}
+                  aria-label={showVideo ? "Show the website image" : "Play the website video"}
+                >
+                  {showVideo ? "←" : "→"}
+                </button>
               </div>
-              <button
-                type="button"
-                className="wk-next mt-5 inline-flex items-stretch border border-foreground bg-background font-label text-xs uppercase text-foreground transition-colors duration-300 ease-brand hover:bg-foreground hover:text-background"
-                onClick={() => setShowVideo((v) => !v)}
-                aria-label={showVideo ? "Show the website image" : "Play the website video"}
-              >
-                {showVideo
-                  ? <><span className="flex items-center border-r border-current px-3">←</span><span className="px-4 py-3">Image</span></>
-                  : <><span className="px-4 py-3">Video</span><span className="flex items-center border-l border-current px-3">→</span></>}
-              </button>
               <div className="wk-facts">
                 {([["Project Overview", site.overview], ["Design Approach", site.design], ["Technologies Used", site.tech], ["Project Outcome", site.outcome]] as const).map(([label, text]) => (
                   <div key={label} className="wk-fact">
