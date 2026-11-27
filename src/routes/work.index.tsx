@@ -28,15 +28,13 @@ function Work() {
   const [active, setActive] = useState(false);
   const [cursorOn, setCursorOn] = useState(false);
   const [overSite, setOverSite] = useState(false);
-  // which website's section is showing its video instead of its image
-  const [playing, setPlaying] = useState<number | null>(null);
-  const vids = useRef<(HTMLVideoElement | null)[]>([]);
+  // the open project shows its image first; the arrow button slides to its video
+  const [showVideo, setShowVideo] = useState(false);
+  const detailVideo = useRef<HTMLVideoElement>(null);
   useEffect(() => {
-    vids.current.forEach((v, i) => {
-      if (!v) return;
-      if (i === playing) { v.currentTime = 0; v.play().catch(() => {}); } else v.pause();
-    });
-  }, [playing]);
+    const v = detailVideo.current; if (!v) return;
+    if (showVideo) { v.currentTime = 0; v.play().catch(() => {}); } else v.pause();
+  }, [showVideo]);
   const [current, setCurrent] = useState<number | null>(null);
 
   // start the entrance animations
@@ -100,7 +98,7 @@ function Work() {
     return () => { window.removeEventListener("keydown", key); document.documentElement.style.overflow = ""; };
   }, [active]);
 
-  const open = (i: number) => { setCurrent(i); setActive(true); setOverSite(false); };
+  const open = (i: number) => { setCurrent(i); setShowVideo(false); setActive(true); setOverSite(false); };
   const close = () => { setActive(false); setTimeout(() => setCurrent((c) => (document.querySelector(".wk.active") ? c : null)), 2000); };
   const site = current != null ? websites[current] : null;
 
@@ -125,22 +123,10 @@ function Work() {
                 onMouseMove={() => setOverSite(true)}
                 onMouseLeave={() => setOverSite(false)}
               >
-                <div className={`slides ${playing === i ? "on" : ""}`}>
+                <div className="slides">
                   <img loading="lazy" src={w.image} alt={`${titleCase(w.title)} website`} />
-                  <video ref={(el) => { vids.current[i] = el; }} src={w.video} muted loop playsInline preload="none" aria-hidden={playing !== i} />
                 </div>
               </div>
-              <button
-                type="button"
-                className="wk-next inline-flex items-stretch border border-foreground bg-background font-label text-xs uppercase text-foreground transition-colors duration-300 ease-brand hover:bg-foreground hover:text-background"
-                onClick={() => setPlaying((p) => (p === i ? null : i))}
-                aria-label={playing === i ? `Show ${titleCase(w.title)} image` : `Play ${titleCase(w.title)} video`}
-                onMouseEnter={() => setOverSite(false)}
-              >
-                {playing === i
-                  ? <><span className="flex items-center border-r border-current px-3">←</span><span className="px-4 py-3">Image</span></>
-                  : <><span className="px-4 py-3">Video</span><span className="flex items-center border-l border-current px-3">→</span></>}
-              </button>
             </div>
           </div>
         ))}
@@ -158,7 +144,22 @@ function Work() {
                 <span className="px-4 py-3">Visit website</span><span className="flex items-center border-l border-current px-3">↗</span>
               </a>
               </div>
-              <div className="wk-video"><video src={site.video} poster={site.poster} autoPlay muted loop playsInline /></div>
+              <div className="wk-video">
+                <div className={`slides ${showVideo ? "on" : ""}`}>
+                  <img src={site.image} alt={`${titleCase(site.title)} website`} />
+                  <video ref={detailVideo} src={site.video} muted loop playsInline preload="metadata" aria-hidden={!showVideo} />
+                </div>
+              </div>
+              <button
+                type="button"
+                className="wk-next mt-5 inline-flex items-stretch border border-foreground bg-background font-label text-xs uppercase text-foreground transition-colors duration-300 ease-brand hover:bg-foreground hover:text-background"
+                onClick={() => setShowVideo((v) => !v)}
+                aria-label={showVideo ? "Show the website image" : "Play the website video"}
+              >
+                {showVideo
+                  ? <><span className="flex items-center border-r border-current px-3">←</span><span className="px-4 py-3">Image</span></>
+                  : <><span className="px-4 py-3">Video</span><span className="flex items-center border-l border-current px-3">→</span></>}
+              </button>
               <div className="wk-facts">
                 {([["Project Overview", site.overview], ["Design Approach", site.design], ["Technologies Used", site.tech], ["Project Outcome", site.outcome]] as const).map(([label, text]) => (
                   <div key={label} className="wk-fact">
