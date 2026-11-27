@@ -129,12 +129,12 @@ function Work() {
         <div className="wk-detail" data-lenis-prevent>
           {site && (
             <div className="wk-detail-in" key={site.slug}>
-              <div className="flex justify-end">
-              <a href={site.url} target="_blank" rel="noopener noreferrer" className="wk-visit inline-flex items-stretch border border-foreground font-label text-xs uppercase text-foreground transition-colors duration-300 ease-brand hover:bg-foreground hover:text-background">
+              <div className="wk-detail-head">
+                <h2 className="wk-detail-title">{site.title}</h2>
+                <a href={site.url} target="_blank" rel="noopener noreferrer" className="wk-visit inline-flex items-stretch border border-foreground font-label text-xs uppercase text-foreground transition-colors duration-300 ease-brand hover:bg-foreground hover:text-background">
                 <span className="px-4 py-3">Visit website</span><span className="flex items-center border-l border-current px-3">↗</span>
               </a>
               </div>
-              <h2 className="wk-detail-title">{site.title}</h2>
               <div className="wk-video"><video src={site.video} poster={site.poster} autoPlay muted loop playsInline /></div>
               <div className="wk-facts">
                 {([["Project Overview", site.overview], ["Design Approach", site.design], ["Technologies Used", site.tech], ["Project Outcome", site.outcome]] as const).map(([label, text]) => (
