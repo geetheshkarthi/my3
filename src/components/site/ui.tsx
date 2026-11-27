@@ -114,7 +114,7 @@ export function Header() {
           {nav.map((n) => (
             <Link key={n.to} to={n.to} activeOptions={{ exact: n.to === "/" }} activeProps={{ className: "text-primary" }} className="transition-colors duration-300 ease-brand hover:text-primary">{n.label}</Link>
           ))}
-          <a href={academyUrl} target="_blank" rel="noopener noreferrer" className="rounded-full bg-primary px-5 py-2.5 text-primary-foreground transition-transform duration-300 ease-brand hover:scale-105">Academy</a>
+          <a href={academyUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-stretch border border-foreground font-label text-xs uppercase transition-colors duration-300 ease-brand hover:border-[#d2042d] hover:bg-[#d2042d] hover:text-white"><span className="px-4 py-3">Academy</span><span className="flex items-center border-l border-current px-3">→</span></a>
           <ThemeToggle />
         </nav>
         <button onClick={() => setOpen(true)} aria-label="Open menu" className="-my-3 flex w-11 flex-col gap-2 py-3 lg:hidden"><span className="h-px w-full bg-strong" /><span className="h-px w-full bg-strong" /></button>

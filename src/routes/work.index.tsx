@@ -20,10 +20,6 @@ function Words({ text }: { text: string }) {
   const parts = text.split(" ");
   return <>{parts.map((w, i) => <span key={i}><span className="word" data-word={w}>{w}</span>{i < parts.length - 1 ? " " : ""}</span>)}</>;
 }
-/** Text split into characters set around a circle (the cursor / back button labels). */
-function Circle({ text }: { text: string }) {
-  return <strong className="circle"><span className="word">{[...text].map((c, i) => <span key={i} className="char" data-char={c}>{c}</span>)}</span></strong>;
-}
 
 function Work() {
   const root = useRef<HTMLDivElement>(null);
@@ -119,7 +115,7 @@ function Work() {
 
       {/* the opened project slides in from the right */}
       <div className="wk-frame" data-lenis-prevent aria-hidden={!active}>
-        <button type="button" className="wk-close" onClick={close} aria-label="Go back"><div /><Circle text="GO•BACK•" /></button>
+        <button type="button" className="wk-back inline-flex items-stretch border border-foreground bg-background font-label text-xs uppercase text-foreground transition-colors duration-300 ease-brand hover:border-primary hover:bg-primary hover:text-primary-foreground" onClick={close}><span className="flex items-center border-r border-current px-3">←</span><span className="px-4 py-3">Go back</span></button>
         <div className="frame-wrap">
           <div className="frame-container">
             {site && <video key={site.video} src={site.video} poster={site.poster} autoPlay muted loop playsInline />}
