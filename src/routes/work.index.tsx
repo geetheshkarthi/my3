@@ -28,6 +28,15 @@ function Work() {
   const [active, setActive] = useState(false);
   const [cursorOn, setCursorOn] = useState(false);
   const [overSite, setOverSite] = useState(false);
+  // which website's section is showing its video instead of its image
+  const [playing, setPlaying] = useState<number | null>(null);
+  const vids = useRef<(HTMLVideoElement | null)[]>([]);
+  useEffect(() => {
+    vids.current.forEach((v, i) => {
+      if (!v) return;
+      if (i === playing) { v.currentTime = 0; v.play().catch(() => {}); } else v.pause();
+    });
+  }, [playing]);
   const [current, setCurrent] = useState<number | null>(null);
 
   // start the entrance animations
@@ -116,8 +125,22 @@ function Work() {
                 onMouseMove={() => setOverSite(true)}
                 onMouseLeave={() => setOverSite(false)}
               >
-                <img loading="lazy" src={w.poster} alt={`${titleCase(w.title)} website`} />
+                <div className={`slides ${playing === i ? "on" : ""}`}>
+                  <img loading="lazy" src={w.image} alt={`${titleCase(w.title)} website`} />
+                  <video ref={(el) => { vids.current[i] = el; }} src={w.video} muted loop playsInline preload="none" aria-hidden={playing !== i} />
+                </div>
               </div>
+              <button
+                type="button"
+                className="wk-next inline-flex items-stretch border border-foreground bg-background font-label text-xs uppercase text-foreground transition-colors duration-300 ease-brand hover:bg-foreground hover:text-background"
+                onClick={() => setPlaying((p) => (p === i ? null : i))}
+                aria-label={playing === i ? `Show ${titleCase(w.title)} image` : `Play ${titleCase(w.title)} video`}
+                onMouseEnter={() => setOverSite(false)}
+              >
+                {playing === i
+                  ? <><span className="flex items-center border-r border-current px-3">←</span><span className="px-4 py-3">Image</span></>
+                  : <><span className="px-4 py-3">Video</span><span className="flex items-center border-l border-current px-3">→</span></>}
+              </button>
             </div>
           </div>
         ))}
