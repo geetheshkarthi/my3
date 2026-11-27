@@ -134,7 +134,7 @@ function Work() {
       <div ref={cursor} className={`wk-cursor ${cursorOn && !active ? "on" : ""}`}><Circle text="SEE•MORE•" /></div>
 
       <div className="wk-loader" aria-hidden>
-        <div className="wrap">{[..."LOADING•••"].map((c, i) => <span key={i}>{c}</span>)}</div>
+        <div className="wrap"><span className="txt">LOADING</span><span className="dot">.</span><span className="dot">.</span><span className="dot">.</span></div>
       </div>
     </div>
   );
