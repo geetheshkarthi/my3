@@ -698,3 +698,11 @@ body { overflow-x: clip; }
 
 @media (max-width: 768px) { .wk .wk-back { left: 20px; top: 20px; } }
 @media (prefers-reduced-motion: reduce) { .wk .wk-detail-in { transition: none; } }
+
+/* mobile menu: a line draws under each item, then the word rises up out of it */
+.menu-row::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: color-mix(in oklab, var(--foreground) 25%, transparent);
+  transform: scaleX(0); transform-origin: left; animation: menu-line 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards; animation-delay: calc(var(--i) * 70ms); }
+.menu-word { transform: translateY(110%); animation: menu-rise 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards; animation-delay: calc(var(--i) * 70ms + 150ms); }
+@keyframes menu-line { to { transform: scaleX(1); } }
+@keyframes menu-rise { to { transform: translateY(0); } }
+@media (prefers-reduced-motion: reduce) { .menu-row::after, .menu-word { animation: none; transform: none; } }

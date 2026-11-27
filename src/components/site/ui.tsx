@@ -1,5 +1,5 @@
 import { Link, useRouterState, type LinkProps } from "@tanstack/react-router";
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { academyUrl, contact, nav } from "@/content/site";
 import { policies } from "@/content/policies";
 
@@ -107,9 +107,15 @@ export function Header() {
             <img src={logo.url} alt="My3 Digital" className="h-10 w-auto" />
             <button onClick={() => setOpen(false)} aria-label="Close menu" className="font-display text-3xl">×</button>
           </div>
-          <nav className="mt-16 flex flex-col gap-5">
-            {nav.map((n) => <Link key={n.to} to={n.to} onClick={() => setOpen(false)} className="font-display text-5xl tracking-[-0.04em] hover:text-primary">{n.label}</Link>)}
-            <a href={academyUrl} target="_blank" rel="noopener noreferrer" onClick={() => setOpen(false)} className="font-display text-5xl tracking-[-0.04em] text-primary">Academy ↗</a>
+          <nav className="mt-14 flex flex-col">
+            {/* each word rises up out of the line beneath it, one after another */}
+            {[...nav.map((n) => ({ key: n.to, label: n.label, to: n.to })), { key: "academy", label: "Academy ↗", to: null }].map((n, i) => (
+              <div key={n.key} className="menu-row relative overflow-hidden py-2" style={{ "--i": i } as CSSProperties}>
+                {n.to
+                  ? <Link to={n.to} onClick={() => setOpen(false)} className="menu-word block font-display text-5xl leading-[1.1] tracking-[-0.04em] hover:text-primary">{n.label}</Link>
+                  : <a href={academyUrl} target="_blank" rel="noopener noreferrer" onClick={() => setOpen(false)} className="menu-word block font-display text-5xl leading-[1.1] tracking-[-0.04em] text-primary">{n.label}</a>}
+              </div>
+            ))}
           </nav>
         </div>
       )}
