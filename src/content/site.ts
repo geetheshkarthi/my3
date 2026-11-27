@@ -219,3 +219,11 @@ export const industryImages = [1, 2, 3, 4, 5, 6, 7, 8].map((n) => `/industries/i
 /** Website showcase (same videos and details as the Our Work page; the details live in websites.json). */
 export type Website = { slug: string; title: string; category: string; url: string; about: string; brief: string; did: string[]; overview: string; design: string; tech: string; outcome: string; video: string; poster: string; image: string };
 export const websites: Website[] = websiteDetails.map((d, i) => ({ ...d, video: `/work-showcase/Portfolio_videos/p${i + 1}.webm`, poster: `/work-showcase/Portfolio_videos/p${i + 1}.webp`, image: `/work-images/${d.slug}.avif` }));
+
+/** Social profiles shown in the footer and the phone menu. Paste each profile link into `href`. */
+export const socials: { label: "LinkedIn" | "X" | "Instagram" | "Facebook"; href: string }[] = [
+  { label: "LinkedIn", href: "" },
+  { label: "X", href: "" },
+  { label: "Instagram", href: "" },
+  { label: "Facebook", href: "" },
+];

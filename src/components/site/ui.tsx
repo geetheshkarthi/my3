@@ -1,6 +1,6 @@
 import { Link, useRouterState, type LinkProps } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
-import { academyUrl, contact, nav } from "@/content/site";
+import { academyUrl, contact, nav, socials } from "@/content/site";
 import { policies } from "@/content/policies";
 
 const logo = { url: "/logo-mark.png" };
@@ -117,9 +117,37 @@ export function Header() {
               </div>
             ))}
           </nav>
+          <SocialLinks className="mt-auto pt-10" />
         </div>
       )}
     </>
+  );
+}
+
+const socialIcons: Record<(typeof socials)[number]["label"], ReactNode> = {
+  LinkedIn: <path fill="currentColor" d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45Z" />,
+  X: <path fill="currentColor" d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.4l-5.8-7.59-6.64 7.59H.47l8.6-9.83L0 1.15h7.59l5.24 6.93 6.07-6.93Zm-1.29 19.5h2.04L6.49 3.24H4.3l13.31 17.41Z" />,
+  Instagram: <g fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" /></g>,
+  Facebook: <path fill="currentColor" d="M13.5 22v-8.2h2.8l.42-3.2H13.5V8.56c0-.93.26-1.56 1.6-1.56h1.7V4.14a22.8 22.8 0 0 0-2.48-.13c-2.46 0-4.14 1.5-4.14 4.25v2.35H7.4v3.2h2.78V22h3.32Z" />,
+};
+
+/** Square outlined social buttons, in the same style as the "Discover My3 Digital" button. */
+export function SocialLinks({ className = "" }: { className?: string }) {
+  return (
+    <div className={`flex gap-3 ${className}`}>
+      {socials.map((s) => (
+        <a
+          key={s.label}
+          href={s.href || "#"}
+          {...(s.href ? { target: "_blank", rel: "noopener noreferrer" } : { onClick: (e: React.MouseEvent) => e.preventDefault() })}
+          aria-label={s.label}
+          title={s.label}
+          className="flex h-11 w-11 items-center justify-center border border-foreground text-foreground transition-colors duration-300 ease-brand hover:bg-foreground hover:text-background"
+        >
+          <svg viewBox="0 0 24 24" className="h-[18px] w-[18px]" aria-hidden>{socialIcons[s.label]}</svg>
+        </a>
+      ))}
+    </div>
   );
 }
 
@@ -131,6 +159,7 @@ export function Footer() {
           <img src="/logo.png" alt="My3 Digital" className="h-12 w-auto" />
           <p className="mt-4 font-display text-2xl tracking-[-0.02em]">Digital Excellence. Engineered for Growth.</p>
           <p className="mt-3 max-w-md text-sm text-muted-foreground">A multidisciplinary digital agency building exceptional websites, distinctive brands and intelligent growth solutions for ambitious businesses.</p>
+          <SocialLinks className="mt-6" />
         </div>
         <div>
           <p className="font-label text-xs uppercase text-muted-foreground">Explore</p>
