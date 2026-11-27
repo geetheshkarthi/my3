@@ -11,7 +11,6 @@ export function SmoothScroll() {
     if (window.matchMedia("(pointer: coarse)").matches) return;
     let raf = 0;
     let lenis: { raf: (t: number) => void; destroy: () => void } | null = null;
-    const w = window as unknown as { __lenis?: unknown };
     let disposed = false;
 
     (async () => {
@@ -23,12 +22,11 @@ export function SmoothScroll() {
         smoothWheel: true,
         wheelMultiplier: 0.9,
       });
-      w.__lenis = lenis; // lets sections (e.g. the capabilities reel) glide to an exact position
       const loop = (time: number) => { lenis?.raf(time); raf = requestAnimationFrame(loop); };
       raf = requestAnimationFrame(loop);
     })();
 
-    return () => { disposed = true; cancelAnimationFrame(raf); lenis?.destroy(); delete w.__lenis; };
+    return () => { disposed = true; cancelAnimationFrame(raf); lenis?.destroy(); };
   }, []);
 
   return null;
