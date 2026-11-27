@@ -6,7 +6,6 @@
   <title>MY3 DIGITAL — High-Performance Websites &amp; Digital Experiences</title>
   <meta name="description" content="MY3 DIGITAL website portfolio. High-performance website architecture, bespoke web design, and interactive digital experiences for ambitious brands.">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&display=swap">
   <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600&f[]=satoshi@400,500,700&display=swap">
 
   <!-- Self-hosted Google Fonts -->
@@ -968,19 +967,6 @@
     .enlarge-visit { display: inline-block; margin: 10px 0 6px; padding: 12px 22px; border-radius: 999px; background: #3cc0ea; color: #04131a; font: 600 14px/1 var(--font-sans); text-decoration: none; transition: transform 0.25s; }
     .enlarge-visit:hover { transform: scale(1.05); }
     .enlarge-visit[hidden] { display: none; }
-    /* Opening title: one big condensed PORTFOLIO across the screen */
-    #view-work #ribbon-l1 {
-      top: 50%;
-      font-family: 'Anton', 'Clash Display', sans-serif;
-      font-weight: 400;
-      font-size: 25vw;
-      line-height: 0.86;
-      letter-spacing: -0.005em;
-      color: #ecebe0;
-      text-transform: uppercase;
-    }
-    #view-work #ribbon-l1 span { margin: 0; }
-    #ribbon-l2, #ribbon-cap { display: none !important; }
   </style>
 
   <!-- Import maps polyfill & Three.js import map -->
@@ -1078,7 +1064,7 @@
   <!-- VIEW 3: WORK / RIBBON (Craft in Motion from kotha_my3_website) -->
   <section id="view-work" class="view">
     <h1 aria-label="Featured Websites">
-      <div class="hl" id="ribbon-l1" aria-hidden="true"><span>PORTFOLIO</span></div>
+      <div class="hl" id="ribbon-l1" aria-hidden="true"><span>FEATURED</span></div>
       <div class="hl" id="ribbon-l2" aria-hidden="true"><span>WEBSITES</span></div>
     </h1>
     <div id="ribbon-cap">A curated showcase of bespoke websites &amp; digital platforms.</div>
@@ -3066,7 +3052,7 @@
           : mix(-50, 76, span(pp, 0, 0.58));
         const hlA = 1 - span(pp, 0.35, 0.52);
         if (this.l1) {
-          this.l1.style.transform = "translateY(-50%)";
+          this.l1.style.transform = `translate3d(${run}vw,${rise * 34}vh,0)`;
           this.l1.style.opacity = String(hlA);
           this.l1.style.visibility = hlA <= 0.001 ? 'hidden' : 'visible';
         }
