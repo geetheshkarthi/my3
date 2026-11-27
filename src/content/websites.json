@@ -11,10 +11,10 @@
       "Carried a gold-and-white identity through the interface, with clear \"Explore Projects\" and \"Contact Us\" calls to action",
       "Added a quick \"Get In Touch\" route, a tap-to-call link and an admin portal link"
     ],
-    "overview": "Tejas Infra One is a Hyderabad-based engineering and construction contractor working across residential, commercial, industrial and infrastructure projects. The site covers About, Services, Projects, Industries, Careers, News and Blog.",
-    "design": "A full-screen hero with a 'scroll to enter' reveal sets a premium tone under the line “International Expertise. Local Excellence.”, carried through with white-and-gold branding and large project photography.",
-    "tech": "Built with Next.js and optimised images, with a floating WhatsApp button, “Start Your Project” enquiry calls-to-action and an admin portal for managing content.",
-    "outcome": "A credible corporate home that puts the company’s track record up front — 30+ years of experience and 500+ projects delivered — with clear routes for clients, partners and job seekers."
+    "overview": "Corporate website for Tejas Infra One, a Hyderabad-based engineering and construction contractor serving residential, commercial, industrial and infrastructure clients. It brings the company’s services, projects, industries, careers and news together in one place.",
+    "design": "A premium navy-and-gold identity: Playfair Display serif headlines over Montserrat and Plus Jakarta Sans text, gold rounded call-to-action buttons, a fixed header and a full-screen animated hero introduced with “scroll to enter”.",
+    "tech": "Next.js and React, styled with Tailwind CSS, with Next.js image optimisation, a canvas-based hero animation, a floating WhatsApp button and an admin portal for managing content.",
+    "outcome": "A credible corporate presence that leads with the company’s track record — 30+ years of experience and 500+ projects delivered — and gives clients, partners and job seekers a clear way to get in touch."
   },
   {
     "slug": "olive-oak",
@@ -28,10 +28,10 @@
       "Created Projects, Services, Blog and Contact pages with project cards and article teasers",
       "Added \"Book Consultation\" and \"Begin Your Design Journey\" calls to action with WhatsApp, phone and email shortcuts"
     ],
-    "overview": "OliveOak Interiors designs residential and commercial interiors from Singapore and Hyderabad. The site presents its services — custom furniture, room styling, space planning, renovations and lighting design — alongside featured projects and a blog.",
-    "design": "A cinematic, scroll-driven intro built from an image-frame sequence (“From Singapore, For India”), followed by clean project cards and generous, calm interior photography.",
-    "tech": "Lightweight static HTML pages with a scroll-scrubbed WebP frame sequence, plus one-tap WhatsApp, phone and email contact.",
-    "outcome": "A fast, story-led portfolio that lets prospective clients see the studio’s work first and reach the team in a single tap."
+    "overview": "Portfolio website for OliveOak Interiors, a residential and commercial interior design studio working from Singapore and Hyderabad. It presents the studio’s services, featured projects and design journal.",
+    "design": "A dark, luxurious palette — near-black backgrounds, warm cream type and champagne-gold accents — set in Yeseva One and Cormorant Garamond headlines with clean Outfit body text, opening on a cinematic “From Singapore, For India” intro.",
+    "tech": "Hand-built HTML, CSS and JavaScript with GSAP and ScrollTrigger driving a scroll-scrubbed WebP frame sequence on canvas, served through Cloudflare with one-tap WhatsApp contact.",
+    "outcome": "A story-led showcase that lets prospective clients experience the studio’s style before they enquire, and reach the team in a single tap."
   },
   {
     "slug": "habaene",
@@ -46,10 +46,10 @@
       "Included order tracking, customer reviews, a shipping and returns FAQ, a journal and newsletter signup",
       "Gave it a dark, bold, animated look with a Berlin clock, euro pricing and a region selector"
     ],
-    "overview": "HABÄNE is a travel-technology luggage brand — “Designed in Berlin. Built for the world.” The site is its complete online store, with shop, journal, order tracking, press and full EU and India legal pages.",
-    "design": "A minimal, editorial layout with uppercase numbered section labels (“01 / Signature Carry”), a hero image slider and crisp navy-and-white branding.",
-    "tech": "A custom storefront with a cart drawer, filters and sorting, product comparison, a “Find Your Object” matcher, Stripe payments, an EU/EN switch and Cloudflare protection.",
-    "outcome": "A complete direct-to-customer shop, from discovery to secure checkout, that showcases a 4.9/5 average rating from 1,248+ customers and a 30-day money-back guarantee."
+    "overview": "Direct-to-customer online store for HABÄNE, a Berlin-designed travel-technology luggage brand selling to Europe and India, with shop, journal, order tracking, press and full legal pages.",
+    "design": "A crisp, editorial look: tall condensed Tungsten headings, Inter and Montserrat text and a handwritten Caveat accent, on soft off-white with deep navy type and a bright cyan accent, square-cornered buttons and numbered section labels.",
+    "tech": "Custom HTML, CSS and JavaScript with Lenis smooth scrolling, a cart drawer, product filters and comparison, the “Find Your Object” matcher, Stripe checkout and Cloudflare delivery.",
+    "outcome": "A complete shop from discovery to secure checkout, presenting the brand’s 4.9/5 average rating from 1,248+ customers and its 30-day money-back guarantee."
   },
   {
     "slug": "nammaswathu",
@@ -64,10 +64,10 @@
       "Added OTP email login with a \"My Bookings\" area and cart",
       "Placed floating WhatsApp and call buttons on every page"
     ],
-    "overview": "NammaSwathu handles property registration and legal documentation for buyers, sellers, tenants, landlords and NRIs, with around 40 services that can be chosen and booked online.",
-    "design": "A clear icon-card layout that turns complex legal services into simple, scannable choices, supported by an Information Center, latest updates and FAQs.",
-    "tech": "WordPress with WooCommerce for service booking and cart, Elementor pop-up enquiry forms, OTP login, a My Bookings area, and WhatsApp and call buttons.",
-    "outcome": "Paperwork that used to need office visits can now be compared, priced and booked online, with every booking tracked in one place."
+    "overview": "Service-booking website for NammaSwathu, which handles property registration and legal paperwork for buyers, sellers, tenants, landlords and NRIs, with around 40 services that can be booked online.",
+    "design": "A friendly, trustworthy layout on white with a bright orange call-to-action colour, Urbanist and Bricolage Grotesque headings, icon cards that make legal services easy to scan, and animated illustrations.",
+    "tech": "WordPress with WooCommerce for service pricing, cart and bookings, built in Elementor, with Swiper sliders, Lottie animations, OTP login, pop-up enquiry forms and WhatsApp.",
+    "outcome": "Paperwork that once needed office visits can now be compared, priced and booked online, with each customer’s bookings kept in one account."
   },
   {
     "slug": "ordient-infra",
@@ -82,10 +82,10 @@
       "Included Blogs, Careers, Reviews and banking-partner pages",
       "Built a contact form with a project-type selector, plus call and WhatsApp buttons, an FAQ and testimonials"
     ],
-    "overview": "Ordient Infra is a construction company in Hebbal, Bengaluru, building custom homes, luxury apartments, villas and renovations, as well as offices, retail, industrial units and warehouses.",
-    "design": "A full-width hero — “Building Excellence Since Day One” — with two clear calls-to-action, photo-led service cards and side-by-side package pricing cards.",
-    "tech": "WordPress with a custom theme, a construction cost calculator, floor plans, quote and contact forms, plus “Call Us” and WhatsApp buttons in the header.",
-    "outcome": "Visitors can compare build packages (from ₹2,180 per sq.ft.), estimate costs and book in directly — turning the site into a steady lead-generation tool."
+    "overview": "Lead-generation website for Ordient Infra, a Bengaluru construction company building custom homes, villas and apartments as well as offices, retail and warehouse spaces.",
+    "design": "A confident, premium look — white space, dark slate text and gold accents — with Playfair Display and Poppins type, a fixed header and a full-width video hero, “Building Excellence Since Day One”.",
+    "tech": "WordPress with Elementor and Tailwind CSS utilities, jQuery and Font Awesome, measured with Google Site Kit, Google Tag Manager, Google Analytics and the Meta Pixel.",
+    "outcome": "Visitors can compare build packages (from ₹2,180 per sq.ft.), use the cost calculator and request a quote straight from the site, with every enquiry tracked for marketing."
   },
   {
     "slug": "infratradehub",
@@ -100,10 +100,10 @@
       "Created pages for project supply, retail distribution, warehousing and re-export",
       "Added a blog, careers, \"Get in Touch\", WhatsApp, an FAQ and client quotes"
     ],
-    "overview": "InfraTradeHub is a Dubai-based B2B marketplace supplying construction materials — cement, steel, rebar, tiles, electricals and hardware — to developers, contractors and institutions across the GCC.",
-    "design": "A bold stats row, four-column category tiles, service cards and a video section that frame the company as a large-scale, dependable supplier.",
-    "tech": "WordPress with a filterable product catalogue, WhatsApp contact, and dedicated pages for project supply, retail distribution, warehousing and re-export.",
-    "outcome": "A searchable catalogue of 15+ product categories that presents the business at its real scale: 500K+ orders delivered across 15+ countries."
+    "overview": "B2B website for InfraTradeHub, a Dubai-based supplier of construction materials — cement, steel, tiles, electricals and hardware — to developers and contractors across the GCC and beyond.",
+    "design": "A bold industrial style on white with an orange-red call-to-action colour, a sticky header, a large stats band, category tiles and image carousels that present the company at scale.",
+    "tech": "WordPress with Tailwind CSS utilities, jQuery, Swiper carousels and Font Awesome icons, plus a filterable product catalogue and WhatsApp contact.",
+    "outcome": "A searchable catalogue of 15+ product categories that shows the business’s reach — 500K+ orders delivered across 15+ countries — and turns visitors into supply enquiries."
   },
   {
     "slug": "ordient-ventures",
@@ -117,10 +117,10 @@
       "Presented case studies such as cement to Oman, prefabricated structures to Saudi Arabia and steel to Malaysia",
       "Added vendor registration, an enquiry form, WhatsApp chat, a newsletter box and client quotes"
     ],
-    "overview": "Ordient Ventures helps Indian infrastructure manufacturers and SMEs export tiles, laminates, lighting, plywood, steel, hardware and stone, handling documentation, customs, logistics, warehousing and buyer connections.",
-    "design": "A video hero — “India’s Infrastructure Export Launchpad” — with service cards, a mission-vision-values block and real export case studies.",
-    "tech": "WordPress with enquiry forms, WhatsApp chat, vendor registration, the Ordient.MARKET vendor section and newsletter sign-up.",
-    "outcome": "A launchpad where new vendors register and enquire, backed by case studies of supply to Oman, Saudi Arabia and Malaysia."
+    "overview": "Website for Ordient Ventures, which helps Indian infrastructure manufacturers and SMEs export — covering documentation, customs, logistics, warehousing and buyer connections.",
+    "design": "A clean, modern look on white with orange pill-shaped buttons, a sticky header and a video hero, “India’s Infrastructure Export Launchpad”, followed by service cards and export case studies.",
+    "tech": "WordPress built with Elementor, Tailwind CSS utilities, jQuery and Font Awesome, with enquiry forms, vendor registration, newsletter sign-up and WhatsApp chat.",
+    "outcome": "A launchpad where manufacturers register as vendors and send export enquiries, backed by case studies of supply to Oman, Saudi Arabia and Malaysia."
   },
   {
     "slug": "bangalore-puppy-farm",
@@ -134,10 +134,10 @@
       "Built About, Puppy Grooming, Adoption, Gallery, Blogs and Contact sections",
       "Added a photo gallery, testimonials, a newsletter signup and a chat pop-up"
     ],
-    "overview": "Bangalore Puppy Farm is a breeder in Whitefield, Bengaluru, offering Golden Retrievers, Labradors, Toy Poodles, Maltese, German Shepherds and exotic breeds, along with adoption.",
-    "design": "A warm, friendly layout with photo-led breed cards, a gallery grid and playful animated puppy graphics.",
-    "tech": "A custom-built site with a page for every breed, Call and WhatsApp buttons on each breed card, a floating WhatsApp chat and a blog.",
-    "outcome": "Families can browse breeds and reach the breeder in one tap, with KCI and AWBI licences and 24×7 after-sales support shown up front."
+    "overview": "Website for Bangalore Puppy Farm, a breeder in Whitefield, Bengaluru, offering Golden Retrievers, Labradors, Poodles, German Shepherds, exotic breeds and adoption.",
+    "design": "A warm, friendly style with Poppins type, deep navy text and dusty-rose rounded buttons, photo-led breed cards, sliders, a gallery and playful animated puppy graphics.",
+    "tech": "Bootstrap, jQuery and Slick sliders, with reCAPTCHA-protected forms, SweetAlert messages, Font Awesome icons, Google Analytics and WhatsApp on every breed.",
+    "outcome": "Families browse breeds and contact the breeder in one tap, with KCI and AWBI licences and 24×7 after-sales support shown up front."
   },
   {
     "slug": "pestcat",
@@ -151,10 +151,10 @@
       "Created dedicated pages for each pest service",
       "Added Offers, About, Contact and Blog pages, customer reviews, a callback request and call and WhatsApp buttons"
     ],
-    "overview": "PestCat is a Bangalore pest control company serving homes and businesses for cockroaches, termites, bedbugs, mosquitoes, rodents, wood borers, mould and dust mites.",
-    "design": "A fresh green theme with full-width banners tuned separately for desktop and mobile, card-based sections and animated icons.",
-    "tech": "WordPress with a custom theme, a plan selector (pest, property type and service frequency), click-to-call and WhatsApp, a reviews carousel and a blog.",
-    "outcome": "Customers pick a plan and request a callback in minutes, reassured by 15+ years of experience and 40,000+ clients across Bangalore."
+    "overview": "Website for PestCat, a Bangalore pest control company serving homes and businesses for cockroaches, termites, bedbugs, mosquitoes, rodents and more.",
+    "design": "A fresh, clean look in olive green on light grey, set entirely in Poppins, with full-width banners tuned for desktop and mobile, service cards and a customer review carousel.",
+    "tech": "WordPress with a custom theme, Bootstrap, jQuery, Slick and Owl Carousel sliders, Font Awesome and Google Analytics, plus click-to-call and WhatsApp.",
+    "outcome": "Customers choose a plan by pest, property type and visit frequency and request a callback in minutes, backed by 15+ years of experience and 40,000+ clients."
   },
   {
     "slug": "shivabakthi",
@@ -166,9 +166,9 @@
     "did": [
       "Designed and developed the website with a clean, responsive layout"
     ],
-    "overview": "Shivabakthi is a devotional and spiritual community website, giving devotees a calm, easy-to-navigate place to come together online.",
-    "design": "A clean, peaceful and responsive layout that keeps the focus on devotional content.",
-    "tech": "A responsive website designed and developed by My3 Digital to work smoothly on phones and desktops.",
+    "overview": "Website for Shivabakthi, a devotional and spiritual community, giving devotees one place to come together online.",
+    "design": "A calm, clean and responsive layout that keeps the focus on devotional content.",
+    "tech": "A responsive website designed and developed by My3 Digital for phones, tablets and desktops.",
     "outcome": "A dedicated online home for the community that is simple to browse and easy to return to."
   },
   {
@@ -181,9 +181,9 @@
     "did": [
       "Designed and developed the website with a clean, responsive layout"
     ],
-    "overview": "Siri Traders is a grocery delivery store for daily home needs, serving areas around Patancheru, Ameenpur, Isnapur and Beeramguda with both retail and wholesale ordering.",
-    "design": "A bright, app-like shopping layout with a scrolling offers ticker, festive combo deals, category tiles, Today’s Deals and Bestsellers rows.",
-    "tech": "A React single-page app with product categories and detail pages, cart, checkout, order history, order tracking, user profiles and Cloudflare analytics.",
-    "outcome": "Customers order everyday groceries online for delivery in about 30 minutes, choosing retail or wholesale in one tap."
+    "overview": "Online grocery store for Siri Traders, delivering daily home needs around Patancheru, Ameenpur, Isnapur and Beeramguda, with separate retail and wholesale ordering.",
+    "design": "An app-like shopping experience on warm cream with forest-green accents and Poppins type: a fixed header, scrolling offers ticker, festive combo deals, category tiles and Today’s Deals and Bestsellers rows.",
+    "tech": "A React single-page app built with Vite, with product, cart, checkout, order history, order tracking and profile screens, Lottie animations and Cloudflare.",
+    "outcome": "Customers order everyday groceries online for delivery in about 30 minutes, switching between retail and wholesale in one tap."
   }
 ]
