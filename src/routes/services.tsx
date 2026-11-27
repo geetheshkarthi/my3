@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { ColorStackShowcase } from "@/components/services/ColorStackShowcase";
+import { ServiceSheets } from "@/components/services/ServiceSheets";
 import {
   ensureGsapRegistered,
   ScrollTrigger,
@@ -69,7 +69,7 @@ function ServicesPage() {
       data-blur-managed="true"
       className="services-motion-page relative min-h-screen overflow-x-clip bg-black font-sans text-slate-100 selection:bg-[#D2FF1F] selection:text-black"
     >
-      <ColorStackShowcase reduceMotion={reduceMotion} />
+      <ServiceSheets />
       <SubPartsAndProcessSection reduceMotion={reduceMotion} />
     </main>
   );
