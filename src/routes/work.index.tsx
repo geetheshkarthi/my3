@@ -45,7 +45,7 @@ function Work() {
       raf = 0;
       const vh = window.innerHeight;
       const r = el.getBoundingClientRect();
-      const page = (vh - r.top) / (r.height / 2 + vh / 2);
+      const page = -r.top / (r.height / 2);                 // 0 at the top of the page
       el.style.setProperty("--progress", String(Math.min(1, Math.max(0, page))));
       for (const p of panels) {
         const b = p.getBoundingClientRect();
@@ -91,7 +91,7 @@ function Work() {
   return (
     <div ref={root} className={`wk ${loaded ? "loaded" : ""} ${active ? "active" : ""}`}>
       <div className="wk-wrap" onMouseEnter={() => setCursorOn(true)} onMouseLeave={() => setCursorOn(false)}>
-        <h1><Words text="Selected Work" /></h1>
+        <h1><Words text="Our Work" /></h1>
         <p className="subhead">My3 Digital</p>
         {websites.map((w, i) => (
           <div key={w.slug} className={`panel ${i % 2 ? "even" : ""}`} data-n={i + 1} style={{ "--progress": 0 } as CSSProperties}>

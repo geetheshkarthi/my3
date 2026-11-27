@@ -564,12 +564,12 @@ body { overflow-x: clip; }
   transition: transform 0.5s var(--wk-expo); transition-delay: 0.75s; will-change: transform; overflow: hidden; }
 .wk.active .wk-wrap { transform: translateX(-125vw); transition-delay: 0s; }
 
-.wk .wk-wrap h1 { text-align: center; font-family: var(--font-display); font-weight: 600; color: transparent; font-size: 100px; letter-spacing: -0.03em;
+.wk .wk-wrap h1 { text-align: center; font-family: var(--font-display); font-weight: 400; color: transparent; font-size: 100px; letter-spacing: -0.04em;
   position: relative; width: 100%; line-height: 0.9; padding: 10px 0; overflow: hidden; margin-bottom: 20px;
   transition: transform 0.3s var(--wk-expo); transform: scaleX(0); }
 .wk .wk-wrap h1::before, .wk .wk-wrap h1::after { content: ""; position: absolute; width: 100%; height: 2px; bottom: 0; left: 0; background: var(--wk-y); z-index: 2; }
 .wk .wk-wrap h1::after { transform-origin: left; background: var(--wk-o); z-index: 3; transform: scaleX(calc(1 - (var(--progress) * 2))); }
-.wk .wk-wrap h1 span.word { position: relative; display: inline-block; transform: translateY(calc((var(--progress) * 1200px) - 200px)); }
+.wk .wk-wrap h1 span.word { position: relative; display: inline-block; transform: translateY(calc(var(--progress) * 1200px)); }
 .wk .wk-wrap h1 span.word::before { position: absolute; left: 50%; top: 50%; transform: translate(-50%, 150%); content: attr(data-word);
   color: var(--wk-g); -webkit-text-fill-color: transparent; -webkit-text-stroke: 2px var(--wk-g); -webkit-background-clip: text; background-clip: text;
   background-image: linear-gradient(to bottom, var(--wk-g) 50%, var(--wk-bg) 50%); background-size: 100% 200%; background-position: 50% 100%;
@@ -585,28 +585,20 @@ body { overflow-x: clip; }
 .wk .wk-wrap p.subhead.final::after { left: auto; right: 100px; }
 
 /* ---- one panel per website ---- */
-.wk .panel { --progress: 0; position: relative; width: 100%; height: 100vh; max-height: 75vh; margin-bottom: 25vh; display: grid;
-  grid-template-columns: repeat(5, 1fr); grid-template-rows: repeat(5, 1fr); padding: 20px; box-sizing: border-box;
+.wk .panel { --progress: 0; position: relative; width: 100%; height: 100vh; max-height: 62vh; margin-bottom: 6vh; display: grid;
+  grid-template-columns: repeat(5, 1fr); grid-template-rows: 0.35fr 1fr 1fr 1fr 0.35fr; padding: 20px; box-sizing: border-box;
   transition: 1s var(--wk-expo); opacity: 0; }
 .wk.loaded .panel { opacity: 1; transition-delay: 1s; }
 .wk .panel:last-of-type .thumb::after { display: none; }
-.wk .panel::before { content: attr(data-n); font-family: var(--font-display); font-weight: 600; font-size: 400px; position: absolute; top: 50%; transform: translateY(-50%);
+.wk .panel::before { content: attr(data-n); font-family: var(--font-display); font-weight: 400; font-size: 400px; position: absolute; top: 50%; transform: translateY(-50%);
   width: 40%; display: flex; left: 0; justify-content: flex-start; align-items: center; color: var(--wk-bg); -webkit-text-stroke: 2px var(--wk-y);
   line-height: 1; opacity: 0; transition: 1.75s ease-in-out; }
 .wk.loaded .panel::before { opacity: 0.35; transition-delay: 1.4s; }
 .wk .panel.even::before { left: auto; right: 0; justify-content: flex-end; }
 
-.wk .panel h2 { grid-area: 3 / 1 / 4 / 4; font-family: var(--font-display); font-weight: 600; font-size: 64px; letter-spacing: -0.02em; position: relative; z-index: 3;
+.wk .panel h2 { grid-area: 3 / 1 / 4 / 4; font-family: var(--font-display); font-weight: 400; font-size: 64px; letter-spacing: -0.04em; position: relative; z-index: 3;
   color: transparent; line-height: 1; pointer-events: none; transform: translateY(calc(100px - (var(--progress) * 200px))); }
-.wk .panel h2 span.word { position: relative; display: inline-block; overflow: hidden; color: transparent; padding: 20px 0; margin: -20px 0;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200%25' height='100%25'%3E%3Cdefs%3E%3Cstyle%3E .wave%7B animation:wave 1s ease-in-out infinite alternate; animation-delay:-0.25s; stroke:%232f8fb0; stroke-width:2; stroke-linecap:square; %7D @keyframes wave%7B to%7B d:path('M 0 40 Q 20 42.5 40 40 Q 60 37.5 80 40'); %7D %7D %3C/style%3E%3C/defs%3E%3Cpattern id='wavePattern' x='0' y='0' width='80' height='80' patternUnits='userSpaceOnUse'%3E%3Cpath fill='none' class='wave' d='M 0 40 Q 20 37.5 40 40 Q 60 42.5 80 40' /%3E%3C/pattern%3E%3Crect x='0' y='0' width='100%25' height='100%25' fill='url(%23wavePattern)'%3E%3C/rect%3E%3C/svg%3E") 0px 65px / 80px 80px repeat-x; animation: wk-waving 3s linear infinite; }
-.wk .panel h2 > span:nth-of-type(1) > span.word { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200%25' height='100%25'%3E%3Cdefs%3E%3Cstyle%3E .wave%7B animation:wave 1s ease-in-out infinite alternate; animation-delay:-0.25s; stroke:%232f8fb0; stroke-width:2; stroke-linecap:square; %7D @keyframes wave%7B to%7B d:path('M 0 40 Q 20 42.5 40 40 Q 60 37.5 80 40'); %7D %7D %3C/style%3E%3C/defs%3E%3Cpattern id='wavePattern' x='0' y='0' width='80' height='80' patternUnits='userSpaceOnUse'%3E%3Cpath fill='none' class='wave' d='M 0 40 Q 20 37.5 40 40 Q 60 42.5 80 40' /%3E%3C/pattern%3E%3Crect x='0' y='0' width='100%25' height='100%25' fill='url(%23wavePattern)'%3E%3C/rect%3E%3C/svg%3E") 0px 65px / 80px 80px repeat-x; }
-.wk .panel h2 > span:nth-of-type(2) > span.word { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200%25' height='100%25'%3E%3Cdefs%3E%3Cstyle%3E .wave%7B animation:wave 1s ease-in-out infinite alternate; animation-delay:-0.5s; stroke:%232f8fb0; stroke-width:2; stroke-linecap:square; %7D @keyframes wave%7B to%7B d:path('M 0 40 Q 20 42.5 40 40 Q 60 37.5 80 40'); %7D %7D %3C/style%3E%3C/defs%3E%3Cpattern id='wavePattern' x='0' y='0' width='80' height='80' patternUnits='userSpaceOnUse'%3E%3Cpath fill='none' class='wave' d='M 0 40 Q 20 37.5 40 40 Q 60 42.5 80 40' /%3E%3C/pattern%3E%3Crect x='0' y='0' width='100%25' height='100%25' fill='url(%23wavePattern)'%3E%3C/rect%3E%3C/svg%3E") 0px 65px / 80px 80px repeat-x; }
-.wk .panel h2 > span:nth-of-type(3) > span.word { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200%25' height='100%25'%3E%3Cdefs%3E%3Cstyle%3E .wave%7B animation:wave 1s ease-in-out infinite alternate; animation-delay:-0.75s; stroke:%232f8fb0; stroke-width:2; stroke-linecap:square; %7D @keyframes wave%7B to%7B d:path('M 0 40 Q 20 42.5 40 40 Q 60 37.5 80 40'); %7D %7D %3C/style%3E%3C/defs%3E%3Cpattern id='wavePattern' x='0' y='0' width='80' height='80' patternUnits='userSpaceOnUse'%3E%3Cpath fill='none' class='wave' d='M 0 40 Q 20 37.5 40 40 Q 60 42.5 80 40' /%3E%3C/pattern%3E%3Crect x='0' y='0' width='100%25' height='100%25' fill='url(%23wavePattern)'%3E%3C/rect%3E%3C/svg%3E") 0px 65px / 80px 80px repeat-x; }
-.wk .panel h2 > span:nth-of-type(4) > span.word { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200%25' height='100%25'%3E%3Cdefs%3E%3Cstyle%3E .wave%7B animation:wave 1s ease-in-out infinite alternate; animation-delay:-1.0s; stroke:%232f8fb0; stroke-width:2; stroke-linecap:square; %7D @keyframes wave%7B to%7B d:path('M 0 40 Q 20 42.5 40 40 Q 60 37.5 80 40'); %7D %7D %3C/style%3E%3C/defs%3E%3Cpattern id='wavePattern' x='0' y='0' width='80' height='80' patternUnits='userSpaceOnUse'%3E%3Cpath fill='none' class='wave' d='M 0 40 Q 20 37.5 40 40 Q 60 42.5 80 40' /%3E%3C/pattern%3E%3Crect x='0' y='0' width='100%25' height='100%25' fill='url(%23wavePattern)'%3E%3C/rect%3E%3C/svg%3E") 0px 65px / 80px 80px repeat-x; }
-.wk .panel h2 > span:nth-of-type(5) > span.word { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200%25' height='100%25'%3E%3Cdefs%3E%3Cstyle%3E .wave%7B animation:wave 1s ease-in-out infinite alternate; animation-delay:-1.25s; stroke:%232f8fb0; stroke-width:2; stroke-linecap:square; %7D @keyframes wave%7B to%7B d:path('M 0 40 Q 20 42.5 40 40 Q 60 37.5 80 40'); %7D %7D %3C/style%3E%3C/defs%3E%3Cpattern id='wavePattern' x='0' y='0' width='80' height='80' patternUnits='userSpaceOnUse'%3E%3Cpath fill='none' class='wave' d='M 0 40 Q 20 37.5 40 40 Q 60 42.5 80 40' /%3E%3C/pattern%3E%3Crect x='0' y='0' width='100%25' height='100%25' fill='url(%23wavePattern)'%3E%3C/rect%3E%3C/svg%3E") 0px 65px / 80px 80px repeat-x; }
-.wk .panel h2 > span:nth-of-type(6) > span.word { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200%25' height='100%25'%3E%3Cdefs%3E%3Cstyle%3E .wave%7B animation:wave 1s ease-in-out infinite alternate; animation-delay:-1.5s; stroke:%232f8fb0; stroke-width:2; stroke-linecap:square; %7D @keyframes wave%7B to%7B d:path('M 0 40 Q 20 42.5 40 40 Q 60 37.5 80 40'); %7D %7D %3C/style%3E%3C/defs%3E%3Cpattern id='wavePattern' x='0' y='0' width='80' height='80' patternUnits='userSpaceOnUse'%3E%3Cpath fill='none' class='wave' d='M 0 40 Q 20 37.5 40 40 Q 60 42.5 80 40' /%3E%3C/pattern%3E%3Crect x='0' y='0' width='100%25' height='100%25' fill='url(%23wavePattern)'%3E%3C/rect%3E%3C/svg%3E") 0px 65px / 80px 80px repeat-x; }
-@keyframes wk-waving { to { background-position: 200px 65px; } }
+.wk .panel h2 span.word { position: relative; display: inline-block; overflow: hidden; color: transparent; padding: 20px 0; margin: -20px 0; }
 .wk .panel h2 span.word::before { content: attr(data-word); position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: transparent;
   -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; -webkit-text-stroke: 2px var(--wk-o);
   background-image: linear-gradient(to bottom, transparent 25%, var(--wk-o) 25%, var(--wk-o) 75%, transparent 75%);
@@ -621,21 +613,20 @@ body { overflow-x: clip; }
 .wk .panel .thumb * { border-radius: 5px; }
 .wk .panel .thumb p { position: absolute; width: 100%; top: -30px; margin: 0; color: var(--wk-o); font-size: 12px; letter-spacing: 0.04em; text-transform: uppercase; left: 0; text-align: center; }
 .wk .panel .thumb .inner { position: absolute; inset: 0; overflow: hidden; z-index: 0; }
-.wk .panel .thumb .inner::before, .wk .panel .thumb .inner::after { content: ""; position: absolute; inset: 0; background: var(--wk-o); mix-blend-mode: color; opacity: 0.6; z-index: 2;
+.wk .panel .thumb .inner::before, .wk .panel .thumb .inner::after { content: ""; position: absolute; inset: 0; background: transparent; mix-blend-mode: normal; opacity: 0; z-index: 2;
   transition: opacity 0.4s ease-in-out; pointer-events: none; }
 .wk .panel .thumb .inner::after { background: var(--wk-bg); opacity: 1; z-index: -2; mix-blend-mode: normal; }
-.wk .panel .thumb .inner:hover::before { opacity: 0.12; }
 .wk .panel .thumb::before { content: ""; position: absolute; width: 100%; height: 100%; left: 5%; top: 5%;
   box-shadow: 0 0 0 2px var(--wk-y), 0 0 0 0 var(--wk-bg), 0 0 0 0 var(--wk-o);
   transition: transform 0.2s var(--wk-expo), box-shadow 0.2s var(--wk-expo); transition-delay: 0.2s, 0s;
   background: radial-gradient(circle at center, var(--wk-y) 1px, transparent 1px, transparent 20px) 0 0 / 20px 20px,
               radial-gradient(circle at center, var(--wk-y) 1px, transparent 1px, transparent 20px) 10px 10px / 20px 20px; border-radius: 5px; }
 .wk .panel .thumb:hover::before { transform: translate(-5%, -5%); box-shadow: 0 0 0 2px var(--wk-y), 0 0 0 6px var(--wk-bg), 0 0 0 8px var(--wk-o); transition-delay: 0s, 0.2s; }
-.wk .panel .thumb::after { content: ""; position: absolute; width: 50%; height: calc(100% + 25vh); left: 0; top: 100%; border-style: dashed; border-width: 2px;
+.wk .panel .thumb::after { content: ""; position: absolute; width: 50%; height: calc(100% + 6vh); left: 0; top: 100%; border-style: dashed; border-width: 2px;
   border-color: transparent var(--wk-y) var(--wk-y) transparent; border-radius: 0 0 10px 0; opacity: 0.5; pointer-events: none; }
 .wk .panel .thumb img { position: absolute; top: -30%; left: 0; width: 100%; height: 130%; object-fit: cover; z-index: -1;
   transform: translateY(calc(var(--progress) * 25%));
-  filter: saturate(0) blur(max(0px, calc(50px - (var(--progress) * 125px)))) contrast(1.25) brightness(0.9); }
+  filter: blur(max(0px, calc(50px - (var(--progress) * 125px)))); }
 
 .wk .panel.even .thumb { grid-area: 2 / 1 / 5 / 4; }
 .wk .panel.even .thumb p { top: -50px; }
@@ -647,12 +638,13 @@ body { overflow-x: clip; }
 @media (max-width: 768px) {
   .wk .wk-wrap { padding: 120px 0 18vh; max-width: 88vw; }
   .wk .wk-wrap h1 { font-size: 15vw; }
-  .wk .panel { max-height: 62vh; margin-bottom: 18vh; padding: 10px; }
+  .wk .wk-wrap p.subhead:not(.final) { margin-bottom: 44px; }
+  .wk .panel { max-height: 62vh; margin-bottom: 4vh; padding: 10px; grid-template-rows: repeat(5, 1fr); }
   .wk .panel::before { font-size: 220px; }
   .wk .panel h2, .wk .panel.even h2 { grid-area: 4 / 1 / 6 / 6; font-size: 40px; align-self: center; text-align: left; }
   .wk .panel .thumb, .wk .panel.even .thumb { grid-area: 1 / 1 / 4 / 6; }
   .wk .panel .thumb p, .wk .panel.even .thumb p { top: -26px; }
-  .wk .panel .thumb::after { height: calc(100% + 18vh); }
+  .wk .panel .thumb::after { height: calc(100% + 4vh); }
   .wk .wk-wrap p.subhead.final::before, .wk .wk-wrap p.subhead.final::after { width: 20vw; }
 }
 
