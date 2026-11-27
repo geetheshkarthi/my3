@@ -113,7 +113,6 @@ function Work() {
             </div>
           </div>
         ))}
-        <p className="subhead final">Fin</p>
       </div>
 
       {/* the opened project slides in from the right */}

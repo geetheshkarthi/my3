@@ -596,12 +596,10 @@ body { overflow-x: clip; }
 .wk .panel .thumb .inner::before, .wk .panel .thumb .inner::after { content: ""; position: absolute; inset: 0; background: transparent; mix-blend-mode: normal; opacity: 0; z-index: 2;
   transition: opacity 0.4s ease-in-out; pointer-events: none; }
 .wk .panel .thumb .inner::after { background: var(--wk-bg); opacity: 1; z-index: -2; mix-blend-mode: normal; }
-.wk .panel .thumb::before { content: ""; position: absolute; width: 100%; height: 100%; left: 5%; top: 5%;
-  box-shadow: 0 0 0 2px var(--wk-y), 0 0 0 0 var(--wk-bg), 0 0 0 0 var(--wk-o);
-  transition: transform 0.2s var(--wk-expo), box-shadow 0.2s var(--wk-expo); transition-delay: 0.2s, 0s;
-  background: radial-gradient(circle at center, var(--wk-y) 1px, transparent 1px, transparent 20px) 0 0 / 20px 20px,
-              radial-gradient(circle at center, var(--wk-y) 1px, transparent 1px, transparent 20px) 10px 10px / 20px 20px; border-radius: 5px; }
-.wk .panel .thumb:hover::before { transform: translate(-5%, -5%); box-shadow: 0 0 0 2px var(--wk-y), 0 0 0 6px var(--wk-bg), 0 0 0 8px var(--wk-o); transition-delay: 0s, 0.2s; }
+.wk .panel .thumb::before { content: ""; position: absolute; width: 100%; height: 100%; left: 5%; top: 5%; box-sizing: border-box;
+  border: 2px dashed var(--wk-y); box-shadow: 0 0 0 0 var(--wk-bg), 0 0 0 0 var(--wk-o);
+  transition: transform 0.2s var(--wk-expo), box-shadow 0.2s var(--wk-expo); transition-delay: 0.2s, 0s; border-radius: 5px; }
+.wk .panel .thumb:hover::before { transform: translate(-5%, -5%); box-shadow: 0 0 0 4px var(--wk-bg), 0 0 0 6px var(--wk-o); transition-delay: 0s, 0.2s; }
 .wk .panel .thumb::after { content: ""; position: absolute; width: 50%; height: calc(100% + 6vh); left: 0; top: 100%; border-style: dashed; border-width: 2px;
   border-color: transparent var(--wk-y) var(--wk-y) transparent; border-radius: 0 0 10px 0; opacity: 0.5; pointer-events: none; }
 .wk .panel .thumb img { position: absolute; top: -30%; left: 0; width: 100%; height: 130%; object-fit: cover; z-index: -1;
