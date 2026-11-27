@@ -636,10 +636,40 @@ body { overflow-x: clip; }
 .wk .wk-cursor.active { width: 110px; height: 110px; background-color: var(--wk-o); border-color: var(--wk-o); }
 .wk .wk-cursor.active .view { opacity: 1; transform: scale(1); transition-delay: 0.08s; }
 
+/* ---- opened project: visit link, title, video, then four fact boxes ---- */
+.wk .wk-detail { position: absolute; inset: 0; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: none; }
+.wk .wk-detail::-webkit-scrollbar { display: none; }
+.wk .wk-detail-in { width: min(1200px, 100% - 10vw); margin: 0 auto; padding: 120px 0 80px; opacity: 0; transform: translateY(30px);
+  transition: opacity 0.6s ease-in-out, transform 0.8s var(--wk-expo); }
+.wk.active .wk-detail-in { opacity: 1; transform: none; transition-delay: 1s, 1s; }
+.wk .wk-detail-title { margin: 22px 0 22px; font-family: var(--font-display); font-weight: 400; font-size: clamp(44px, 7vw, 110px); line-height: 0.95;
+  letter-spacing: -0.04em; text-transform: uppercase; color: var(--wk-o); }
+.wk .wk-video { position: relative; aspect-ratio: 1910 / 860; background: #000; border-radius: 5px; overflow: hidden; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5);
+  clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%); transition: clip-path 1s var(--wk-expo); }
+.wk.active .wk-video { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); transition-delay: 1.15s; }
+.wk .wk-video video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.wk .wk-facts { display: grid; grid-template-columns: 3fr 2fr; gap: 10px; margin-top: 10px; }
+.wk .wk-fact { background: color-mix(in oklab, var(--foreground) 6%, var(--background)); padding: 30px 30px 34px; border-radius: 3px; }
+.wk .wk-fact h3 { font-family: var(--font-label); font-weight: 500; font-size: 17px; letter-spacing: -0.01em; color: var(--wk-g); padding-bottom: 22px;
+  border-bottom: 1px solid color-mix(in oklab, var(--foreground) 14%, transparent); margin: 0 0 22px; }
+.wk .wk-fact p { font-size: 17px; line-height: 1.55; color: var(--muted-foreground); margin: 0; }
+@media (min-width: 769px) {
+  .wk .wk-facts { grid-template-columns: repeat(5, 1fr); }
+  .wk .wk-fact:nth-child(1) { grid-column: 1 / 4; } .wk .wk-fact:nth-child(2) { grid-column: 4 / 6; }
+  .wk .wk-fact:nth-child(3) { grid-column: 1 / 3; } .wk .wk-fact:nth-child(4) { grid-column: 3 / 6; }
+}
+@media (max-width: 768px) {
+  .wk .wk-detail-in { width: calc(100% - 40px); padding-top: 84px; }
+  .wk .wk-facts { grid-template-columns: 1fr; }
+  .wk .wk-fact { padding: 22px 20px 24px; }
+  .wk .wk-fact h3 { font-size: 15px; padding-bottom: 16px; margin-bottom: 16px; }
+  .wk .wk-fact p { font-size: 15px; }
+}
+
 /* ---- opened project frame ---- */
 .wk .wk-back { position: absolute; z-index: 999; left: 45px; top: 45px; opacity: 0; transform: translateY(-12px); transition: opacity 0.3s ease-in-out, transform 0.4s var(--wk-elastic), background-color 0.3s, color 0.3s, border-color 0.3s; }
 .wk.active .wk-back { opacity: 1; transform: translateY(0); transition-delay: 1.2s, 1.2s, 0s, 0s, 0s; }
-.wk .wk-frame { position: fixed; z-index: 98; inset: 0; width: 100vw; height: 100vh; height: 100dvh; background: var(--wk-bg); display: grid; place-items: center;
+.wk .wk-frame { position: fixed; z-index: 98; inset: 0; width: 100vw; height: 100vh; height: 100dvh; background: var(--wk-bg); display: block;
   transition: 0.5s var(--wk-expo); transform: translateX(125%); transition-delay: 0.5s; will-change: transform; }
 .wk .wk-frame::before, .wk .wk-frame::after { content: ""; position: absolute; width: 125%; height: 100%; top: 0; left: -12.5%; background: var(--wk-o);
   transition: transform 1s var(--wk-expo); transition-delay: 0.25s; z-index: 999; transform: translateX(0) skewX(5deg); pointer-events: none; }
@@ -649,30 +679,6 @@ body { overflow-x: clip; }
 .wk.active .wk-frame::after { transform: translateX(-150%) skewX(-15deg); }
 
 
-.wk .frame-wrap { width: calc(100% - 10vw); height: calc(100% - 10vw); display: flex; justify-content: center; align-items: center; }
-.wk .frame-container { position: relative; width: 100%; height: 100%; max-width: 1200px; max-height: 1200px; display: flex; align-items: center; justify-content: center; }
-.wk .frame-container video { position: absolute; top: 0; left: 25px; width: calc(100% - 50px); height: calc(100% - 70px); object-fit: contain; background: #000; border-radius: 5px;
-  visibility: hidden; clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%); opacity: 0;
-  transition: clip-path 0s linear, visibility 0s linear, opacity 1s ease-in-out; transition-delay: 0.75s, 0.75s, 1.25s; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5); }
-.wk.active .frame-container video { clip-path: polygon(-10% -10%, 110% -10%, 110% 110%, -10% 110%); visibility: visible; opacity: 1; }
 
-.wk .penlink { position: absolute; bottom: -10px; text-decoration: none; color: var(--wk-o); font: 700 15px/1.2 var(--font-label); letter-spacing: -0.02em; padding: 10px 15px; z-index: 9;
-  transition: color 0.2s ease-in-out, transform 0.7s var(--wk-elastic); transition-delay: 0.2s; transform-origin: 50% 12.5vh; transform: rotate(-180deg); }
-.wk.active .penlink { transform: rotate(0deg); transition-delay: 0.3s, 2s; }
-.wk .penlink:hover { color: var(--wk-bg); }
-.wk .penlink strong { position: relative; z-index: 9; }
-.wk .penlink span { display: inline-block; animation: wk-back 0.5s ease-in-out infinite alternate; animation-play-state: paused; }
-.wk.active .penlink span { animation-play-state: running; }
-@keyframes wk-back { to { transform: translateX(-2.5px); } }
-.wk .penlink::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(to bottom, var(--wk-o) 50%, var(--wk-y) 50%) 50% 100% / 100% 200% no-repeat;
-  transform: scaleY(0); transform-origin: bottom; transition: transform 0.2s ease-in-out, background-position 0.2s ease-in-out; transition-delay: 0.5s, 0.6s; }
-.wk .penlink::before { content: ""; position: absolute; width: calc(100% + 4px); height: calc(100% + 4px); top: -2px; left: -2px;
-  background: linear-gradient(to right, var(--wk-g), var(--wk-g)), linear-gradient(to top, var(--wk-g) 50%, transparent 50%), linear-gradient(to top, var(--wk-g) 50%, transparent 50%),
-              linear-gradient(to right, var(--wk-g), var(--wk-g)), linear-gradient(to left, var(--wk-g), var(--wk-g));
-  background-size: 100% 2px, 2px 200%, 2px 200%, 0% 2px, 0% 2px; background-position: 50% 100%, 0% 0%, 100% 0%, 100% 0%, 0% 0%; background-repeat: no-repeat;
-  transition: transform 0.2s ease-in-out, background-position 0.2s ease-in-out, background-size 0.2s ease-in-out; transform: scaleX(0); transition-delay: 0.4s, 0.2s, 0s; }
-.wk .penlink:hover::after { transform: scaleY(1); transform-origin: top; background-position: 50% 0%; }
-.wk .penlink:hover::before { background-size: 200% 2px, 2px 400%, 2px 400%, 55% 2px, 55% 2px; background-position: 50% 100%, 0% 100%, 100% 100%, 100% 0%, 0% 0%;
-  transform: scaleX(1); transition-delay: 0s, 0.2s, 0.4s; }
-@media (max-width: 768px) { .wk .wk-back { left: 20px; top: 20px; } .wk .frame-wrap { height: auto; } .wk .frame-container { height: 72vw; } .wk .frame-container video { left: 0; width: 100%; height: calc(100% - 64px); } }
-@media (prefers-reduced-motion: reduce) { .wk .penlink span { animation: none; } }
+@media (max-width: 768px) { .wk .wk-back { left: 20px; top: 20px; } }
+@media (prefers-reduced-motion: reduce) { .wk .wk-detail-in { transition: none; } }
