@@ -108,7 +108,7 @@ export function Header() {
             <button onClick={() => setOpen(false)} aria-label="Close menu" className="font-display text-3xl">×</button>
           </div>
           <nav className="mt-14 flex flex-col">
-            {/* each word rises up out of the line beneath it, one after another */}
+            {/* each word rises up into place, one after another */}
             {[...nav.map((n) => ({ key: n.to, label: n.label, to: n.to })), { key: "academy", label: "Academy ↗", to: null }].map((n, i) => (
               <div key={n.key} className="menu-row relative overflow-hidden py-2" style={{ "--i": i } as CSSProperties}>
                 {n.to
