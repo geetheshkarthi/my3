@@ -19,7 +19,7 @@ export function CapabilityReel() {
       const p = Math.min(1, Math.max(0, -r.top / Math.max(1, r.height - window.innerHeight)));
       const a = p * (N - 1);
       const mobile = window.innerWidth < 780;
-      const w = Math.min(window.innerWidth * (mobile ? 0.66 : 0.32), 540);
+      const w = Math.min(window.innerWidth * (mobile ? 0.84 : 0.32), 540);
       cardRefs.current.forEach((el, i) => {
         if (!el) return;
         const d = i - a, ad = Math.abs(d);
