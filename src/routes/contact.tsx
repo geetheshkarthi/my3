@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { contact } from "@/content/site";
-import { orangeH, PageHero, sec } from "@/components/site/ui";
+import { orangeH } from "@/components/site/ui";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({ meta: [
@@ -22,10 +22,8 @@ function Contact() {
   const [sent, setSent] = useState(false);
   return (
     <main>
-      <PageHero eyebrow="Let's Connect" title="Have Something in Mind? Let's Make It Happen." />
-
-      <section id="enquiry" className={sec}>
-        <h2 className={`${orangeH} text-[44px] md:text-[90px]`}>Tell Us What You're Looking to Build.</h2>
+      <section id="enquiry" className="px-6 pb-20 pt-32 md:px-10 md:pb-40 md:pt-44">
+        <h1 className={`${orangeH} text-[44px] md:text-[90px]`}>Tell Us What You're Looking to Build.</h1>
         <p className="mt-6 max-w-[640px]">We'd like to understand your requirements so we can connect you with the right team.</p>
         {sent ? (
           <p className="mt-12 bg-panel p-8 font-display text-2xl">Thank you — your email app has opened with your enquiry. Send it and our team will be in touch.</p>
