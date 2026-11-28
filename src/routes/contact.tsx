@@ -24,15 +24,6 @@ function Contact() {
     <main>
       <PageHero eyebrow="Let's Connect" title="Have Something in Mind? Let's Make It Happen." />
 
-      <section className="grid gap-2 px-6 md:grid-cols-4 md:px-10">
-        {[["Email", contact.email, `mailto:${contact.email}`], ["Phone", contact.phone, contact.phoneHref], ["Hyderabad", contact.hyderabad, ""], ["Bangalore", contact.bangalore, ""]].map(([t, v, h]) => (
-          <div key={t} className="flex min-h-[120px] md:min-h-[200px] flex-col justify-between bg-panel p-6">
-            <p className="font-label text-xs uppercase text-primary">{t}</p>
-            {h ? <a href={h} className="font-display text-xl hover:text-primary">{v}</a> : <p className="font-display text-xl">{v}</p>}
-          </div>
-        ))}
-      </section>
-
       <section id="enquiry" className={sec}>
         <h2 className={`${orangeH} text-[44px] md:text-[90px]`}>Tell Us What You're Looking to Build.</h2>
         <p className="mt-6 max-w-[640px]">We'd like to understand your requirements so we can connect you with the right team.</p>
@@ -59,6 +50,15 @@ function Contact() {
             <button className="w-fit border border-foreground px-6 py-3 font-label text-xs uppercase hover:bg-foreground hover:text-background">Send enquiry →</button>
           </form>
         )}
+      </section>
+
+      <section className="grid gap-2 px-6 pb-20 md:grid-cols-4 md:px-10 md:pb-40">
+        {[["Email", contact.email, `mailto:${contact.email}`], ["Phone", contact.phone, contact.phoneHref], ["Hyderabad", contact.hyderabad, ""], ["Bangalore", contact.bangalore, ""]].map(([t, v, h]) => (
+          <div key={t} className="flex min-h-[120px] md:min-h-[200px] flex-col justify-between bg-panel p-6">
+            <p className="font-label text-xs uppercase text-primary">{t}</p>
+            {h ? <a href={h} className="font-display text-xl hover:text-primary">{v}</a> : <p className="font-display text-xl">{v}</p>}
+          </div>
+        ))}
       </section>
 
       <section className="grid gap-12 px-6 pb-20 md:pb-40 md:grid-cols-2 md:px-10">

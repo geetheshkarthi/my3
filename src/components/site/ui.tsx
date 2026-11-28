@@ -97,7 +97,7 @@ export function Header() {
           {nav.map((n) => (
             <Link key={n.to} to={n.to} activeOptions={{ exact: n.to === "/" }} activeProps={{ className: "text-primary" }} className="transition-colors duration-300 ease-brand hover:text-primary">{n.label}</Link>
           ))}
-          <a href={academyUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-stretch border border-foreground font-label text-xs uppercase transition-colors duration-300 ease-brand hover:border-[#d2042d] hover:bg-[#d2042d] hover:text-white!"><span className="px-4 py-3">Academy</span><span className="flex items-center border-l border-current px-3">→</span></a>
+          <a href={academyUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-stretch border border-foreground font-label text-xs uppercase transition-colors duration-300 ease-brand hover:border-[#d2042d] hover:bg-[#d2042d] hover:text-white!"><span className="px-4 py-3">Academy</span></a>
         </nav>
         <button onClick={() => setOpen(true)} aria-label="Open menu" className="-my-3 flex w-11 flex-col gap-2 py-3 lg:hidden"><span className="h-px w-full bg-strong" /><span className="h-px w-full bg-strong" /></button>
       </header>
@@ -109,7 +109,7 @@ export function Header() {
           </div>
           <nav className="mt-14 flex flex-col">
             {/* each word rises up into place, one after another */}
-            {[...nav.map((n) => ({ key: n.to, label: n.label, to: n.to })), { key: "academy", label: "Academy ↗", to: null }].map((n, i) => (
+            {[...nav.map((n) => ({ key: n.to, label: n.label, to: n.to })), { key: "academy", label: "Academy", to: null }].map((n, i) => (
               <div key={n.key} className="menu-row relative overflow-hidden py-2" style={{ "--i": i } as CSSProperties}>
                 {n.to
                   ? <Link to={n.to} onClick={() => setOpen(false)} className="menu-word block font-display text-5xl leading-[1.1] tracking-[-0.04em] hover:text-primary">{n.label}</Link>
@@ -198,7 +198,8 @@ export function ScrollFX() {
       document.querySelectorAll<HTMLElement>("main h2:not([data-noblur]), main h1").forEach((el) => {
         if (el.closest("[data-blur-managed]")) return;
         const r = el.getBoundingClientRect();
-        const enter = Math.max(0, (r.top - vh * 0.75) / (vh * 0.25)); // 0 once 75% up the screen
+        // page titles (h1) are never blurred on the way in, so the hero reads clearly on load (phones put it low on screen)
+        const enter = el.tagName === "H1" ? 0 : Math.max(0, (r.top - vh * 0.75) / (vh * 0.25)); // 0 once 75% up the screen
         const leave = Math.max(0, (vh * 0.15 - r.bottom) / (vh * 0.3));
         const b = Math.min(1, Math.max(enter, leave)) * 14;
         el.style.filter = b > 0.2 ? `blur(${b.toFixed(1)}px)` : "";

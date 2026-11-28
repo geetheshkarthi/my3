@@ -74,11 +74,6 @@ function Index() {
         <div className="mt-6"><BoxButton to="/about">Discover My3 Digital</BoxButton></div>
       </section>
 
-      <section className="px-6 py-20 md:py-40 text-center md:px-10">
-        <h2 className="mx-auto max-w-[1000px] font-sans text-[40px] font-medium leading-[1.05] tracking-[-0.03em] md:text-[80px]">Everything Your Business Needs to Grow Digitally.</h2>
-        <p className="mx-auto mt-6 max-w-[640px]">We bring together the disciplines that shape how modern businesses are discovered, experienced and remembered.</p>
-      </section>
-
       {/* Capabilities */}
       <CapabilityReel />
 
