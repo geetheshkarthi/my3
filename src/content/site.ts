@@ -39,7 +39,8 @@ export const divisions: Division[] = [
     heading: "Digital Experiences That Make an Impression. Websites That Deliver Performance.",
     intro: [
       "Your website is often the first meaningful interaction someone has with your business. It should do more than establish an online presence. It should communicate your value, build confidence and create opportunities.",
-      "At My3 Digital, we design and develop websites that bring together visual sophistication, seamless user experiences and dependable technology. Every experience is thoughtfully planned around your brand, audience and business objectives.",
+      "At My3 Digital, we design and develop websites that bring together visual sophistication, seamless user experiences and dependable technology.",
+      "Every experience is thoughtfully planned around your brand, audience and business objectives.",
     ],
     items: [
       ["Corporate Website Development", "Professionally designed corporate websites that establish credibility, communicate your expertise and present your business with clarity."],
@@ -80,7 +81,8 @@ export const divisions: Division[] = [
     heading: "Reach the Right Audience. Turn Attention Into Opportunity.",
     intro: [
       "Advertising is not simply about reaching more people. It is about reaching the right people with the right message at the right moment.",
-      "We develop data-informed advertising strategies that help businesses generate qualified enquiries, increase product visibility and improve campaign efficiency. Our approach combines audience research, creative development, campaign management and continuous optimisation.",
+      "We develop data-informed advertising strategies that help businesses generate qualified enquiries, increase product visibility and improve campaign efficiency.",
+      "Our approach combines audience research, creative development, campaign management and continuous optimisation.",
     ],
     items: [
       ["Google Ads Management", "Capture high-intent audiences actively searching for your products and services through strategically managed search campaigns."],
@@ -118,7 +120,8 @@ export const divisions: Division[] = [
     heading: "Smarter Systems. More Connected Businesses.",
     intro: [
       "Technology should simplify the way businesses operate, not make things more complicated.",
-      "We help businesses identify opportunities to streamline processes, connect digital platforms and introduce intelligent automation into their operations. From CRM integration to AI-powered customer interactions, we build solutions that support efficiency and scalability.",
+      "We help businesses identify opportunities to streamline processes, connect digital platforms and introduce intelligent automation into their operations.",
+      "From CRM integration to AI-powered customer interactions, we build solutions that support efficiency and scalability.",
     ],
     items: [
       ["CRM Integration & Automation", "Connect your customer management systems with business workflows to organise leads, streamline follow-ups and improve visibility."],

@@ -13,7 +13,6 @@ const PILL = ["Websites", "Branding", "Performance", "Marketing", "Technology"];
 export function ServiceSheets() {
   const root = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(-1);
-  const [open, setOpen] = useState<string | null>(null);
 
   useEffect(() => {
     const el = root.current; if (!el) return;
@@ -97,24 +96,30 @@ export function ServiceSheets() {
       {colorStackDivisions.map((d, i) => (
         <section key={d.slug} id={d.slug} data-div={i} className={`svs-sheet ${i % 2 ? "alt" : ""}`} style={{ zIndex: i + 3 }}>
           <div className="svs-body">
-            <h2 className="svs-title"><span className="svs-num">{d.theme.index}</span> {d.short}</h2>
+            <p className="svs-eyebrow">{d.eyebrow}</p>
+            <h2 className="svs-title"><span className="svs-num">{d.theme.index}</span> {d.title}</h2>
             <div className="svs-grid">
-              <figure className="svs-img"><img loading="lazy" src={d.theme.heroImage} alt={d.short} /></figure>
+              <div className="svs-side">
+                <figure className="svs-img"><img loading="lazy" src={d.theme.heroImage} alt={d.short} /></figure>
+                <h3 className="svs-heading">{d.heading}</h3>
+              </div>
               <div className="svs-copy">
-                <p className="svs-lead">{d.intro[0]}</p>
+                {d.intro.map((t) => <p key={t} className="svs-lead">{t}</p>)}
+                <p className="svs-label">Our services include:</p>
                 <ul className="svs-list">
-                  {d.items.map(([name, text]) => {
-                    const key = `${d.slug}:${name}`, isOpen = open === key;
-                    return (
-                      <li key={name} className={isOpen ? "open" : ""}>
-                        <button type="button" onClick={() => setOpen(isOpen ? null : key)} aria-expanded={isOpen}>
-                          <span>{name}</span><span className="svs-arrow" aria-hidden="true">→</span>
-                        </button>
-                        <div className="svs-more"><p>{text}</p></div>
-                      </li>
-                    );
-                  })}
+                  {d.items.map(([name, text]) => (
+                    <li key={name}>
+                      <h4><span>{name}</span><span className="svs-arrow" aria-hidden="true">→</span></h4>
+                      <p>{text}</p>
+                    </li>
+                  ))}
                 </ul>
+                {d.extra && (
+                  <div className="svs-tech">
+                    <p className="svs-label">Technology &amp; Platforms</p>
+                    <p>{d.extra}</p>
+                  </div>
+                )}
                 <Link to="/contact" className="svs-cta svs-cta-sm group">
                   <span className="svs-cta-box">→</span>
                   <span>{d.cta}</span>
