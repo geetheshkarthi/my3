@@ -157,7 +157,7 @@ function Index() {
       {/* Insights */}
       <section id="blogs" className="px-6 md:px-10">
         <p className="font-display text-lg">The thinking behind the work — perspectives on digital, design &amp; growth.</p>
-        <h2 className={`${orangeH} text-right text-[60px] md:text-[120px]`}>My3 Insights</h2>
+        <h2 className={`${orangeH} text-center text-[60px] md:text-[120px]`}>My3 Insights</h2>
         <div className="mt-12 grid gap-2 md:grid-cols-3">
           {articles.slice(0, 3).map((a) => (
             <Link key={a.slug} to="/insights/$slug" params={{ slug: a.slug }} className="group flex h-full flex-col">
