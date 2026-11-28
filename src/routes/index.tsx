@@ -172,7 +172,7 @@ function Index() {
       {/* Final CTA */}
       <section className="px-6 text-center md:px-10">
         <h2 className="mx-auto max-w-[1100px] text-[36px] leading-tight md:text-[60px]">Your Next Big Move Starts Here. Let's create something that moves your business forward.</h2>
-        <div className="mt-10 flex justify-center gap-4"><BoxButton to="/contact">Start a Conversation</BoxButton><BoxButton to="/contact">Discuss Your Project</BoxButton></div>
+        <div className="mt-10 flex justify-center gap-4"><BoxButton to="/contact">Start a Conversation</BoxButton></div>
       </section>
 
       </div>
