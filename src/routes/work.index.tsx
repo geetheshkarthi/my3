@@ -36,9 +36,35 @@ function Work() {
     if (showVideo) { v.currentTime = 0; v.play().catch(() => {}); } else v.pause();
   }, [showVideo]);
   const [current, setCurrent] = useState<number | null>(null);
+  const [intro, setIntro] = useState(true);
 
-  // start the entrance animations
-  useEffect(() => { const t = requestAnimationFrame(() => setLoaded(true)); return () => cancelAnimationFrame(t); }, []);
+  // the 3D ribbon plays first; when it finishes, it is swapped for this page, which then loads in as usual
+  useEffect(() => {
+    const on = (e: MessageEvent) => {
+      if (e.origin !== window.location.origin || (e.data as { type?: string } | null)?.type !== "my3-ribbon-done") return;
+      window.scrollTo(0, 0);
+      setIntro(false);
+      // swallow the rest of that scroll gesture so the page opens at the top, as on a normal load
+      const hold = (ev: Event) => { ev.preventDefault(); ev.stopPropagation(); };
+      const opts = { capture: true, passive: false } as const;
+      window.addEventListener("wheel", hold, opts);
+      window.addEventListener("touchmove", hold, opts);
+      setTimeout(() => {
+        window.removeEventListener("wheel", hold, opts);
+        window.removeEventListener("touchmove", hold, opts);
+        window.scrollTo(0, 0);
+      }, 1400);
+    };
+    window.addEventListener("message", on);
+    return () => window.removeEventListener("message", on);
+  }, []);
+
+  // start the entrance animations (once the ribbon is done)
+  useEffect(() => {
+    if (intro) return;
+    const t = requestAnimationFrame(() => setLoaded(true));
+    return () => cancelAnimationFrame(t);
+  }, [intro]);
 
   // scroll progress: page (title) and each panel (start: top at screen bottom, end: bottom at 25% of the screen)
   useEffect(() => {
@@ -62,7 +88,7 @@ function Work() {
     window.addEventListener("scroll", on, { passive: true });
     window.addEventListener("resize", on);
     return () => { window.removeEventListener("scroll", on); window.removeEventListener("resize", on); cancelAnimationFrame(raf); };
-  }, []);
+  }, [intro]);
 
   // trailing circle cursor (mouse only): replaces the normal arrow everywhere on this page
   useEffect(() => {
@@ -103,7 +129,14 @@ function Work() {
   const site = current != null ? websites[current] : null;
 
   return (
-    <div ref={root} className={`wk ${loaded ? "loaded" : ""} ${active ? "active" : ""}`}>
+    <>
+    {/* the 3D video ribbon plays first, on its own; when it ends, the projects page loads in its place */}
+    {intro && (
+      <section className="wk-intro" onMouseEnter={() => setCursorOn(false)}>
+        <iframe src="/work-showcase/index.html?intro" title="My3 Digital — selected websites" allow="autoplay; fullscreen" />
+      </section>
+    )}
+    <div ref={root} className={`wk ${loaded ? "loaded" : ""} ${active ? "active" : ""}`} hidden={intro}>
       <div className="wk-wrap">
         <h1><Words text="Our Work" /></h1>
         <p className="subhead">My3 Digital</p>
@@ -176,5 +209,6 @@ function Work() {
       <div ref={cursor} className={`wk-cursor ${cursorOn ? "on" : ""} ${overSite && !active ? "active" : ""}`}><span className="view">VIEW</span></div>
 
     </div>
+    </>
   );
 }

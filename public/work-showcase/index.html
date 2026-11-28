@@ -1318,6 +1318,13 @@
 
     let activeView = 'gallery';
 
+    // ?intro: show only the ribbon (no grid). When the last card has left the ribbon, tell the parent
+    // page, which then swaps this out for its own content.
+    const INTRO = new URLSearchParams(location.search).has('intro') && window.parent !== window;
+    window.__INTRO = INTRO;
+    const RIB_END = 0.645;   // the last card has left the ribbon here (render(): RIB_B = 0.63)
+    let introDone = false;
+
     let H = Math.max(500, window.innerHeight * 1.0);
     let aboutDist = H * 1.6;
     let ribbonDist = H * (window.innerWidth <= 640 ? 2 : 3.6);
@@ -1326,6 +1333,7 @@
     let S2 = H + aboutDist;
     let S3 = 2 * H + aboutDist;
     let S4 = 2 * H + aboutDist + ribbonDist;
+    if (INTRO) S4 = S3 + ribbonDist * RIB_END;
 
     const scrollState = {
       currentScrollY: 0,
@@ -1345,6 +1353,7 @@
       S2 = H + aboutDist;
       S3 = 2 * H + aboutDist;
       S4 = 2 * H + aboutDist + ribbonDist;
+      if (INTRO) S4 = S3 + ribbonDist * RIB_END;
       scrollState.maxScrollY = S4;
       if (scrollState.targetScrollY < S3) scrollState.targetScrollY = S3;
       if (scrollState.currentScrollY < S3) scrollState.currentScrollY = S3;
@@ -1364,6 +1373,10 @@
 
       const y = scrollState.currentScrollY;
       scrollState.progress = Math.max(0, Math.min(1, y / S4));
+      if (INTRO && !introDone && y >= S4 - 2) {
+        introDone = true;
+        window.parent.postMessage({ type: 'my3-ribbon-done' }, window.location.origin);
+      }
 
       // 1. Gallery layer (z-index 10) - continuous 1:1 scroll out to the top
       if (views.gallery.el) {
@@ -3110,7 +3123,7 @@
             c.mesh.visible = s > this.CARD_W;
             c.rect = null;
             if (c.mesh.visible) this.poseRibbon(c, head);
-          } else if (c.i < this.cols * this.rows) {
+          } else if (!window.__INTRO && c.i < this.cols * this.rows) {
             const st = mix(RIB_A, RIB_B, (end + c.i * this.STEP) / (this.PATH_L + this.cards.length * this.STEP));
             const q = out(span(pp, st, st + 0.13));
             c.mesh.visible = q > 0.001;
