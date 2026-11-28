@@ -142,7 +142,7 @@ function Index() {
 
       {/* Pillars */}
       <section className="px-6 py-20 md:py-40 md:px-10">
-        <h2 className={`${orangeH} mb-16 text-[60px] md:ml-[5%] md:text-[120px]`}>Why My3<br />Digital?</h2>
+        <h2 className={`${orangeH} mb-16 whitespace-nowrap text-[10vw] md:ml-[5%] md:text-[120px]`}>Why My3 Digital?</h2>
         <div className="grid gap-2 md:grid-cols-2">
           {pillars.map(([t, s, d]) => (
             <article key={t} className="flex min-h-[120px] md:min-h-[200px] md:min-h-[340px] flex-col justify-between bg-panel p-6">
@@ -170,7 +170,7 @@ function Index() {
       </section>
 
       {/* Final CTA */}
-      <section className="px-6 text-center md:px-10">
+      <section className="px-6 py-24 text-center md:px-10 md:py-40">
         <h2 className="mx-auto max-w-[1100px] text-[36px] leading-tight md:text-[60px]">Your Next Big Move Starts Here. Let's create something that moves your business forward.</h2>
         <div className="mt-10 flex justify-center gap-4"><BoxButton to="/contact">Start a Conversation</BoxButton></div>
       </section>
